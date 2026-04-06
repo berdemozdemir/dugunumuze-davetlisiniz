@@ -222,6 +222,12 @@ body {
   background: #d4af37aa;
 }
 
+/* ─── Scrollbar Hide (carousel) ─── */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── Section Divider ─── */
 
 .section-divider {

@@ -90,9 +90,7 @@ const WeddingDetailsSection = () => (
               <div className="flex items-start gap-3">
                 <span className="text-gold/70 mt-0.5">🕐</span>
                 <div>
-                  <p className="font-display font-semibold text-cream">
-                    19:00
-                  </p>
+                  <p className="font-display font-semibold text-cream">19:00</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -142,9 +140,7 @@ const WeddingDetailsSection = () => (
               <div className="flex items-start gap-3">
                 <span className="text-gold/70 mt-0.5">🕐</span>
                 <div>
-                  <p className="font-display font-semibold text-cream">
-                    19:00
-                  </p>
+                  <p className="font-display font-semibold text-cream">19:00</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

@@ -1,27 +1,18 @@
-import Image from "next/image";
 import RevealSection from "./RevealSection";
 import Ornament from "./Ornament";
+import PhotoCarousel from "./PhotoCarousel";
 
 const ClosingSection = () => (
   <section className="relative py-20 sm:py-28 px-4">
     <div className="relative z-10 max-w-2xl mx-auto text-center">
       <RevealSection>
-        <div className="relative inline-block mb-10">
-          <div className="absolute -inset-3 rounded-2xl border border-gold/30 rotate-3" />
-          <div className="absolute -inset-3 rounded-2xl border border-gold/15 -rotate-2" />
-          <div className="relative w-56 h-72 sm:w-64 sm:h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden shadow-2xl shadow-gold/10 ring-2 ring-gold/20">
-            <Image
-              src="/images/nisan-2.jpeg"
-              alt="Elif & Erdem"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
+        <PhotoCarousel />
       </RevealSection>
 
       <RevealSection delay={200}>
-        <Ornament />
+        <div className="mt-10">
+          <Ornament />
+        </div>
         <blockquote className="font-display italic text-xl sm:text-2xl md:text-3xl text-cream/80 leading-relaxed mt-8 mb-6">
           &ldquo;Her hikâyenin en güzel bölümü,
           <br />
