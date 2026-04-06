@@ -36,6 +36,14 @@ export default function RootLayout({
       lang="tr"
       className={`${playfair.variable} ${greatVibes.variable} scroll-smooth`}
     >
+      <head>
+        <link
+          rel="preload"
+          href="/music/cihat-askin-kelebek.mp3"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="bg-deep text-cream antialiased">
         {children}
 

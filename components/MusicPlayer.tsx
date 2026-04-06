@@ -25,16 +25,25 @@ const MusicPlayer = () => {
     const audio = new Audio("/music/cihat-askin-kelebek.mp3");
     audio.loop = true;
     audio.volume = 0.4;
+    audio.preload = "auto";
     audioRef.current = audio;
 
-    audio
-      .play()
-      .then(() => {
-        setPlaying(true);
-      })
-      .catch(() => {
-        setNeedsInteraction(true);
-      });
+    const tryPlay = () => {
+      audio
+        .play()
+        .then(() => {
+          setPlaying(true);
+        })
+        .catch(() => {
+          setNeedsInteraction(true);
+        });
+    };
+
+    if (audio.readyState >= 3) {
+      tryPlay();
+    } else {
+      audio.addEventListener("canplaythrough", tryPlay, { once: true });
+    }
 
     const handleInteraction = () => {
       if (audioRef.current && audioRef.current.paused) {
