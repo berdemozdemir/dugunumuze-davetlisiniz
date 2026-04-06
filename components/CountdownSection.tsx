@@ -3,19 +3,21 @@
 import { useState, useEffect } from "react";
 import { TimeLeft } from "@/lib/types";
 import { calculateTimeLeft } from "@/lib/util";
-import { ANKARA_DATE, ELAZIG_DATE } from "@/lib/constants";
+import { KINA_DATE, ELAZIG_DATE, ANKARA_DATE } from "@/lib/constants";
 import RevealSection from "./RevealSection";
 import Ornament from "./Ornament";
 import CountdownRow from "./CountdownRow";
 
-const SKELETON_LARGE = [0, 1, 2, 3] as const;
+const SKELETON = [0, 1, 2, 3] as const;
 
 const CountdownSection = () => {
+  const [kinaTime, setKinaTime] = useState<TimeLeft | null>(null);
   const [elazigTime, setElazigTime] = useState<TimeLeft | null>(null);
   const [ankaraTime, setAnkaraTime] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
     const update = () => {
+      setKinaTime(calculateTimeLeft(KINA_DATE));
       setElazigTime(calculateTimeLeft(ELAZIG_DATE));
       setAnkaraTime(calculateTimeLeft(ANKARA_DATE));
     };
@@ -38,58 +40,85 @@ const CountdownSection = () => {
           </div>
         </RevealSection>
 
-        <RevealSection delay={200}>
-          <div className="relative rounded-3xl p-6 sm:p-8 md:p-10 mb-10 bg-linear-to-br from-gold/10 via-transparent to-burgundy/10 border border-gold/30 animate-pulse-glow">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-deep text-xs font-bold px-4 py-1 rounded-full tracking-wider uppercase">
-              Ana Düğün
-            </div>
-            <div className="text-center mb-6 sm:mb-8">
-              <h3 className="font-cursive text-3xl sm:text-4xl text-gold mb-1">
-                Ankara
-              </h3>
-              <p className="text-cream/70 text-sm sm:text-base">
-                11 Temmuz 2026 &middot; Cumartesi &middot; Beytepe Garden
-              </p>
-            </div>
-            {ankaraTime ? (
-              <CountdownRow time={ankaraTime} large />
-            ) : (
-              <div className="flex justify-center gap-4 sm:gap-6">
-                {SKELETON_LARGE.map((i) => (
-                  <div
-                    key={i}
-                    className="countdown-digit w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-xl animate-pulse bg-white/5"
-                  />
-                ))}
+        <div className="space-y-6">
+          {/* 1. Kına - 2 Temmuz */}
+          <RevealSection delay={200}>
+            <div className="rounded-2xl p-5 sm:p-6 md:p-8 bg-white/3 border border-white/10">
+              <div className="text-center mb-5 sm:mb-6">
+                <h3 className="font-cursive text-2xl sm:text-3xl text-rose mb-1">
+                  Kına Gecesi
+                </h3>
+                <p className="text-cream/50 text-xs sm:text-sm">
+                  2 Temmuz 2026 &middot; Perşembe &middot; Elazığ
+                </p>
               </div>
-            )}
-          </div>
-        </RevealSection>
+              {kinaTime ? (
+                <CountdownRow time={kinaTime} />
+              ) : (
+                <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
+                  {SKELETON.map((i) => (
+                    <div
+                      key={i}
+                      className="countdown-digit w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl animate-pulse bg-white/5"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </RevealSection>
 
-        <RevealSection delay={400}>
-          <div className="rounded-2xl p-5 sm:p-6 md:p-8 bg-white/3 border border-white/10">
-            <div className="text-center mb-5 sm:mb-6">
-              <h3 className="font-cursive text-2xl sm:text-3xl text-gold/80 mb-1">
-                Elazığ
-              </h3>
-              <p className="text-cream/50 text-xs sm:text-sm">
-                4 Temmuz 2026 &middot; Cumartesi &middot; İlk Düğünümüz
-              </p>
-            </div>
-            {elazigTime ? (
-              <CountdownRow time={elazigTime} />
-            ) : (
-              <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
-                {SKELETON_LARGE.map((i) => (
-                  <div
-                    key={i}
-                    className="countdown-digit w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl animate-pulse bg-white/5"
-                  />
-                ))}
+          {/* 2. Elazığ Düğünü - 4 Temmuz */}
+          <RevealSection delay={300}>
+            <div className="rounded-2xl p-5 sm:p-6 md:p-8 bg-white/3 border border-white/10">
+              <div className="text-center mb-5 sm:mb-6">
+                <h3 className="font-cursive text-2xl sm:text-3xl text-gold/80 mb-1">
+                  Elazığ Düğünü
+                </h3>
+                <p className="text-cream/50 text-xs sm:text-sm">
+                  4 Temmuz 2026 &middot; Cumartesi &middot; Kral Palace
+                </p>
               </div>
-            )}
-          </div>
-        </RevealSection>
+              {elazigTime ? (
+                <CountdownRow time={elazigTime} />
+              ) : (
+                <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
+                  {SKELETON.map((i) => (
+                    <div
+                      key={i}
+                      className="countdown-digit w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl animate-pulse bg-white/5"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </RevealSection>
+
+          {/* 3. Ankara Düğünü - 11 Temmuz */}
+          <RevealSection delay={400}>
+            <div className="relative rounded-3xl p-6 sm:p-8 md:p-10 bg-linear-to-br from-gold/10 via-transparent to-burgundy/10 border border-gold/30 animate-pulse-glow">
+              <div className="text-center mb-6 sm:mb-8">
+                <h3 className="font-cursive text-3xl sm:text-4xl text-gold mb-1">
+                  Ankara Düğünü
+                </h3>
+                <p className="text-cream/70 text-sm sm:text-base">
+                  11 Temmuz 2026 &middot; Cumartesi &middot; Beytepe Garden
+                </p>
+              </div>
+              {ankaraTime ? (
+                <CountdownRow time={ankaraTime} large />
+              ) : (
+                <div className="flex justify-center gap-4 sm:gap-6">
+                  {SKELETON.map((i) => (
+                    <div
+                      key={i}
+                      className="countdown-digit w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-xl animate-pulse bg-white/5"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </RevealSection>
+        </div>
       </div>
     </section>
   );

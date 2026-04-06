@@ -1,3 +1,4 @@
+export const KINA_DATE = new Date("2026-07-02T19:00:00+03:00");
 export const ELAZIG_DATE = new Date("2026-07-04T19:00:00+03:00");
 export const ANKARA_DATE = new Date("2026-07-11T19:00:00+03:00");
 
