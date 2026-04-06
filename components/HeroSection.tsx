@@ -6,7 +6,7 @@ const HeroSection = () => (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
     <div className="absolute inset-0">
       <Image
-        src="/pngtree-wedding-invitation-bg.jpg"
+        src="/images/pngtree-wedding-invitation-bg.jpg"
         alt="Düğün davetiyesi arka planı"
         fill
         className="object-cover"
