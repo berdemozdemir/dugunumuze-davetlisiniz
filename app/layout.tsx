@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Great_Vibes } from "next/font/google";
 import "./globals.css";
+import MusicPlayer from "@/components/MusicPlayer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -43,6 +44,8 @@ export default function RootLayout({
             Elif & Erdem &middot; 2026
           </p>
         </footer>
+
+        <MusicPlayer />
       </body>
     </html>
   );

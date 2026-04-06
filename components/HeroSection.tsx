@@ -54,7 +54,7 @@ const HeroSection = () => (
         className="animate-fade-in-up"
         style={{ animationDelay: "0.9s", animationFillMode: "both" }}
       >
-        <span className="inline-block text-rose text-3xl sm:text-4xl animate-heartbeat my-2">
+        <span className="inline-block text-gold text-3xl sm:text-4xl animate-heartbeat my-2">
           ♥
         </span>
       </div>
@@ -84,7 +84,7 @@ const HeroSection = () => (
       </div>
 
       <div
-        className="animate-fade-in absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="animate-fade-in absolute -bottom-10 left-1/2 -translate-x-1/2"
         style={{ animationDelay: "2.5s", animationFillMode: "both" }}
       >
         <div className="animate-bounce-soft text-gold text-2xl">↓</div>
