@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/Form';
 import { paths } from '@/lib/paths';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { AuthFormShell } from './AuthFormShell';
 import { LabeledInput } from './LabeledInput';
 import { useMutation } from '@tanstack/react-query';
 import { service_auth } from '../client-queries';
@@ -22,7 +23,6 @@ import { Button } from '@/components/ui/Button';
 
 const supabase = createSupabaseBrowserClient();
 
-// TODO: improve the design of the form
 export const LoginForm = () => {
   const loginMutation = useMutation(service_auth.mutations.login());
 
@@ -44,55 +44,64 @@ export const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form className="mt-4 w-80" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="mb-2 w-full">
-              <FormControl>
-                <LabeledInput {...field} label="Email" />
-              </FormControl>
+      <AuthFormShell
+        title="Hoş geldiniz"
+        subtitle="Hesabınıza giriş yaparak düğün planlamanıza devam edin."
+      >
+        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <LabeledInput {...field} label="E-posta" />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <LabeledInput isPasswordField {...field} label="Şifre" />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            disabled={loginMutation.isPending}
+            className="mt-1 w-full border-gold/50 bg-gold py-5 text-sm font-semibold text-deep shadow-[0_8px_24px_-4px_rgba(212,175,55,0.35)] transition-[color,box-shadow,transform] hover:bg-gold-light hover:text-deep hover:shadow-[0_10px_28px_-4px_rgba(212,175,55,0.45)] active:translate-y-px"
+            type="submit"
+          >
+            Giriş yap {loginMutation.isPending ? <LoadingSpinner /> : null}
+          </Button>
+
+          {loginMutation.error && (
+            <div className="text-destructive rounded-lg border border-destructive/25 bg-destructive/10 px-3 py-2 text-center text-sm">
+              {loginMutation.error.message}
+            </div>
           )}
-        />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mb-2 w-full">
-              <FormControl>
-                <LabeledInput isPasswordField {...field} label="Password" />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button
-          disabled={loginMutation.isPending}
-          className="w-full border"
-          variant="ghost"
-          type="submit"
-        >
-          Login {loginMutation.isPending ? <LoadingSpinner /> : null}
-        </Button>
-
-        {loginMutation.error && (
-          <div className="text-destructive text-center">
-            {loginMutation.error.message}
+          <div className="border-t border-white/10 pt-5 text-center text-sm text-cream/55">
+            Hesabınız yok mu?{' '}
+            <Link
+              className="font-medium text-gold underline-offset-4 transition-colors hover:text-gold-light hover:underline"
+              href={paths.auth.signup}
+            >
+              Kayıt olun
+            </Link>
           </div>
-        )}
-
-        <div className="text-muted-foreground my-2 text-center text-sm">
-          Don&apos;t have an account?{' '}
-          <Link href={paths.auth.signup}>Sign Up</Link>
-        </div>
-      </form>
+        </form>
+      </AuthFormShell>
     </Form>
   );
 };
