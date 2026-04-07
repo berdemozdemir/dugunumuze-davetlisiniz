@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Great_Vibes } from "next/font/google";
+import { Playfair_Display, Great_Vibes, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -33,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${playfair.variable} ${greatVibes.variable} scroll-smooth`}
+      className={cn("scroll-smooth", playfair.variable, greatVibes.variable, "font-sans", geist.variable)}
     >
       <head>
         <link
