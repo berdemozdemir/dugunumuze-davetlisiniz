@@ -1,6 +1,10 @@
-import type { Config } from 'drizzle-kit';
+import { config } from 'dotenv';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
+config({ path: '.env.local' });
+
+export default defineConfig({
+  out: './database/migrations',
   schema: [
     './database/schema/**',
     '**/db-tables.ts',
@@ -10,10 +14,9 @@ export default {
     '**/db-relations/**.ts',
     '**/db-enums/**.ts',
   ],
-  out: './database/migrations',
   dialect: 'postgresql',
-  casing: 'snake_case',
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },
-} satisfies Config;
+  strict: true,
+});
