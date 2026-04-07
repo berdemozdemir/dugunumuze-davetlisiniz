@@ -5,24 +5,21 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button';
-import {
-  signupFormSchema,
-  SignupFormSchemaRequest,
-} from '@/lib/schemas/signup';
+import { signupFormSchema, SignupFormSchemaRequest } from '../schemas/signup';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '../ui/Form';
+} from '@/components/ui/Form';
 import { paths } from '@/lib/paths';
-import { LoadingSpinner } from '../LoadingSpinner';
-import { LabeledInput } from '../ui/LabeledInput';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { LabeledInput } from './LabeledInput';
 import { useMutation } from '@tanstack/react-query';
-import { service_auth } from '@/lib/client-queries/auth';
 import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-client';
 import { useRouter } from 'next/navigation';
+import { service_auth } from '../client-queries';
 
 export const SignUpForm = () => {
   const router = useRouter();

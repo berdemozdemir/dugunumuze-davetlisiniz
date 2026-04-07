@@ -4,21 +4,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/Button';
-import { loginFormSchema, LoginFormSchemaRequest } from '@/lib/schemas/login';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '../ui/Form';
+} from '@/components/ui/Form';
 import { paths } from '@/lib/paths';
-import { LoadingSpinner } from '../LoadingSpinner';
-import { LabeledInput } from '../ui/LabeledInput';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { LabeledInput } from './LabeledInput';
 import { useMutation } from '@tanstack/react-query';
-import { service_auth } from '@/lib/client-queries/auth';
+import { service_auth } from '../client-queries';
 import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-client';
+import { loginFormSchema, LoginFormSchemaRequest } from '../schemas/login';
+import { Button } from '@/components/ui/Button';
 
 const supabase = createSupabaseBrowserClient();
 
