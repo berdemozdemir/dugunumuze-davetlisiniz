@@ -2,15 +2,21 @@ import { z } from "zod";
 
 const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9])/;
 
-export const signupFormSchema = z.object({
-  email: z.email("Invalid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .refine((password) => strongPasswordRegex.test(password), {
-      message:
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one symbol.",
-    }),
-});
+export const signupFormSchema = z
+  .object({
+    email: z.email("Geçerli bir e-posta adresi girin"),
+    password: z
+      .string()
+      .min(8, "Şifre en az 8 karakter olmalıdır")
+      .refine((password) => strongPasswordRegex.test(password), {
+        message:
+          "Şifre en az bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir.",
+      }),
+    confirmPassword: z.string().min(1, "Şifre tekrarını girin"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Şifreler eşleşmiyor",
+    path: ["confirmPassword"],
+  });
 
 export type SignupFormSchemaRequest = z.infer<typeof signupFormSchema>;

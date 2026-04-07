@@ -32,6 +32,7 @@ export const SignUpForm = () => {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
@@ -75,6 +76,24 @@ export const SignUpForm = () => {
               <FormItem className="w-full">
                 <FormControl>
                   <LabeledInput isPasswordField {...field} label="Şifre" />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <LabeledInput
+                    isPasswordField
+                    {...field}
+                    label="Şifre tekrar"
+                  />
                 </FormControl>
 
                 <FormMessage />
