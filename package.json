@@ -14,7 +14,7 @@
     "drizzle:studio": "drizzle-kit studio",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "typecheck": "tsgo -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
