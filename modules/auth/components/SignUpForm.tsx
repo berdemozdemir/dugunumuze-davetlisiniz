@@ -21,6 +21,7 @@ import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-cl
 import { useRouter } from 'next/navigation';
 import { service_auth } from '../client-queries';
 
+// TODO: improve the design of the form
 export const SignUpForm = () => {
   const router = useRouter();
 

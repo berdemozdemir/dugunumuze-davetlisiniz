@@ -31,7 +31,7 @@ export const LabeledInput = ({
       />
 
       <FormLabel
-        className={`absolute top-1/2 left-3 -translate-y-1/2 transform text-[#62748E] transition-all duration-200 ease-out group-focus-within:top-2 group-focus-within:-translate-y-0 group-focus-within:text-xs peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-xs`}
+        className={`absolute top-1/2 left-3 -translate-y-1/2 transform text-[#62748E] transition-all duration-200 ease-out group-focus-within:top-2 group-focus-within:translate-y-0 group-focus-within:text-xs peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs`}
       >
         {label}
       </FormLabel>

@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/Button';
 
 const supabase = createSupabaseBrowserClient();
 
+// TODO: improve the design of the form
 export const LoginForm = () => {
   const loginMutation = useMutation(service_auth.mutations.login());
 
