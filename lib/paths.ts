@@ -1,10 +1,10 @@
 export const paths = {
-  home: "/",
+  home: '/',
 
   auth: {
-    login: "/auth/login",
-    signup: "/auth/sign-up",
+    login: '/auth/login',
+    signup: '/auth/signup',
   },
 
-  dashboard: "/dashboard",
+  dashboard: '/dashboard',
 } as const;
