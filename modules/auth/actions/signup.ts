@@ -41,13 +41,14 @@ export const orpc_signup = procedure_public
       db.insert(table_users).values({
         id: user.id,
         email: user.email ?? input.email,
+        name: input.fullName,
       }),
     );
 
     if (insertProfileError) {
       return err({
         reason: 'profile-creation-failed',
-        message: 'An error occurred while creating the profile22',
+        message: insertProfileError.message,
       });
     }
 

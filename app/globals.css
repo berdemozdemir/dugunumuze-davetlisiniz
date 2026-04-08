@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 /* TODO: take a look at that folder again */
 @custom-variant dark (&:is(.dark *));
@@ -392,5 +392,26 @@ body {
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 80rem; /* 1280px */
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-inline: 2rem;
+    }
   }
 }
