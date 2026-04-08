@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useRef, useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import { useRef, useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 const PHOTOS = [
-  { src: "/images/nisan-2.jpeg", alt: "Elif & Erdem - Nişan" },
-  { src: "/images/nisan-4.jpeg", alt: "Elif & Erdem - Nişan Yürüyüşü" },
-  { src: "/images/nisan-5.jpeg", alt: "Elif & Erdem - Nişan Girişi" },
-  { src: "/images/nisan-3.jpeg", alt: "Elif & Erdem - Nişan Töreni" },
+  { src: '/images/nisan-2.jpeg', alt: 'Elif & Erdem - Nişan' },
+  { src: '/images/nisan-4.jpeg', alt: 'Elif & Erdem - Nişan Yürüyüşü' },
+  { src: '/images/nisan-5.jpeg', alt: 'Elif & Erdem - Nişan Girişi' },
+  { src: '/images/nisan-3.jpeg', alt: 'Elif & Erdem - Nişan Töreni' },
 ];
 
 const AUTO_INTERVAL = 4000;
@@ -20,7 +20,7 @@ const PhotoCarousel = () => {
   const scrollTo = useCallback((index: number) => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollTo({ left: index * el.offsetWidth, behavior: "smooth" });
+    el.scrollTo({ left: index * el.offsetWidth, behavior: 'smooth' });
   }, []);
 
   const next = useCallback(() => {
@@ -62,30 +62,30 @@ const PhotoCarousel = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const handleArrow = (dir: "prev" | "next") => {
-    if (dir === "prev") prev();
+  const handleArrow = (dir: 'prev' | 'next') => {
+    if (dir === 'prev') prev();
     else next();
     resetTimer();
   };
 
   return (
-    <div className="w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto">
-      <div className="relative group">
+    <div className="mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg">
+      <div className="group relative">
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 py-6 px-4"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 py-6"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {PHOTOS.map((photo, i) => (
-            <div key={i} className="snap-center shrink-0 w-full">
-              <div className="relative mx-auto w-56 h-72 sm:w-64 sm:h-80 md:w-72 md:h-96">
-                <div className="absolute -inset-3 rounded-2xl border border-gold/30 rotate-3" />
-                <div className="absolute -inset-3 rounded-2xl border border-gold/15 -rotate-2" />
-                <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl shadow-gold/10 ring-2 ring-gold/20">
+            <div key={i} className="w-full shrink-0 snap-center">
+              <div className="relative mx-auto h-72 w-56 sm:h-80 sm:w-64 md:h-96 md:w-72">
+                <div className="border-gold/30 absolute -inset-3 rotate-3 rounded-2xl border" />
+                <div className="border-gold/15 absolute -inset-3 -rotate-2 rounded-2xl border" />
+                <div className="shadow-gold/10 ring-gold/20 relative h-full w-full overflow-hidden rounded-2xl shadow-2xl ring-2">
                   <Image
                     src={photo.src}
                     alt={photo.alt}
@@ -99,22 +99,22 @@ const PhotoCarousel = () => {
         </div>
 
         <button
-          onClick={() => handleArrow("prev")}
+          onClick={() => handleArrow('prev')}
           aria-label="Önceki fotoğraf"
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-3 w-9 h-9 rounded-full bg-deep/60 backdrop-blur-sm border border-gold/30 text-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:bg-deep/80"
+          className="bg-deep/60 border-gold/30 text-gold hover:bg-deep/80 absolute top-1/2 left-0 flex h-9 w-9 -translate-x-1 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 sm:-translate-x-3"
         >
           ‹
         </button>
         <button
-          onClick={() => handleArrow("next")}
+          onClick={() => handleArrow('next')}
           aria-label="Sonraki fotoğraf"
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-3 w-9 h-9 rounded-full bg-deep/60 backdrop-blur-sm border border-gold/30 text-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:bg-deep/80"
+          className="bg-deep/60 border-gold/30 text-gold hover:bg-deep/80 absolute top-1/2 right-0 flex h-9 w-9 translate-x-1 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 sm:translate-x-3"
         >
           ›
         </button>
       </div>
 
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="mt-6 flex justify-center gap-2">
         {PHOTOS.map((_, i) => (
           <button
             key={i}
@@ -124,10 +124,8 @@ const PhotoCarousel = () => {
               resetTimer();
             }}
             aria-label={`Fotoğraf ${i + 1}`}
-            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-              active === i
-                ? "bg-gold w-6"
-                : "bg-cream/20 hover:bg-cream/40"
+            className={`h-2 w-2 cursor-pointer rounded-full transition-all duration-300 ${
+              active === i ? 'bg-gold w-6' : 'bg-cream/20 hover:bg-cream/40'
             }`}
           />
         ))}
