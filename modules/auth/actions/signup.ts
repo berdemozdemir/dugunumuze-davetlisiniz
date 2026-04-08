@@ -1,5 +1,6 @@
+import { UserMetadata } from '@supabase/supabase-js';
 import { procedure_public } from '@/integrations/orpc/procedure';
-import { createClient } from '@/integrations/supabase/supabase-server';
+import { createAdminClient, createClient } from '@/integrations/supabase/supabase-server';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { signupFormSchema } from '../schemas/signup';
 import { table_users } from '../db-tables';
@@ -12,6 +13,11 @@ export const orpc_signup = procedure_public
     const result = await supabase.auth.signUp({
       email: input.email,
       password: input.password,
+      options: {
+        data: {
+          name: input.fullName,
+        },
+      },
     });
 
     if (result.error) {
@@ -49,6 +55,31 @@ export const orpc_signup = procedure_public
       return err({
         reason: 'profile-creation-failed',
         message: insertProfileError.message,
+      });
+    }
+
+    const supabaseAdmin = await createAdminClient({
+      options: {
+        auth: {
+          persistSession: false,
+        },
+      },
+    });
+
+    const userMetadata: UserMetadata = {
+      ...user.user_metadata,
+      name: input.fullName,
+    };
+
+    const { error: metadataError } = await supabaseAdmin.auth.admin.updateUserById(
+      user.id,
+      { user_metadata: userMetadata },
+    );
+
+    if (metadataError) {
+      return err({
+        reason: 'user-metadata-update-failed',
+        message: metadataError.message,
       });
     }
 

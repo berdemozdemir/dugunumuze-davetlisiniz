@@ -25,9 +25,16 @@ export const getClientSession = async () => {
       reason: 'email-missing',
     });
 
+  if (!data.user)
+    return err({
+      message: 'User does not have an email',
+      reason: 'email-missing',
+    });
+
   return ok({
     userId: data.user.id,
     userEmail: data.user.email,
+    userFullName: data.user.user_metadata.name,
     userMetadata: data.user.user_metadata,
   });
 };
