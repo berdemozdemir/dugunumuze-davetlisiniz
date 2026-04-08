@@ -5,6 +5,7 @@ export type AuthenticatedSession = {
   user: {
     id: string;
     email: string;
+    fullName: string;
     metadata: UserMetadata;
   };
 };

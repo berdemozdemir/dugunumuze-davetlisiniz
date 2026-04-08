@@ -51,6 +51,7 @@ export const service_auth = {
             user: {
               id: sessionData.userId,
               email: sessionData.userEmail,
+              fullName: sessionData.userMetadata.name,
               metadata: supabaseSession.user?.user_metadata,
             },
           };
