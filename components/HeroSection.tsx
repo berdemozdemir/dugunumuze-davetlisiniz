@@ -1,9 +1,9 @@
-import Image from "next/image";
-import { HEARTS } from "@/lib/constants";
-import Ornament from "./Ornament";
+import Image from 'next/image';
+import { HEARTS } from '@/lib/constants';
+import Ornament from './Ornament';
 
 const HeroSection = () => (
-  <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
     <div className="absolute inset-0">
       <Image
         src="/images/pngtree-wedding-invitation-bg.jpg"
@@ -12,14 +12,14 @@ const HeroSection = () => (
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-linear-to-b from-deep/90 via-deep/80 to-deep/95" />
+      <div className="from-deep/90 via-deep/80 to-deep/95 absolute inset-0 bg-linear-to-b" />
     </div>
 
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {HEARTS.map((h, i) => (
         <span
           key={i}
-          className="absolute bottom-0 text-gold/20"
+          className="text-gold/20 absolute bottom-0"
           style={{
             left: h.left,
             fontSize: `${h.size}px`,
@@ -31,61 +31,61 @@ const HeroSection = () => (
       ))}
     </div>
 
-    <div className="relative z-10 text-center px-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+    <div className="relative z-10 px-6 text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
       <div
         className="animate-fade-in-up"
-        style={{ animationDelay: "0.2s", animationFillMode: "both" }}
+        style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
       >
-        <p className="text-gold-light uppercase tracking-[0.3em] text-xs sm:text-sm mb-6">
+        <p className="text-gold-light mb-6 text-xs tracking-[0.3em] uppercase sm:text-sm">
           Düğünümüze davetlisiniz
         </p>
       </div>
 
       <div
         className="animate-fade-in-up"
-        style={{ animationDelay: "0.6s", animationFillMode: "both" }}
+        style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
       >
-        <h1 className="font-cursive text-6xl sm:text-7xl md:text-8xl lg:text-9xl gold-gradient-text leading-tight">
+        <h1 className="font-cursive gold-gradient-text text-6xl leading-tight sm:text-7xl md:text-8xl lg:text-9xl">
           Elif
         </h1>
       </div>
 
       <div
         className="animate-fade-in-up"
-        style={{ animationDelay: "0.9s", animationFillMode: "both" }}
+        style={{ animationDelay: '0.9s', animationFillMode: 'both' }}
       >
-        <span className="inline-block text-gold text-3xl sm:text-4xl animate-heartbeat my-2">
+        <span className="text-gold animate-heartbeat my-2 inline-block text-3xl sm:text-4xl">
           ♥
         </span>
       </div>
 
       <div
         className="animate-fade-in-up"
-        style={{ animationDelay: "1.2s", animationFillMode: "both" }}
+        style={{ animationDelay: '1.2s', animationFillMode: 'both' }}
       >
-        <h1 className="font-cursive text-6xl sm:text-7xl md:text-8xl lg:text-9xl gold-gradient-text leading-tight">
+        <h1 className="font-cursive gold-gradient-text text-6xl leading-tight sm:text-7xl md:text-8xl lg:text-9xl">
           Erdem
         </h1>
       </div>
 
       <div
         className="animate-fade-in-up"
-        style={{ animationDelay: "1.6s", animationFillMode: "both" }}
+        style={{ animationDelay: '1.6s', animationFillMode: 'both' }}
       >
         <div className="my-6">
           <Ornament />
         </div>
-        <p className="font-display text-lg sm:text-xl md:text-2xl text-cream italic tracking-wide">
+        <p className="font-display text-cream text-lg tracking-wide italic sm:text-xl md:text-2xl">
           Evleniyoruz
         </p>
-        <p className="text-gold-light mt-3 text-sm sm:text-base tracking-wider">
+        <p className="text-gold-light mt-3 text-sm tracking-wider sm:text-base">
           4 & 11 Temmuz 2026
         </p>
       </div>
 
       <div
         className="animate-fade-in absolute -bottom-10 left-1/2 -translate-x-1/2"
-        style={{ animationDelay: "2.5s", animationFillMode: "both" }}
+        style={{ animationDelay: '2.5s', animationFillMode: 'both' }}
       >
         <div className="animate-bounce-soft text-gold text-2xl">↓</div>
       </div>
