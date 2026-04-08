@@ -37,6 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
+      suppressHydrationWarning
       className={cn(
         'scroll-smooth',
         playfair.variable,
@@ -45,6 +46,7 @@ export default function RootLayout({
         geist.variable,
       )}
     >
+      {/* TODO: this should be refactored after admin dashboard is ready */}
       <head>
         <link
           rel="preload"
@@ -54,7 +56,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="bg-deep text-cream antialiased">
+      <body className="bg-background text-foreground min-h-dvh antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

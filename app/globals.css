@@ -2,7 +2,7 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-/* TODO: take a look at that folder again */
+/* TODO: take a look at that folder again to understand the theme system and using the variables in the globalcss. */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -61,10 +61,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  background: var(--color-deep);
-  color: var(--color-cream);
-}
+/* body renkleri @layer base içinde bg-background / text-foreground (tema ile). */
 
 /* ─── Animations ─── */
 
