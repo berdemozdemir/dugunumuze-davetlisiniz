@@ -1,6 +1,9 @@
 'use client';
 
-import { HeartHandshake, Sparkles } from 'lucide-react';
+import { paths } from '@/lib/paths';
+import { Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 type AuthFormShellProps = {
@@ -45,11 +48,15 @@ export const AuthFormShell = ({
             />
 
             <div className="from-gold/30 via-gold/10 ring-gold/35 ring-offset-deep-light flex h-17 w-17 items-center justify-center rounded-full bg-linear-to-br to-transparent ring-2 ring-offset-2">
-              <HeartHandshake
-                aria-hidden
-                className="text-gold size-9"
-                strokeWidth={1.35}
-              />
+              <Link href={paths.home}>
+                <Image
+                  src="/images/wedding-rings.png"
+                  alt="Logo"
+                  width={100}
+                  height={100}
+                  className="h-10 w-10"
+                />
+              </Link>
             </div>
 
             <h1 className="font-display text-cream mt-5 text-center text-2xl font-semibold tracking-tight">
