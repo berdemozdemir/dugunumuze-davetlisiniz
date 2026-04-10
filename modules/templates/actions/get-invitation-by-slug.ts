@@ -6,19 +6,7 @@ import { eq } from 'drizzle-orm';
 import z from 'zod';
 import { deepMerge } from '../utils/merge';
 import type { InvitationDefaults, InvitationOverrides } from '../types';
-
-const defaultTemplate: InvitationDefaults = {
-  sections: {
-    hero: true,
-    countdown: true,
-    story: true,
-    details: true,
-    closing: true,
-    musicPlayer: true,
-  },
-  quote: '',
-  shortNote: '',
-};
+import { defaultInvitationTemplateDefaults } from '../constants/default-invitation';
 
 export const orpc_getInvitationBySlug = procedure_public
   .input(
@@ -84,7 +72,7 @@ export const orpc_getInvitationBySlug = procedure_public
 
     const defaultsFromDb =
       (row?.templateDefaults as InvitationDefaults | undefined) ??
-      defaultTemplate;
+      defaultInvitationTemplateDefaults;
     const overridesFromDb =
       (row?.overridesJson as InvitationOverrides | undefined) ?? {};
 

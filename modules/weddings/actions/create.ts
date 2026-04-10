@@ -3,6 +3,7 @@ import { err, ok, tryCatchDb } from '@/lib/result';
 import { createWeddingSchema } from '../schemas/create-wedding';
 import { table_weddings } from '../db-tables';
 import { SlugHelper } from '@/lib/utils/slug';
+import { bindDefaultTemplateToWedding } from '@/modules/templates/utils/bind-default-template-to-wedding';
 import { eq } from 'drizzle-orm';
 
 export const orpc_weddings_create = procedure_protected
@@ -58,6 +59,16 @@ export const orpc_weddings_create = procedure_protected
       return err({
         reason: 'slug-update-failed',
         message: slugUpdateErr.message,
+      });
+    }
+
+    // TODO: merge all db operations into a single transaction in this file
+    const [bindErr] = await bindDefaultTemplateToWedding(db, weddingId);
+
+    if (bindErr) {
+      return err({
+        reason: 'template-bind-failed',
+        message: bindErr.message,
       });
     }
 

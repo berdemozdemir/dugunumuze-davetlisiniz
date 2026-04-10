@@ -50,10 +50,7 @@ export default async function WeddingOverviewPage({
         </div>
 
         <div className="flex gap-3">
-          <Link
-            className="underline"
-            href={paths.invitation(wedding.slug)}
-          >
+          <Link className="underline" href={paths.invitation(wedding.slug)}>
             View invitation
           </Link>
 
