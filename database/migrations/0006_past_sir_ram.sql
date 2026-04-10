@@ -1,0 +1,2 @@
+ALTER TABLE "wedding_overrides" ADD CONSTRAINT "wedding_overrides_wedding_id_weddings_id_fk" FOREIGN KEY ("wedding_id") REFERENCES "public"."weddings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "wedding_overrides" ADD CONSTRAINT "wedding_overrides_template_id_wedding_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."wedding_templates"("id") ON DELETE cascade ON UPDATE no action;
