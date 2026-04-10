@@ -12,12 +12,13 @@ export const paths = {
     base: '/dashboard',
     new: '/dashboard/new',
     wedding: {
-      base: (weddingId: string) => `/dashboard/${weddingId}`,
-      overview: (weddingId: string) => `/dashboard/${weddingId}/overview`,
-      invitation: (weddingId: string) => `/dashboard/${weddingId}/invitation`,
-      rsvp: (weddingId: string) => `/dashboard/${weddingId}/rsvp`,
-      media: (weddingId: string) => `/dashboard/${weddingId}/media`,
-      settings: (weddingId: string) => `/dashboard/${weddingId}/settings`,
+      base: (weddingSlug: string) => `/dashboard/${weddingSlug}`,
+      overview: (weddingSlug: string) => `/dashboard/${weddingSlug}/overview`,
+      invitation: (weddingSlug: string) =>
+        `/dashboard/${weddingSlug}/invitation`,
+      rsvp: (weddingSlug: string) => `/dashboard/${weddingSlug}/rsvp`,
+      media: (weddingSlug: string) => `/dashboard/${weddingSlug}/media`,
+      settings: (weddingSlug: string) => `/dashboard/${weddingSlug}/settings`,
     },
   },
 } as const;

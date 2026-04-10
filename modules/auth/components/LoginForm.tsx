@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation';
 const supabase = createSupabaseBrowserClient();
 
 // TODO: create a new page for reset password
+// TODO: if the user is already logged in, redirect to the dashboard
 export const LoginForm = () => {
   const router = useRouter();
 
@@ -38,15 +39,15 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (data: LoginFormSchemaRequest) => {
+  const submit = form.handleSubmit(async (data: LoginFormSchemaRequest) => {
     await loginMutation.mutateAsync(data);
 
     await supabase.auth.refreshSession();
 
-    toast.success('Login successful!');
+    toast.success('Login successful');
 
-    router.push(paths.home);
-  };
+    router.push(paths.dashboard.base);
+  });
 
   return (
     <Form {...form}>
@@ -54,7 +55,7 @@ export const LoginForm = () => {
         title="Hoş geldiniz"
         subtitle="Hesabınıza giriş yaparak düğün planlamanıza devam edin."
       >
-        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="space-y-4" onSubmit={submit}>
           <FormField
             control={form.control}
             name="email"

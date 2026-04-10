@@ -43,8 +43,8 @@ export const UserMenu = () => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(paths.dashboard)}>
-          Profilim
+        <DropdownMenuItem onClick={() => router.push(paths.dashboard.base)}>
+          Dashboard
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => logoutMutation.mutate()}>

@@ -37,7 +37,7 @@ export const SignUpForm = () => {
     },
   });
 
-  const onSubmit = async (data: SignupFormSchemaRequest) => {
+  const submit = form.handleSubmit(async (data: SignupFormSchemaRequest) => {
     const supabase = createSupabaseBrowserClient();
 
     await signupMutation.mutateAsync(data);
@@ -46,8 +46,8 @@ export const SignUpForm = () => {
 
     toast.success('Account created. You are signed in.');
 
-    router.push(paths.dashboard);
-  };
+    router.push(paths.dashboard.base);
+  });
 
   return (
     <Form {...form}>
@@ -55,7 +55,7 @@ export const SignUpForm = () => {
         title="Aramıza katılın"
         subtitle="Hesap oluşturarak misafir listesi ve düğün detaylarına erişin."
       >
-        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="space-y-4" onSubmit={submit}>
           <FormField
             control={form.control}
             name="email"
