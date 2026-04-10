@@ -10,6 +10,7 @@
 // ## MODELS ##
 import * as userSchema from "@/modules/auth/db-tables";
 import * as weddingSchema from "@/modules/weddings/db-tables";
+import * as templateSchema from "@/modules/templates/db-tables";
 
 // ## RELATIONS ##
 
@@ -19,4 +20,5 @@ import * as weddingSchema from "@/modules/weddings/db-tables";
 export const drizzleSchema = {
   ...userSchema,
   ...weddingSchema,
+  ...templateSchema,
 };

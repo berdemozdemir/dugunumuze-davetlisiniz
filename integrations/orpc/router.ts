@@ -5,6 +5,7 @@ import { orpc_weddings_create } from '@/modules/weddings/actions/create';
 import { orpc_weddings_listMine } from '@/modules/weddings/actions/list-mine';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
 import { orpc_updateWedding } from '@/modules/weddings/actions/update-wedding';
+import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
 
 export const router = {
   auth: {
@@ -17,5 +18,8 @@ export const router = {
     listMine: orpc_weddings_listMine,
     getBySlug: orpc_getWeddingBySlug,
     update: orpc_updateWedding,
+  },
+  templates: {
+    getInvitationBySlug: orpc_getInvitationBySlug,
   },
 } as const;
