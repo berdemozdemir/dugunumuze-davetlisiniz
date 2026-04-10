@@ -29,6 +29,13 @@
       "when": 1775678163861,
       "tag": "0003_grey_calypso",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1775772671343,
+      "tag": "0004_giant_cerise",
+      "breakpoints": true
     }
   ]
 }
