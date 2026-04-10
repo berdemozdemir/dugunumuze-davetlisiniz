@@ -44,7 +44,7 @@ export default async function WeddingOverviewPage({
         <div className="flex gap-3">
           <Link
             className="underline"
-            href={paths.dashboard.wedding.invitation(wedding.slug)}
+            href={paths.invitation(wedding.slug)}
           >
             View invitation
           </Link>

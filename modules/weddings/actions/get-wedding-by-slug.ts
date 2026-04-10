@@ -17,6 +17,10 @@ export const orpc_getWeddingBySlug = procedure_protected
           slug: table_weddings.slug,
           partner1Name: table_weddings.partner1Name,
           partner2Name: table_weddings.partner2Name,
+          dateTime: table_weddings.dateTime,
+          city: table_weddings.city,
+          venueName: table_weddings.venueName,
+          addressText: table_weddings.addressText,
           publishedAt: table_weddings.publishedAt,
         })
         .from(table_weddings)

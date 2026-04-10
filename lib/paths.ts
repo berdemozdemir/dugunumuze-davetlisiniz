@@ -1,6 +1,8 @@
 export const paths = {
   home: '/',
 
+  invitation: (slug: string) => `/${slug}`,
+
   unauthorized: '/unauthorized',
 
   auth: {

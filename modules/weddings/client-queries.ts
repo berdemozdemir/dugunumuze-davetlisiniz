@@ -1,7 +1,10 @@
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
 import { okOrThrow, type ArgsOf } from '@/lib/result';
 import { orpc } from '@/integrations/orpc/client';
-import { queryClient, useSessionQuery } from '@/integrations/tanstack-query/query';
+import {
+  queryClient,
+  useSessionQuery,
+} from '@/integrations/tanstack-query/query';
 
 export const service_weddings = {
   queries: {
@@ -22,9 +25,14 @@ export const service_weddings = {
           });
         },
       }),
+
+    update: () =>
+      mutationOptions({
+        mutationFn: (args: ArgsOf<typeof orpc.weddings.update.call>) =>
+          orpc.weddings.update.call(args).then(okOrThrow),
+      }),
   },
 } as const;
 
 export const useMyWeddingsQuery = () =>
   useSessionQuery(service_weddings.queries.mine());
-
