@@ -1,10 +1,7 @@
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
 import { okOrThrow, type ArgsOf } from '@/lib/result';
 import { orpc } from '@/integrations/orpc/client';
-import {
-  queryClient,
-  useSessionQuery,
-} from '@/integrations/tanstack-query/query';
+import { queryClient } from '@/integrations/tanstack-query/query';
 
 export const service_weddings = {
   queries: {
@@ -31,8 +28,27 @@ export const service_weddings = {
         mutationFn: (args: ArgsOf<typeof orpc.weddings.update.call>) =>
           orpc.weddings.update.call(args).then(okOrThrow),
       }),
+
+    publish: () =>
+      mutationOptions({
+        mutationFn: (args: ArgsOf<typeof orpc.weddings.publish.call>) =>
+          orpc.weddings.publish.call(args).then(okOrThrow),
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: service_weddings.queries.mine().queryKey,
+          });
+        },
+      }),
+
+    unpublish: () =>
+      mutationOptions({
+        mutationFn: (args: ArgsOf<typeof orpc.weddings.unpublish.call>) =>
+          orpc.weddings.unpublish.call(args).then(okOrThrow),
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: service_weddings.queries.mine().queryKey,
+          });
+        },
+      }),
   },
 } as const;
-
-export const useMyWeddingsQuery = () =>
-  useSessionQuery(service_weddings.queries.mine());

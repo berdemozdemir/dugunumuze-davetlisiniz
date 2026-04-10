@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { paths } from '@/lib/paths';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
+import { PublishWeddingButtons } from '@/modules/weddings/components/PublishWeddingButtons';
 
 export default async function WeddingOverviewPage({
   params,
@@ -32,13 +33,20 @@ export default async function WeddingOverviewPage({
       </div>
 
       <div className="grid gap-2">
-        <div className="text-sm">
-          Status:{' '}
-          {wedding.publishedAt ? (
-            <span className="text-emerald-600">Published</span>
-          ) : (
-            <span className="text-amber-600">Draft</span>
-          )}
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <span>
+            Status:{' '}
+            {wedding.publishedAt ? (
+              <span className="text-emerald-600">Published</span>
+            ) : (
+              <span className="text-amber-600">Draft</span>
+            )}
+          </span>
+
+          <PublishWeddingButtons
+            weddingSlug={wedding.slug}
+            isPublished={!!wedding.publishedAt}
+          />
         </div>
 
         <div className="flex gap-3">
