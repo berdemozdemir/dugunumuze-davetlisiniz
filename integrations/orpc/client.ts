@@ -10,12 +10,11 @@ const link = new RPCLink({
   url: () => {
     if (typeof window === 'undefined') {
       throw new Error(
-        'oRPC client cannot be used during SSR. ' +
-          'Use server actions directly or ensure this code only runs on the client.',
+        'oRPC client cannot be used during SSR. Use server actions directly or ensure this code only runs on the client.',
       );
     }
 
-    return window.location.origin + '/api/rpc';
+    return `${window.location.origin}/api/rpc`;
   },
   headers: async () => ({}),
 });
