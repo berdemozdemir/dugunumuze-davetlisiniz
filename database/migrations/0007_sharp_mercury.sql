@@ -12,7 +12,9 @@ VALUES (
       "musicPlayer": true
     },
     "quote": "",
-    "shortNote": ""
+    "storyHeadline": "",
+    "storySubline": "",
+    "closingNote": ""
   }'::jsonb
 )
 ON CONFLICT ("key") DO NOTHING;

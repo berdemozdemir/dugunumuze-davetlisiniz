@@ -13,12 +13,12 @@ import { InvitationMusicPlayer } from '@/modules/invitation/components/Invitatio
 import {
   formatInvitationDateTimeLabel,
   formatInvitationYearFooter,
+  resolveClosingNote,
+  resolveStoryHeadline,
+  resolveStorySubline,
 } from '@/modules/invitation/util';
 import type { PublicInvitationView } from '@/modules/invitation/types';
 import { countdownSubtitle } from '@/modules/invitation/components/countdownSubtitle';
-
-const STORY_HEADLINE_DEFAULT = 'Bir "Evet" ile Başladı';
-const STORY_SUBLINE_DEFAULT = 'Şimdi sıra sonsuza dek "evet" demeye geldi';
 
 export default async function PublicInvitationPage({
   params,
@@ -32,6 +32,7 @@ export default async function PublicInvitationPage({
   const sp = searchParams ? await searchParams : {};
   const preview = sp.preview === '1' || sp.preview === 'true';
 
+  // TODO: there are too much if statements here. We should use a more functional approach.
   const [invErr, data] = preview
     ? await orpc_weddings_getInvitationPreviewBySlug({ slug })
     : await orpc_getInvitationBySlug({ slug });
@@ -57,12 +58,11 @@ export default async function PublicInvitationPage({
   const dateLabel = formatInvitationDateTimeLabel(invitation.dateTime);
   const yearFooter = formatInvitationYearFooter(invitation.dateTime);
 
-  const storyHeadline = STORY_HEADLINE_DEFAULT;
-  const storySubline =
-    invitation.template.shortNote?.trim() || STORY_SUBLINE_DEFAULT;
+  const storyHeadline = resolveStoryHeadline(invitation.template);
+  const storySubline = resolveStorySubline(invitation.template);
 
   const closingQuote = invitation.template.quote?.trim() ?? '';
-  const closingNote = invitation.template.shortNote?.trim() ?? '';
+  const closingNote = resolveClosingNote(invitation.template);
 
   return (
     <main className="overflow-x-hidden">

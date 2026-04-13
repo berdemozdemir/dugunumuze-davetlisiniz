@@ -24,6 +24,12 @@ import {
   InvitationOverridesFormSchema,
   invitationOverridesSchema,
 } from '../schemas/invitation-overrides';
+import {
+  CLOSING_NOTE_DEFAULT,
+  CLOSING_QUOTE_DEFAULT,
+  STORY_HEADLINE_DEFAULT,
+  STORY_SUBLINE_DEFAULT,
+} from '@/modules/invitation/constants';
 
 type Props = {
   weddingSlug: string;
@@ -39,7 +45,9 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
     resolver: zodResolver(invitationOverridesSchema),
     defaultValues: {
       quote: merged.quote ?? '',
-      shortNote: merged.shortNote ?? '',
+      storyHeadline: merged.storyHeadline ?? '',
+      storySubline: merged.storySubline ?? '',
+      closingNote: merged.closingNote ?? '',
       sections: {
         hero: merged.sections?.hero ?? true,
         countdown: merged.sections?.countdown ?? true,
@@ -61,22 +69,26 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
   });
 
   return (
-    <div className="mt-10 max-w-xl">
+    <div className="mt-16 max-w-xl">
       <h2 className="text-xl font-semibold">Template overrides</h2>
       <p className="text-muted-foreground mt-1 text-sm">
         Customize what appears on your public invitation page.
       </p>
 
       <Form {...form}>
-        <form className="mt-6 grid gap-6" onSubmit={submit}>
+        <form className="mt-6 grid gap-8" onSubmit={submit}>
           <FormField
             control={form.control}
-            name="quote"
+            name="storyHeadline"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Quote</FormLabel>
+                <FormLabel>Hikâye başlığı</FormLabel>
+                <FormDescription>
+                  Hikâye bölümündeki büyük başlık. Boş bırakırsanız örnekteki
+                  varsayılan gösterilir.
+                </FormDescription>
                 <FormControl>
-                  <Textarea placeholder="Alıntı / söz" {...field} />
+                  <Textarea placeholder={STORY_HEADLINE_DEFAULT} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -85,12 +97,59 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
 
           <FormField
             control={form.control}
-            name="shortNote"
+            name="storySubline"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Short note</FormLabel>
+                <FormLabel>Hikâye alt metni</FormLabel>
+
+                <FormDescription>
+                  Başlığın altındaki ince satır. Boş bırakırsanız örnekteki
+                  varsayılan gösterilir.
+                </FormDescription>
+
                 <FormControl>
-                  <Textarea placeholder="Kısa not" {...field} />
+                  <Textarea placeholder={STORY_SUBLINE_DEFAULT} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="quote"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Alıntı</FormLabel>
+
+                <FormDescription>
+                  Kapanış bölümündeki tırnaklı söz. Boş bırakırsanız örnekteki
+                  varsayılan gösterilir.
+                </FormDescription>
+
+                <FormControl>
+                  <Textarea placeholder={CLOSING_QUOTE_DEFAULT} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="closingNote"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Kapanış notu</FormLabel>
+
+                <FormDescription>
+                  Kapanış bölümünde, alıntının hemen altındaki kısa paragraf;
+                  çift isimlerden önce görünür. Boş bırakırsanız örnekteki
+                  varsayılan gösterilir.
+                </FormDescription>
+
+                <FormControl>
+                  <Textarea placeholder={CLOSING_NOTE_DEFAULT} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,6 +158,7 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
 
           <FormItem className="gap-3">
             <FormLabel>Sections</FormLabel>
+
             <FormDescription>
               These toggles control which blocks are visible on your public
               invitation page. Turn a section off if you don&apos;t want it to
@@ -115,6 +175,7 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
                     <FormItem className="border-input flex cursor-pointer items-start justify-between gap-3 rounded-lg border px-3 py-2">
                       <FormLabel className="cursor-pointer font-normal">
                         <span className="block text-sm">{label}</span>
+
                         <span className="text-muted-foreground block text-xs">
                           {description}
                         </span>

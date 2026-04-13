@@ -6,7 +6,7 @@ Bu dosya **tek doğruluk kaynağı**dır: yeni özellikler ve refaktörler burad
 
 | # | Adım | Durum | Notlar |
 |---|------|--------|--------|
-| 0 | Şema / veri ayrımı: `shortNote` çakışmasını kaldır; story ve closing için ayrı alanlar | ⬜ TODO | Örn. `storyHeadline`, `storySubline`, `closingNote`; `quote` zaten var. `app/[slug]/page.tsx` merge mantığını buna göre güncelle. |
+| 0 | Şema / veri ayrımı: story ve closing için ayrı metin alanları | ✅ Done | `storyHeadline` / `storySubline` / `closingNote`. Şablon migrasyonu: `0008_invitation_story_closing_fields.sql`. |
 | 1 | **InvitationStory**: iki metin + arka plan rengi (şablondan) | ⬜ TODO | Görsel arka plan şimdilik opsiyonel; solid/gradient renk öncelik. |
 | 2 | **InvitationHero**: özel hero arka plan görseli (URL veya yükleme sonrası public URL) | ⬜ TODO | İlk sürümde URL alanı yeterli olabilir; storage kararı dokümante et. |
 | 3 | **InvitationClosing** + paylaşılan **PhotoCarousel**: en fazla 10 fotoğraf | ⬜ TODO | `PhotoCarousel`’i prop’lu hale getir; template’te liste alanı + validasyon. |
@@ -19,7 +19,7 @@ Bu dosya **tek doğruluk kaynağı**dır: yeni özellikler ve refaktörler burad
 
 ## Tamamlananlar
 
-_(Bittiğinde buraya tarih + tek satır özet ekle.)_
+- **2026-04-14 — Adım 0:** `storyHeadline`, `storySubline`, `closingNote`; public `resolve*` yardımcıları; dashboard formu; şablon `defaults_json` sade şekil.
 
 ---
 

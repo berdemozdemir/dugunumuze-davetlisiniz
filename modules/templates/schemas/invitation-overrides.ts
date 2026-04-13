@@ -2,7 +2,9 @@ import z from 'zod';
 
 export const invitationOverridesSchema = z.object({
   quote: z.string().optional(),
-  shortNote: z.string().optional(),
+  storyHeadline: z.string().optional(),
+  storySubline: z.string().optional(),
+  closingNote: z.string().optional(),
   sections: z
     .object({
       hero: z.boolean().optional(),

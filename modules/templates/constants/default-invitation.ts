@@ -15,5 +15,7 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
     musicPlayer: true,
   },
   quote: '',
-  shortNote: '',
+  storyHeadline: '',
+  storySubline: '',
+  closingNote: '',
 };

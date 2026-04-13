@@ -14,7 +14,9 @@ export type InvitationSections = {
 export type InvitationDefaults = {
   sections?: InvitationSections;
   quote?: string;
-  shortNote?: string;
+  storyHeadline?: string;
+  storySubline?: string;
+  closingNote?: string;
 };
 
 // wedding’e özel üstüne yazılanlar
