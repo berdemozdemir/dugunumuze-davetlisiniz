@@ -44,7 +44,10 @@ export default async function WeddingInvitationPage({
       />
 
       {mergedTemplate ? (
-        <InvitationOverridesForm weddingSlug={wedding.slug} merged={mergedTemplate} />
+        <InvitationOverridesForm
+          weddingSlug={wedding.slug}
+          merged={mergedTemplate}
+        />
       ) : (
         <div className="text-muted-foreground mt-10 text-sm">
           Template settings are temporarily unavailable.
@@ -53,4 +56,3 @@ export default async function WeddingInvitationPage({
     </div>
   );
 }
-

@@ -83,19 +83,18 @@ export function InvitationMusicPlayer({ src = DEFAULT_SRC }: Props) {
       type="button"
       onClick={toggle}
       aria-label={playing ? 'Müziği kapat' : 'Müziği aç'}
+      // TODO: dont use this syntax in here
       className={`border-gold/40 bg-gold/20 shadow-gold/20 fixed right-6 bottom-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border shadow-lg backdrop-blur-md transition-all duration-300 ${
-        playing
-          ? ''
-          : 'border-white/20 bg-white/10 shadow-none'
+        playing ? '' : 'border-white/20 bg-white/10 shadow-none'
       } ${needsInteraction ? 'animate-bounce-soft' : ''}`}
     >
       {playing ? (
         <div className="relative flex h-full w-full items-center justify-center">
           <div className="flex h-4 items-end gap-[3px]">
-            <span className="animate-music-bar-1 h-4 w-[3px] rounded-full bg-gold" />
-            <span className="animate-music-bar-2 h-4 w-[3px] rounded-full bg-gold" />
-            <span className="animate-music-bar-3 h-4 w-[3px] rounded-full bg-gold" />
-            <span className="animate-music-bar-4 h-4 w-[3px] rounded-full bg-gold" />
+            <span className="animate-music-bar-1 bg-gold h-4 w-[3px] rounded-full" />
+            <span className="animate-music-bar-2 bg-gold h-4 w-[3px] rounded-full" />
+            <span className="animate-music-bar-3 bg-gold h-4 w-[3px] rounded-full" />
+            <span className="animate-music-bar-4 bg-gold h-4 w-[3px] rounded-full" />
           </div>
           <span className="text-gold absolute flex items-center justify-center text-lg">
             ♫

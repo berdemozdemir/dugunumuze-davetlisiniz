@@ -1,7 +1,7 @@
-import { procedure_public } from "@/integrations/orpc/procedure";
-import { createClient } from "@/integrations/supabase/supabase-server";
-import { err, ok } from "@/lib/result";
-import { loginFormSchema } from "../schemas/login";
+import { procedure_public } from '@/integrations/orpc/procedure';
+import { createClient } from '@/integrations/supabase/supabase-server';
+import { err, ok } from '@/lib/result';
+import { loginFormSchema } from '../schemas/login';
 
 export const orpc_login = procedure_public
   .input(loginFormSchema)
@@ -19,25 +19,25 @@ export const orpc_login = procedure_public
       if (error instanceof Error) {
         return err({
           message: error.message,
-          reason: "login-error",
+          reason: 'login-error',
         });
       }
 
       return err({
-        message: "An error occurred while logging in",
-        reason: "login-error",
+        message: 'An error occurred while logging in',
+        reason: 'login-error',
       });
     }
 
     if (result.error) {
       return err({
         message: result.error.message,
-        reason: "login-error",
+        reason: 'login-error',
       });
     }
 
     return ok({
       user: result.data.user,
-      messsage: "Login successful",
+      messsage: 'Login successful',
     });
   });

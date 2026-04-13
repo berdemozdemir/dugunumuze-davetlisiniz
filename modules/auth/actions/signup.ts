@@ -1,6 +1,9 @@
 import { UserMetadata } from '@supabase/supabase-js';
 import { procedure_public } from '@/integrations/orpc/procedure';
-import { createAdminClient, createClient } from '@/integrations/supabase/supabase-server';
+import {
+  createAdminClient,
+  createClient,
+} from '@/integrations/supabase/supabase-server';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { signupFormSchema } from '../schemas/signup';
 import { table_users } from '../db-tables';
@@ -71,10 +74,10 @@ export const orpc_signup = procedure_public
       name: input.fullName,
     };
 
-    const { error: metadataError } = await supabaseAdmin.auth.admin.updateUserById(
-      user.id,
-      { user_metadata: userMetadata },
-    );
+    const { error: metadataError } =
+      await supabaseAdmin.auth.admin.updateUserById(user.id, {
+        user_metadata: userMetadata,
+      });
 
     if (metadataError) {
       return err({

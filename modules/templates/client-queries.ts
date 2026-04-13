@@ -7,10 +7,13 @@ export const service_templates = {
     updateWeddingInvitationOverrides: () =>
       mutationOptions({
         mutationFn: (
-          args: ArgsOf<typeof orpc.templates.updateWeddingInvitationOverrides.call>,
+          args: ArgsOf<
+            typeof orpc.templates.updateWeddingInvitationOverrides.call
+          >,
         ) =>
-          orpc.templates.updateWeddingInvitationOverrides.call(args).then(okOrThrow),
+          orpc.templates.updateWeddingInvitationOverrides
+            .call(args)
+            .then(okOrThrow),
       }),
   },
 } as const;
-

@@ -30,6 +30,7 @@ export const router = {
   templates: {
     getInvitationBySlug: orpc_getInvitationBySlug,
     getWeddingInvitationSettings: orpc_templates_getWeddingInvitationSettings,
-    updateWeddingInvitationOverrides: orpc_templates_updateWeddingInvitationOverrides,
+    updateWeddingInvitationOverrides:
+      orpc_templates_updateWeddingInvitationOverrides,
   },
 } as const;

@@ -1,5 +1,5 @@
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 /**
  * Supabase client for the server (Server Components, Route Handlers, Server Actions).
@@ -11,7 +11,7 @@ export async function createSupabaseServerClient() {
 
   if (!url || !anonKey) {
     throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY',
     );
   }
 

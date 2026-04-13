@@ -1,4 +1,4 @@
-import { TimeLeft } from "@/lib/types";
+import { TimeLeft } from '@/lib/types';
 
 export function calculateTimeLeft(target: Date): TimeLeft {
   const diff = target.getTime() - Date.now();

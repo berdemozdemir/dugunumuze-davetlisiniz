@@ -86,4 +86,3 @@ export const orpc_templates_getWeddingInvitationSettings = procedure_protected
     });
   })
   .callable();
-

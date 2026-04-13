@@ -8,9 +8,9 @@
  */
 
 // ## MODELS ##
-import * as userSchema from "@/modules/auth/db-tables";
-import * as weddingSchema from "@/modules/weddings/db-tables";
-import * as templateSchema from "@/modules/templates/db-tables";
+import * as userSchema from '@/modules/auth/db-tables';
+import * as weddingSchema from '@/modules/weddings/db-tables';
+import * as templateSchema from '@/modules/templates/db-tables';
 
 // ## RELATIONS ##
 

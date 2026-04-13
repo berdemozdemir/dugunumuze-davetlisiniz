@@ -5,4 +5,3 @@ export function toDateTimeLocal(value: Date) {
     value.getDate(),
   )}T${pad(value.getHours())}:${pad(value.getMinutes())}`;
 }
-

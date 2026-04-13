@@ -18,4 +18,3 @@ export const SlugHelper = {
     return `${SlugHelper.generate(str)}-${suffix}`;
   },
 };
-

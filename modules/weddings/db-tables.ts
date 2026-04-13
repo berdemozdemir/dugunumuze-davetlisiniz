@@ -20,4 +20,3 @@ export const table_weddings = pgTable('weddings', {
 
   ...timestamps,
 });
-

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { TimeLeft } from "@/lib/types";
-import { calculateTimeLeft } from "@/lib/util";
-import { KINA_DATE, ELAZIG_DATE, ANKARA_DATE } from "@/lib/constants";
-import RevealSection from "./RevealSection";
-import Ornament from "./Ornament";
-import CountdownRow from "./CountdownRow";
+import { useState, useEffect } from 'react';
+import { TimeLeft } from '@/lib/types';
+import { calculateTimeLeft } from '@/lib/util';
+import { KINA_DATE, ELAZIG_DATE, ANKARA_DATE } from '@/lib/constants';
+import RevealSection from './RevealSection';
+import Ornament from './Ornament';
+import CountdownRow from './CountdownRow';
 
 const SKELETON = [0, 1, 2, 3] as const;
 
@@ -27,12 +27,12 @@ const CountdownSection = () => {
   }, []);
 
   return (
-    <section className="relative py-20 sm:py-28 px-4">
-      <div className="absolute inset-0 bg-linear-to-b from-deep via-deep-light to-deep" />
+    <section className="relative px-4 py-20 sm:py-28">
+      <div className="from-deep via-deep-light to-deep absolute inset-0 bg-linear-to-b" />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <RevealSection className="text-center mb-16">
-          <h2 className="font-cursive text-4xl sm:text-5xl md:text-6xl gold-shimmer-text mb-3">
+      <div className="relative z-10 mx-auto max-w-4xl">
+        <RevealSection className="mb-16 text-center">
+          <h2 className="font-cursive gold-shimmer-text mb-3 text-4xl sm:text-5xl md:text-6xl">
             Düğünümüze Kalan Süre
           </h2>
           <div className="mt-4">
@@ -43,9 +43,9 @@ const CountdownSection = () => {
         <div className="space-y-6">
           {/* 1. Kına - 2 Temmuz */}
           <RevealSection delay={200}>
-            <div className="rounded-2xl p-5 sm:p-6 md:p-8 bg-white/3 border border-white/10">
-              <div className="text-center mb-5 sm:mb-6">
-                <h3 className="font-cursive text-2xl sm:text-3xl text-rose mb-1">
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6 md:p-8">
+              <div className="mb-5 text-center sm:mb-6">
+                <h3 className="font-cursive text-rose mb-1 text-2xl sm:text-3xl">
                   Kına Gecesi
                 </h3>
                 <p className="text-cream/50 text-xs sm:text-sm">
@@ -59,7 +59,7 @@ const CountdownSection = () => {
                   {SKELETON.map((i) => (
                     <div
                       key={i}
-                      className="countdown-digit w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl animate-pulse bg-white/5"
+                      className="countdown-digit h-14 w-14 animate-pulse rounded-xl bg-white/5 sm:h-16 sm:w-16 md:h-20 md:w-20"
                     />
                   ))}
                 </div>
@@ -69,9 +69,9 @@ const CountdownSection = () => {
 
           {/* 2. Elazığ Düğünü - 4 Temmuz */}
           <RevealSection delay={300}>
-            <div className="rounded-2xl p-5 sm:p-6 md:p-8 bg-white/3 border border-white/10">
-              <div className="text-center mb-5 sm:mb-6">
-                <h3 className="font-cursive text-2xl sm:text-3xl text-gold/80 mb-1">
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6 md:p-8">
+              <div className="mb-5 text-center sm:mb-6">
+                <h3 className="font-cursive text-gold/80 mb-1 text-2xl sm:text-3xl">
                   Elazığ Düğünü
                 </h3>
                 <p className="text-cream/50 text-xs sm:text-sm">
@@ -85,7 +85,7 @@ const CountdownSection = () => {
                   {SKELETON.map((i) => (
                     <div
                       key={i}
-                      className="countdown-digit w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl animate-pulse bg-white/5"
+                      className="countdown-digit h-14 w-14 animate-pulse rounded-xl bg-white/5 sm:h-16 sm:w-16 md:h-20 md:w-20"
                     />
                   ))}
                 </div>
@@ -95,9 +95,9 @@ const CountdownSection = () => {
 
           {/* 3. Ankara Düğünü - 11 Temmuz */}
           <RevealSection delay={400}>
-            <div className="relative rounded-3xl p-6 sm:p-8 md:p-10 bg-linear-to-br from-gold/10 via-transparent to-burgundy/10 border border-gold/30 animate-pulse-glow">
-              <div className="text-center mb-6 sm:mb-8">
-                <h3 className="font-cursive text-3xl sm:text-4xl text-gold mb-1">
+            <div className="from-gold/10 to-burgundy/10 border-gold/30 animate-pulse-glow relative rounded-3xl border bg-linear-to-br via-transparent p-6 sm:p-8 md:p-10">
+              <div className="mb-6 text-center sm:mb-8">
+                <h3 className="font-cursive text-gold mb-1 text-3xl sm:text-4xl">
                   Ankara Düğünü
                 </h3>
                 <p className="text-cream/70 text-sm sm:text-base">
@@ -111,7 +111,7 @@ const CountdownSection = () => {
                   {SKELETON.map((i) => (
                     <div
                       key={i}
-                      className="countdown-digit w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-xl animate-pulse bg-white/5"
+                      className="countdown-digit h-18 w-18 animate-pulse rounded-xl bg-white/5 sm:h-24 sm:w-24 md:h-28 md:w-28"
                     />
                   ))}
                 </div>

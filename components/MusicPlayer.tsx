@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -22,10 +22,10 @@ const MusicPlayer = () => {
   }, []);
 
   useEffect(() => {
-    const audio = new Audio("/music/cihat-askin-kelebek.mp3");
+    const audio = new Audio('/music/cihat-askin-kelebek.mp3');
     audio.loop = true;
     audio.volume = 0.4;
-    audio.preload = "auto";
+    audio.preload = 'auto';
     audioRef.current = audio;
 
     const tryPlay = () => {
@@ -42,7 +42,7 @@ const MusicPlayer = () => {
     if (audio.readyState >= 3) {
       tryPlay();
     } else {
-      audio.addEventListener("canplaythrough", tryPlay, { once: true });
+      audio.addEventListener('canplaythrough', tryPlay, { once: true });
     }
 
     const handleInteraction = () => {
@@ -55,18 +55,18 @@ const MusicPlayer = () => {
           })
           .catch(() => {});
       }
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
     };
 
-    document.addEventListener("click", handleInteraction);
-    document.addEventListener("touchstart", handleInteraction);
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
 
     return () => {
       audio.pause();
-      audio.src = "";
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("touchstart", handleInteraction);
+      audio.src = '';
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
     };
   }, []);
 
@@ -84,22 +84,22 @@ const MusicPlayer = () => {
   return (
     <button
       onClick={toggle}
-      aria-label={playing ? "Müziği kapat" : "Müziği aç"}
-      className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full border transition-all duration-300 flex items-center justify-center backdrop-blur-md cursor-pointer ${
+      aria-label={playing ? 'Müziği kapat' : 'Müziği aç'}
+      className={`fixed right-6 bottom-6 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 ${
         playing
-          ? "bg-gold/20 border-gold/40 shadow-lg shadow-gold/20"
-          : "bg-white/10 border-white/20"
-      } ${needsInteraction ? "animate-bounce-soft" : ""}`}
+          ? 'bg-gold/20 border-gold/40 shadow-gold/20 shadow-lg'
+          : 'border-white/20 bg-white/10'
+      } ${needsInteraction ? 'animate-bounce-soft' : ''}`}
     >
       {playing ? (
-        <div className="relative flex items-center justify-center w-full h-full">
-          <div className="flex items-end gap-[3px] h-4">
-            <span className="w-[3px] bg-gold rounded-full animate-music-bar-1" />
-            <span className="w-[3px] bg-gold rounded-full animate-music-bar-2" />
-            <span className="w-[3px] bg-gold rounded-full animate-music-bar-3" />
-            <span className="w-[3px] bg-gold rounded-full animate-music-bar-4" />
+        <div className="relative flex h-full w-full items-center justify-center">
+          <div className="flex h-4 items-end gap-[3px]">
+            <span className="bg-gold animate-music-bar-1 w-[3px] rounded-full" />
+            <span className="bg-gold animate-music-bar-2 w-[3px] rounded-full" />
+            <span className="bg-gold animate-music-bar-3 w-[3px] rounded-full" />
+            <span className="bg-gold animate-music-bar-4 w-[3px] rounded-full" />
           </div>
-          <span className="absolute flex items-center justify-center text-gold text-lg">
+          <span className="text-gold absolute flex items-center justify-center text-lg">
             ♫
           </span>
         </div>

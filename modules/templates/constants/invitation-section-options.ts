@@ -36,4 +36,3 @@ export const INVITATION_SECTION_OPTIONS = [
   label: string;
   description: string;
 }>;
-

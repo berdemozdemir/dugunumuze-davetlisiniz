@@ -26,4 +26,3 @@ export function deepMerge<T extends PlainObject, U extends PlainObject>(
 
   return result as T & U;
 }
-

@@ -14,4 +14,3 @@ export const updateWeddingSchema = z.object({
 });
 
 export type UpdateWeddingSchema = z.infer<typeof updateWeddingSchema>;
-

@@ -45,4 +45,3 @@ export const orpc_updateWedding = procedure_protected
     return ok({ success: true });
   })
   .callable();
-

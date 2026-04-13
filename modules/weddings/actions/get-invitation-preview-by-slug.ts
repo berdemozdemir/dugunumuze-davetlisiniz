@@ -103,4 +103,3 @@ export const orpc_weddings_getInvitationPreviewBySlug = procedure_protected
     });
   })
   .callable();
-

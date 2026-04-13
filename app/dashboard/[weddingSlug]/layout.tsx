@@ -14,6 +14,7 @@ export default async function WeddingDashboardLayout({
     <div className="grid min-h-dvh grid-cols-1 md:h-dvh md:min-h-0 md:grid-cols-[260px_1fr] md:grid-rows-1">
       <DashboardSidebar weddingSlug={weddingSlug} />
 
+      {/* TODO: fix 2 scrollbar issue */}
       <PageLayout className="min-h-0 overflow-y-auto">{children}</PageLayout>
     </div>
   );

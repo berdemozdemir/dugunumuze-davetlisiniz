@@ -1,4 +1,4 @@
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from '@supabase/ssr';
 
 /**
  * Supabase client for the browser (Client Components).
@@ -9,7 +9,7 @@ export function createSupabaseBrowserClient() {
 
   if (!url || !anonKey) {
     throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY',
     );
   }
 
