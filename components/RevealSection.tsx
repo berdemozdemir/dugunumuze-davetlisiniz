@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 
 const RevealSection = ({
   children,
-  className = "",
+  className = '',
   delay = 0,
 }: {
   children: ReactNode;
@@ -33,8 +33,9 @@ const RevealSection = ({
   return (
     <div
       ref={ref}
+      // FUTURE-MD-NOTE: this should be rule, make it explicit with cn
       className={`transition-all duration-1000 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >

@@ -161,11 +161,11 @@ export function CreateWeddingForm() {
           {createMutation.isPending && <LoadingSpinner />}
         </Button>
 
-        {createMutation.error ? (
+        {createMutation.error && (
           <div className="text-destructive text-sm">
             {createMutation.error.message}
           </div>
-        ) : null}
+        )}
       </form>
     </Form>
   );
