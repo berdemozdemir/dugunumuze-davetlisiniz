@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
+import { orpc_weddings_getInvitationPreviewBySlug } from '@/modules/weddings/actions/get-invitation-preview-by-slug';
 import { paths } from '@/lib/paths';
 import SectionDivider from '@/components/SectionDivider';
 import { isInvitationSectionVisible } from '@/modules/invitation/section-visibility';
@@ -21,12 +22,19 @@ const STORY_SUBLINE_DEFAULT = 'Şimdi sıra sonsuza dek "evet" demeye geldi';
 
 export default async function PublicInvitationPage({
   params,
+  searchParams,
 }: Readonly<{
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }>) {
   const { slug } = await params;
 
-  const [invErr, data] = await orpc_getInvitationBySlug({ slug });
+  const sp = searchParams ? await searchParams : {};
+  const preview = sp.preview === '1' || sp.preview === 'true';
+
+  const [invErr, data] = preview
+    ? await orpc_weddings_getInvitationPreviewBySlug({ slug })
+    : await orpc_getInvitationBySlug({ slug });
 
   if (invErr) {
     if (invErr.reason === 'not-published') {

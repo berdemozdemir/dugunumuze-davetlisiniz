@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { paths } from '@/lib/paths';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
 import { PublishWeddingButtons } from '@/modules/weddings/components/PublishWeddingButtons';
+import { InvitationIframePreview } from '@/modules/weddings/components/InvitationIframePreview';
 
 export default async function WeddingOverviewPage({
   params,
@@ -61,6 +62,16 @@ export default async function WeddingOverviewPage({
             Edit invitation
           </Link>
         </div>
+      </div>
+
+      <div className="grid gap-3">
+        <h2 className="text-sm font-medium">Preview</h2>
+
+        <p className="text-muted-foreground -mt-2 text-xs">
+          Draft dahil birebir public sayfa önizlemesi.
+        </p>
+
+        <InvitationIframePreview slug={wedding.slug} />
       </div>
     </div>
   );
