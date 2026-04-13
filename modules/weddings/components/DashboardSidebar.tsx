@@ -13,10 +13,11 @@ import {
   IconUsers,
 } from '@tabler/icons-react';
 import { paths } from '@/lib/paths';
+import { UserMenu } from '@/modules/header/components/UserMenu';
 
 export const DashboardSidebar = ({ weddingSlug }: { weddingSlug: string }) => {
   return (
-    <aside className="border-border/60 bg-background border-r p-4">
+    <aside className="border-border/60 bg-background flex h-auto flex-col justify-between border-r p-4 md:h-full md:min-h-0 md:overflow-hidden">
       <nav className="my-4 grid gap-1 text-sm">
         <SideBarItem label="Dashboard" />
 
@@ -51,7 +52,11 @@ export const DashboardSidebar = ({ weddingSlug }: { weddingSlug: string }) => {
         />
       </nav>
 
-      <ThemeToggle />
+      <div className="flex flex-col items-start gap-2">
+        <ThemeToggle />
+
+        <UserMenu />
+      </div>
     </aside>
   );
 };

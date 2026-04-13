@@ -11,10 +11,10 @@ export default async function WeddingDashboardLayout({
   const { weddingSlug } = await params;
 
   return (
-    <div className="grid min-h-dvh grid-cols-1 md:grid-cols-[260px_1fr]">
+    <div className="grid min-h-dvh grid-cols-1 md:h-dvh md:min-h-0 md:grid-cols-[260px_1fr] md:grid-rows-1">
       <DashboardSidebar weddingSlug={weddingSlug} />
 
-      <PageLayout>{children}</PageLayout>
+      <PageLayout className="min-h-0 overflow-y-auto">{children}</PageLayout>
     </div>
   );
 }
