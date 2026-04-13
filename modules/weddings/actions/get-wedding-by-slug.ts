@@ -14,6 +14,7 @@ export const orpc_getWeddingBySlug = procedure_protected
     const [dbErr, rows] = await tryCatchDb(() =>
       db
         .select({
+          id: table_weddings.id,
           slug: table_weddings.slug,
           partner1Name: table_weddings.partner1Name,
           partner2Name: table_weddings.partner2Name,

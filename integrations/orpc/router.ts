@@ -8,6 +8,8 @@ import { orpc_updateWedding } from '@/modules/weddings/actions/update-wedding';
 import { orpc_publishWedding } from '@/modules/weddings/actions/publish-wedding';
 import { orpc_unpublishWedding } from '@/modules/weddings/actions/unpublish-wedding';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
+import { orpc_templates_getWeddingInvitationSettings } from '@/modules/templates/actions/get-wedding-invitation-settings';
+import { orpc_templates_updateWeddingInvitationOverrides } from '@/modules/templates/actions/update-wedding-invitation-overrides';
 
 export const router = {
   auth: {
@@ -25,5 +27,7 @@ export const router = {
   },
   templates: {
     getInvitationBySlug: orpc_getInvitationBySlug,
+    getWeddingInvitationSettings: orpc_templates_getWeddingInvitationSettings,
+    updateWeddingInvitationOverrides: orpc_templates_updateWeddingInvitationOverrides,
   },
 } as const;
