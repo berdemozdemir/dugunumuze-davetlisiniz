@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { TimeLeft } from '@/lib/types';
-import { calculateTimeLeft } from '@/lib/util';
+import { calculateTimeLeft } from '@/lib/utils';
 import RevealSection from '@/components/RevealSection';
 import Ornament from '@/components/Ornament';
 import CountdownRow from '@/components/CountdownRow';

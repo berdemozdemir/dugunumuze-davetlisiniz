@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { TimeLeft } from '@/lib/types';
-import { calculateTimeLeft } from '@/lib/util';
+import { calculateTimeLeft } from '@/lib/utils';
 import { KINA_DATE, ELAZIG_DATE, ANKARA_DATE } from '@/lib/constants';
 import RevealSection from './RevealSection';
 import Ornament from './Ornament';

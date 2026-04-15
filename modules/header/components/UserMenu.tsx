@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { paths } from '@/lib/paths';
-import { getTwoLetterInitials } from '@/lib/utils/get-two-letter-initials';
+import { getTwoLetterInitials } from '@/lib/utils';
 import { service_auth, useAuthQuery } from '@/modules/auth/client-queries';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';

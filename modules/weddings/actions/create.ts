@@ -2,7 +2,7 @@ import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { createWeddingSchema } from '../schemas/create-wedding';
 import { table_weddings } from '../db-tables';
-import { SlugHelper } from '@/lib/utils/slug';
+import { SlugHelper } from '@/lib/utils';
 import { bindDefaultTemplateToWedding } from '@/modules/templates/actions/bind-default-template-to-wedding';
 
 export const orpc_weddings_create = procedure_protected
