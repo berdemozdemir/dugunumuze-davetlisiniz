@@ -1,24 +1,37 @@
 import Image from 'next/image';
 import { HEARTS } from '@/lib/constants';
 import Ornament from '@/components/Ornament';
+import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 
 type Props = {
   partner1Name: string;
   partner2Name: string;
   dateLabel: string;
+  /** Supabase Storage object path (`digital-invitation-images` bucket). */
+  heroImageUri?: string;
 };
 
 export function InvitationHero({
   partner1Name,
   partner2Name,
   dateLabel,
+  heroImageUri,
 }: Props) {
+  const dynamicSrc = heroImageUri
+    ? // render endpoint gives us resizing + better caching behavior
+      // (bucket must be public-read)
+      getPublicInvitationImageUrl(heroImageUri, {
+        render: true,
+        width: 2200,
+        quality: 85,
+      })
+    : null;
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        {/* TODO: make this dynamic from the template. */}
         <Image
-          src="/images/pngtree-wedding-invitation-bg.jpg"
+          src={dynamicSrc || '/images/pngtree-wedding-invitation-bg.jpg'}
           alt="invitation hero background"
           fill
           className="object-cover"

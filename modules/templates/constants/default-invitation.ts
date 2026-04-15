@@ -14,6 +14,7 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
     closing: true,
     musicPlayer: true,
   },
+  heroImageUri: '',
   quote: '',
   storyHeadline: '',
   storySubline: '',

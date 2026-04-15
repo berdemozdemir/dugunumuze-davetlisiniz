@@ -2,7 +2,9 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import Image from 'next/image';
+import { useMemo } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { InvitationDefaults } from '../types';
 import { service_templates } from '../client-queries';
@@ -30,13 +32,27 @@ import {
   STORY_HEADLINE_DEFAULT,
   STORY_SUBLINE_DEFAULT,
 } from '@/modules/invitation/constants';
+import { UploadImageWithCrop } from '@/components/UploadImageWithCrop';
+import {
+  BucketNames,
+  ClientStorageService,
+} from '@/integrations/supabase/supabase-storage';
+import { useSupabaseStorageUpload } from '@/lib/hooks/useSupabaseStorageUpload';
+import { IMAGE_ALLOWED_MIME_TYPES, IMAGE_MAX_SIZE_MB } from '@/lib/constants';
+import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 
 type Props = {
   weddingSlug: string;
+  weddingId: string;
   merged: InvitationDefaults;
 };
 
-export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
+// TODO: this and below form should not submit if the form is not dirty
+export function InvitationOverridesForm({
+  weddingSlug,
+  weddingId,
+  merged,
+}: Props) {
   const saveMutation = useMutation(
     service_templates.mutations.updateWeddingInvitationOverrides(),
   );
@@ -44,6 +60,7 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
   const form = useForm<InvitationOverridesFormSchema>({
     resolver: zodResolver(invitationOverridesSchema),
     defaultValues: {
+      heroImageUri: merged.heroImageUri?.trim() || undefined,
       quote: merged.quote ?? '',
       storyHeadline: merged.storyHeadline ?? '',
       storySubline: merged.storySubline ?? '',
@@ -58,6 +75,62 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
       },
     },
   });
+
+  const heroImageUriRaw = useWatch({
+    control: form.control,
+    name: 'heroImageUri',
+  });
+  const heroImageUri = (heroImageUriRaw ?? '').trim();
+
+  const heroPreviewUrl = useMemo(() => {
+    if (!heroImageUri) return '';
+    return getPublicInvitationImageUrl(heroImageUri, {
+      render: true,
+      width: 1600,
+      quality: 85,
+    });
+  }, [heroImageUri]);
+
+  const heroUpload = useSupabaseStorageUpload({
+    bucket: BucketNames.DigitalInvitationImages,
+    allowedMimeTypes: IMAGE_ALLOWED_MIME_TYPES,
+    maxSizeMB: IMAGE_MAX_SIZE_MB,
+    oldPath: heroImageUri || undefined,
+    path: ({ extension, timestamp }) =>
+      `weddings/${weddingId}/hero-${timestamp}.${extension}`,
+    onSuccess: async ({ uploadedPath }) => {
+      form.setValue('heroImageUri', uploadedPath, {
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+
+      toast.success('Hero görseli yüklendi');
+    },
+    onInvalidMimeType: () => toast.error('Geçersiz dosya türü'),
+    onMaxSizeExceeded: ({ maxSizeMB }) =>
+      toast.error(`Maksimum dosya boyutu: ${maxSizeMB}MB`),
+    onUploadError: ({ errorMessage }) =>
+      toast.error(errorMessage || 'Yükleme başarısız'),
+  });
+
+  const removeHero = async () => {
+    if (!heroImageUri) return;
+
+    const { error } = await ClientStorageService.remove(
+      BucketNames.DigitalInvitationImages,
+      [heroImageUri],
+    );
+
+    if (error) {
+      toast.error('Dosya silinemedi (policy kontrol edin).');
+      return;
+    }
+
+    form.setValue('heroImageUri', undefined, {
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
 
   const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
@@ -77,6 +150,76 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
 
       <Form {...form}>
         <form className="mt-6 grid gap-8" onSubmit={submit}>
+          <FormField
+            control={form.control}
+            name="heroImageUri"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hero görseli</FormLabel>
+                <FormDescription>
+                  Davetiyenin en üst bölümündeki arka plan görseli. Dosya seçip
+                  kırpın; sonra kaydettiğinizde template override olarak
+                  saklanır.
+                </FormDescription>
+
+                <FormControl>
+                  <div className="grid gap-3">
+                    <input type="hidden" {...field} value={heroImageUri} />
+
+                    {heroPreviewUrl && (
+                      <div className="relative overflow-hidden rounded-lg border border-white/10">
+                        <Image
+                          src={heroPreviewUrl}
+                          alt="Hero preview"
+                          width={1600}
+                          height={900}
+                          className="h-auto w-full"
+                          unoptimized
+                        />
+                      </div>
+                    )}
+
+                    <div className="flex flex-wrap items-center gap-3">
+                      <UploadImageWithCrop
+                        cropType="square"
+                        aspectRatio={16 / 9}
+                        minWidth={1600}
+                        minHeight={900}
+                        disabled={heroUpload.isPending}
+                        onImageCropped={(file) => heroUpload.mutate(file)}
+                      />
+
+                      {heroImageUri && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          disabled={heroUpload.isPending}
+                          onClick={removeHero}
+                        >
+                          Kaldır
+                        </Button>
+                      )}
+
+                      {heroUpload.isPending && (
+                        <span className="text-muted-foreground text-sm">
+                          Yükleniyor…
+                        </span>
+                      )}
+                    </div>
+
+                    {heroImageUri && (
+                      <p className="text-muted-foreground font-mono text-xs">
+                        {heroImageUri}
+                      </p>
+                    )}
+                  </div>
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="storyHeadline"
@@ -197,7 +340,7 @@ export function InvitationOverridesForm({ weddingSlug, merged }: Props) {
 
           <Button type="submit" disabled={saveMutation.isPending}>
             Save overrides
-            {saveMutation.isPending ? <LoadingSpinner /> : null}
+            {saveMutation.isPending && <LoadingSpinner />}
           </Button>
 
           {saveMutation.error && (

@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { paths } from '@/lib/paths';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
 import { EditWeddingForm } from '@/modules/weddings/components/EditWeddingForm';
-import { toDateTimeLocal } from '@/modules/weddings/utils/date';
+import { toDateTimeLocal } from '@/modules/weddings/util';
 import { orpc_templates_getWeddingInvitationSettings } from '@/modules/templates/actions/get-wedding-invitation-settings';
 import { InvitationOverridesForm } from '@/modules/templates/components/InvitationOverridesForm';
 
@@ -23,6 +23,7 @@ export default async function WeddingInvitationPage({
 
   const wedding = data.wedding;
   const mergedTemplate = settingsErr ? null : settingsData.merged;
+  const invitationOverridesReady = !settingsErr && mergedTemplate !== null;
 
   return (
     <div>
@@ -43,12 +44,15 @@ export default async function WeddingInvitationPage({
         }}
       />
 
-      {mergedTemplate ? (
+      {invitationOverridesReady && (
         <InvitationOverridesForm
           weddingSlug={wedding.slug}
+          weddingId={settingsData.weddingId}
           merged={mergedTemplate}
         />
-      ) : (
+      )}
+
+      {!invitationOverridesReady && (
         <div className="text-muted-foreground mt-10 text-sm">
           Template settings are temporarily unavailable.
         </div>

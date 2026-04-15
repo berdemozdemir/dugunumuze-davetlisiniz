@@ -1,6 +1,8 @@
 import z from 'zod';
 
+// TODO: add maks limitations for all fields for the following and similar schemas
 export const invitationOverridesSchema = z.object({
+  heroImageUri: z.string().max(600).optional(),
   quote: z.string().optional(),
   storyHeadline: z.string().optional(),
   storySubline: z.string().optional(),

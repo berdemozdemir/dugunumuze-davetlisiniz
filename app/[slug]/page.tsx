@@ -75,6 +75,7 @@ export default async function PublicInvitationPage({
           partner1Name={invitation.partner1Name}
           partner2Name={invitation.partner2Name}
           dateLabel={dateLabel}
+          heroImageUri={invitation.template.heroImageUri?.trim()}
         />
       )}
 
