@@ -2,8 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { InvitationDefaults } from '../types';
@@ -32,6 +31,7 @@ import {
   STORY_HEADLINE_DEFAULT,
   STORY_SUBLINE_DEFAULT,
 } from '@/modules/invitation/constants';
+import { ImagePreviewWithActions } from '@/components/ImagePreviewWithActions';
 import { UploadImageWithCrop } from '@/components/UploadImageWithCrop';
 import {
   BucketNames,
@@ -90,6 +90,8 @@ export function InvitationOverridesForm({
       quality: 85,
     });
   }, [heroImageUri]);
+
+  const heroFileInputRef = useRef<HTMLInputElement>(null);
 
   const heroUpload = useSupabaseStorageUpload({
     bucket: BucketNames.DigitalInvitationImages,
@@ -167,50 +169,31 @@ export function InvitationOverridesForm({
                     <input type="hidden" {...field} value={heroImageUri} />
 
                     {heroPreviewUrl && (
-                      <div className="relative overflow-hidden rounded-lg border border-white/10">
-                        <Image
-                          src={heroPreviewUrl}
-                          alt="Hero preview"
-                          width={1600}
-                          height={900}
-                          className="h-auto w-full"
-                          unoptimized
-                        />
-                      </div>
+                      <ImagePreviewWithActions
+                        className="max-w-2xl"
+                        src={heroPreviewUrl}
+                        alt="Hero önizleme"
+                        disabled={heroUpload.isPending}
+                        onRemove={removeHero}
+                        onReplace={() => heroFileInputRef.current?.click()}
+                      />
                     )}
 
-                    <div className="flex flex-wrap items-center gap-3">
-                      <UploadImageWithCrop
-                        cropType="square"
-                        aspectRatio={16 / 9}
-                        minWidth={1600}
-                        minHeight={900}
-                        disabled={heroUpload.isPending}
-                        onImageCropped={(file) => heroUpload.mutate(file)}
-                      />
+                    <UploadImageWithCrop
+                      ref={heroFileInputRef}
+                      cropType="square"
+                      aspectRatio={16 / 9}
+                      minWidth={1600}
+                      minHeight={900}
+                      disabled={heroUpload.isPending}
+                      onImageCropped={(file) => heroUpload.mutate(file)}
+                      className={heroPreviewUrl ? 'hidden' : undefined}
+                    />
 
-                      {heroImageUri && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          disabled={heroUpload.isPending}
-                          onClick={removeHero}
-                        >
-                          Kaldır
-                        </Button>
-                      )}
-
-                      {heroUpload.isPending && (
-                        <span className="text-muted-foreground text-sm">
-                          Yükleniyor…
-                        </span>
-                      )}
-                    </div>
-
-                    {heroImageUri && (
-                      <p className="text-muted-foreground font-mono text-xs">
-                        {heroImageUri}
-                      </p>
+                    {heroUpload.isPending && (
+                      <span className="text-muted-foreground text-sm">
+                        Yükleniyor…
+                      </span>
                     )}
                   </div>
                 </FormControl>
