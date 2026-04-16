@@ -456,9 +456,8 @@ export function InvitationOverridesForm({
                       return;
                     }
                     replaceOldClosingPhotoPathRef.current =
-                      form
-                        .getValues(`closingPhotoUris.${target}`)
-                        ?.trim() || undefined;
+                      form.getValues(`closingPhotoUris.${target}`)?.trim() ||
+                      undefined;
                     closingGalleryUpload.mutate(file);
                   }}
                 />
@@ -478,12 +477,94 @@ export function InvitationOverridesForm({
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <FormLabel>Countdown etkinlikleri</FormLabel>
+
                 <FormDescription>
                   Public sayfadaki geri sayım kartları. En fazla{' '}
                   {COUNTDOWN_EVENTS_MAX} etkinlik; her biri için başlık, tarih
                   ve isteğe bağlı alt satır (ör. mekân).
                 </FormDescription>
               </div>
+            </div>
+
+            <div className="mt-4 grid gap-6">
+              {countdownFieldArray.fields.length === 0 && (
+                <p className="text-muted-foreground text-sm">
+                  Henüz etkinlik yok. Countdown bölümü yalnızca en az bir
+                  etkinlik eklediğinizde görünür.
+                </p>
+              )}
+
+              {countdownFieldArray.fields.map((fieldItem, index) => (
+                <div
+                  key={fieldItem.id}
+                  className="border-input space-y-4 rounded-lg border p-4"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                      Etkinlik {index + 1}
+                    </span>
+
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={() => countdownFieldArray.remove(index)}
+                    >
+                      Kaldır
+                    </Button>
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.title`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Başlık</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Örn. Kına gecesi" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.dateTime`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tarih ve saat</FormLabel>
+                        <FormControl>
+                          <Input type="datetime-local" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.subtitle`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Alt satır (isteğe bağlı)</FormLabel>
+                        <FormDescription>
+                          Örn. şehir, mekân veya kısa açıklama.
+                        </FormDescription>
+                        <FormControl>
+                          <Input
+                            placeholder="Elazığ · Kral Palace"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              ))}
+
               {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX && (
                 <Button
                   type="button"
@@ -499,88 +580,6 @@ export function InvitationOverridesForm({
                 >
                   Etkinlik ekle
                 </Button>
-              )}
-            </div>
-
-            <div className="mt-4 grid gap-6">
-              {countdownFieldArray.fields.length === 0 ? (
-                <p className="text-muted-foreground text-sm">
-                  Henüz etkinlik yok. Countdown bölümü yalnızca en az bir etkinlik
-                  eklediğinizde görünür.
-                </p>
-              ) : (
-                countdownFieldArray.fields.map((fieldItem, index) => (
-                  <div
-                    key={fieldItem.id}
-                    className="border-input space-y-4 rounded-lg border p-4"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-                        Etkinlik {index + 1}
-                      </span>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => countdownFieldArray.remove(index)}
-                      >
-                        Kaldır
-                      </Button>
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name={`countdownEvents.${index}.title`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Başlık</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Örn. Kına gecesi"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name={`countdownEvents.${index}.dateTime`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Tarih ve saat</FormLabel>
-                          <FormControl>
-                            <Input type="datetime-local" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name={`countdownEvents.${index}.subtitle`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Alt satır (isteğe bağlı)</FormLabel>
-                          <FormDescription>
-                            Örn. şehir, mekân veya kısa açıklama.
-                          </FormDescription>
-                          <FormControl>
-                            <Input
-                              placeholder="Elazığ · Kral Palace"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                ))
               )}
             </div>
           </FormItem>
