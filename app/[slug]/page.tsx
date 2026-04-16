@@ -19,7 +19,6 @@ import {
   resolveStorySubline,
 } from '@/modules/invitation/util';
 import type { PublicInvitationView } from '@/modules/invitation/types';
-import { countdownSubtitle } from '@/modules/invitation/components/countdownSubtitle';
 
 export default async function PublicInvitationPage({
   params,
@@ -71,6 +70,14 @@ export default async function PublicInvitationPage({
     invitation.partner2Name,
   );
 
+  const countdownEvents = (invitation.template.countdownEvents ?? [])
+    .map((e) => ({
+      title: e.title.trim(),
+      targetIso: e.dateTime,
+      subtitle: e.subtitle?.trim(),
+    }))
+    .filter((e) => e.title.length > 0 && !Number.isNaN(Date.parse(e.targetIso)));
+
   return (
     <main className="overflow-x-hidden">
       {isInvitationSectionVisible(sections, 'musicPlayer') && (
@@ -86,16 +93,14 @@ export default async function PublicInvitationPage({
         />
       )}
 
-      {isInvitationSectionVisible(sections, 'countdown') && (
-        <>
-          <InvitationCountdown
-            targetIso={invitation.dateTime}
-            subtitle={countdownSubtitle(invitation)}
-          />
+      {isInvitationSectionVisible(sections, 'countdown') &&
+        countdownEvents.length > 0 && (
+          <>
+            <InvitationCountdown events={countdownEvents} />
 
-          <SectionDivider />
-        </>
-      )}
+            <SectionDivider />
+          </>
+        )}
 
       {isInvitationSectionVisible(sections, 'story') && (
         <>

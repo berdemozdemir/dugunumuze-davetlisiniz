@@ -20,4 +20,5 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
   storySubline: '',
   closingNote: '',
   closingPhotoUris: [],
+  countdownEvents: [],
 };

@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useMemo, useRef } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { InvitationDefaults } from '../types';
 import { service_templates } from '../client-queries';
@@ -40,6 +40,9 @@ import {
 import { useSupabaseStorageUpload } from '@/lib/hooks/useSupabaseStorageUpload';
 import { IMAGE_ALLOWED_MIME_TYPES, IMAGE_MAX_SIZE_MB } from '@/lib/constants';
 import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
+import { Input } from '@/components/ui/Input';
+import { toDateTimeLocal } from '@/modules/weddings/util';
+import { COUNTDOWN_EVENTS_MAX } from '@/modules/invitation/constants';
 
 type Props = {
   weddingSlug: string;
@@ -77,7 +80,17 @@ export function InvitationOverridesForm({
         closing: merged.sections?.closing ?? true,
         musicPlayer: merged.sections?.musicPlayer ?? true,
       },
+      countdownEvents: (merged.countdownEvents ?? []).map((e) => ({
+        title: e.title,
+        dateTime: toDateTimeLocal(new Date(e.dateTime)),
+        subtitle: e.subtitle ?? '',
+      })),
     },
+  });
+
+  const countdownFieldArray = useFieldArray({
+    control: form.control,
+    name: 'countdownEvents',
   });
 
   const closingPaths =
@@ -214,9 +227,15 @@ export function InvitationOverridesForm({
   };
 
   const submit = form.handleSubmit(async (data) => {
+    const countdownEvents = (data.countdownEvents ?? []).map((row) => ({
+      title: row.title.trim(),
+      dateTime: new Date(row.dateTime).toISOString(),
+      subtitle: row.subtitle?.trim() ? row.subtitle.trim() : undefined,
+    }));
+
     await saveMutation.mutateAsync({
       weddingSlug,
-      overrides: data,
+      overrides: { ...data, countdownEvents },
     });
 
     toast.success('Saved');
@@ -454,6 +473,117 @@ export function InvitationOverridesForm({
               </FormItem>
             )}
           />
+
+          <FormItem className="gap-3">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <FormLabel>Countdown etkinlikleri</FormLabel>
+                <FormDescription>
+                  Public sayfadaki geri sayım kartları. En fazla{' '}
+                  {COUNTDOWN_EVENTS_MAX} etkinlik; her biri için başlık, tarih
+                  ve isteğe bağlı alt satır (ör. mekân).
+                </FormDescription>
+              </div>
+              {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    countdownFieldArray.append({
+                      title: 'Yeni etkinlik',
+                      dateTime: toDateTimeLocal(new Date()),
+                      subtitle: '',
+                    })
+                  }
+                >
+                  Etkinlik ekle
+                </Button>
+              )}
+            </div>
+
+            <div className="mt-4 grid gap-6">
+              {countdownFieldArray.fields.length === 0 ? (
+                <p className="text-muted-foreground text-sm">
+                  Henüz etkinlik yok. Countdown bölümü yalnızca en az bir etkinlik
+                  eklediğinizde görünür.
+                </p>
+              ) : (
+                countdownFieldArray.fields.map((fieldItem, index) => (
+                  <div
+                    key={fieldItem.id}
+                    className="border-input space-y-4 rounded-lg border p-4"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                        Etkinlik {index + 1}
+                      </span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => countdownFieldArray.remove(index)}
+                      >
+                        Kaldır
+                      </Button>
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name={`countdownEvents.${index}.title`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Başlık</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Örn. Kına gecesi"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`countdownEvents.${index}.dateTime`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tarih ve saat</FormLabel>
+                          <FormControl>
+                            <Input type="datetime-local" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`countdownEvents.${index}.subtitle`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Alt satır (isteğe bağlı)</FormLabel>
+                          <FormDescription>
+                            Örn. şehir, mekân veya kısa açıklama.
+                          </FormDescription>
+                          <FormControl>
+                            <Input
+                              placeholder="Elazığ · Kral Palace"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                ))
+              )}
+            </div>
+          </FormItem>
 
           <FormItem className="gap-3">
             <FormLabel>Sections</FormLabel>

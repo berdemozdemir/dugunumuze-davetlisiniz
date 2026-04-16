@@ -10,6 +10,13 @@ export type InvitationSections = {
   musicPlayer?: boolean;
 };
 
+/** Countdown bölümündeki tek etkinlik satırı (ISO 8601 `dateTime`). */
+export type CountdownEventConfig = {
+  title: string;
+  dateTime: string;
+  subtitle?: string;
+};
+
 // şablondan gelen varsayılan davetiye ayarları (sections + opsiyonel metinler).
 export type InvitationDefaults = {
   sections?: InvitationSections;
@@ -21,6 +28,8 @@ export type InvitationDefaults = {
   closingNote?: string;
   /** Closing section carousel; storage object paths, max 10. */
   closingPhotoUris?: string[];
+  /** Countdown kartları; en fazla `COUNTDOWN_EVENTS_MAX` (invitation constants). */
+  countdownEvents?: CountdownEventConfig[];
 };
 
 // wedding’e özel üstüne yazılanlar

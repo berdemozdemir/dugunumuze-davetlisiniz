@@ -1,5 +1,7 @@
 /** Davetiye metinleri — tek kaynak (form placeholder + public varsayılan). */
 
+export const COUNTDOWN_EVENTS_MAX = 4;
+
 export const STORY_HEADLINE_DEFAULT = 'Bir "Evet" ile Başladı';
 
 export const STORY_SUBLINE_DEFAULT =
