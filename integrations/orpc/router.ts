@@ -10,7 +10,11 @@ import { orpc_unpublishWedding } from '@/modules/weddings/actions/unpublish-wedd
 import { orpc_weddings_getInvitationPreviewBySlug } from '@/modules/weddings/actions/get-invitation-preview-by-slug';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
 import { orpc_templates_getWeddingInvitationSettings } from '@/modules/templates/actions/get-wedding-invitation-settings';
-import { orpc_templates_updateWeddingInvitationOverrides } from '@/modules/templates/actions/update-wedding-invitation-overrides';
+import { orpc_invitation_updateClosing } from '@/modules/invitation/actions/update-invitation-closing';
+import { orpc_invitation_updateCover } from '@/modules/invitation/actions/update-invitation-cover';
+import { orpc_invitation_updateCountdown } from '@/modules/invitation/actions/update-invitation-countdown';
+import { orpc_invitation_updateStoryText } from '@/modules/invitation/actions/update-invitation-story-text';
+import { orpc_invitation_updateVisibility } from '@/modules/invitation/actions/update-invitation-visibility';
 
 export const router = {
   auth: {
@@ -30,7 +34,12 @@ export const router = {
   templates: {
     getInvitationBySlug: orpc_getInvitationBySlug,
     getWeddingInvitationSettings: orpc_templates_getWeddingInvitationSettings,
-    updateWeddingInvitationOverrides:
-      orpc_templates_updateWeddingInvitationOverrides,
+  },
+  invitation: {
+    updateCover: orpc_invitation_updateCover,
+    updateClosing: orpc_invitation_updateClosing,
+    updateCountdown: orpc_invitation_updateCountdown,
+    updateStoryText: orpc_invitation_updateStoryText,
+    updateVisibility: orpc_invitation_updateVisibility,
   },
 } as const;
