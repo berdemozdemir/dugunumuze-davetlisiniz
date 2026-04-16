@@ -2,6 +2,9 @@ export type Result<Success, Err extends { reason: string }> =
   | [Err, null]
   | [null, Success];
 
+/** Korunan yordamlarda ve patch işlemlerinde kullanılan ortak hata gövdesi */
+export type StandardRpcError = { reason: string; message: string };
+
 /** Shorthand for the first (and only) parameter type of a function */
 export type ArgsOf<T extends (...args: never[]) => unknown> = Parameters<T>[0];
 

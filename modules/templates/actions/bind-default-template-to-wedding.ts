@@ -1,11 +1,9 @@
 import { err, ok, tryCatchDb } from '@/lib/result';
-import { db } from '@/integrations/drizzle/drizzle-client';
+import type { DbClient } from '@/integrations/drizzle/db-type';
 import { eq } from 'drizzle-orm';
 import { DEFAULT_WEDDING_TEMPLATE_KEY } from '../constants/default-invitation';
 import { table_weddingOverrides, table_weddingTemplates } from '../db-tables';
 import type { InvitationOverrides } from '../types';
-
-type DbClient = typeof db;
 
 const emptyOverrides: InvitationOverrides = {};
 
