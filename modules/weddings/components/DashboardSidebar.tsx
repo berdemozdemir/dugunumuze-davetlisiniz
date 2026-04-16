@@ -6,9 +6,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ComponentType, SVGProps } from 'react';
 import {
+  IconBook,
+  IconClockHour4,
+  IconHeart,
   IconLayoutDashboard,
-  IconMailSpark,
   IconMusic,
+  IconPhoto,
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
@@ -28,9 +31,27 @@ export const DashboardSidebar = ({ weddingSlug }: { weddingSlug: string }) => {
         />
 
         <SideBarItem
-          href={paths.dashboard.wedding.invitation(weddingSlug)}
-          label="Invitation"
-          Icon={IconMailSpark}
+          href={paths.dashboard.wedding.cover(weddingSlug)}
+          label="Kapak ve bilgiler"
+          Icon={IconPhoto}
+        />
+
+        <SideBarItem
+          href={paths.dashboard.wedding.countdown(weddingSlug)}
+          label="Geri sayım"
+          Icon={IconClockHour4}
+        />
+
+        <SideBarItem
+          href={paths.dashboard.wedding.story(weddingSlug)}
+          label="Hikâye metni"
+          Icon={IconBook}
+        />
+
+        <SideBarItem
+          href={paths.dashboard.wedding.closing(weddingSlug)}
+          label="Kapanış"
+          Icon={IconHeart}
         />
 
         <SideBarItem
@@ -72,11 +93,10 @@ const SideBarItem = ({
 }) => {
   const pathname = usePathname();
 
-  const isActive = pathname === href;
+  const isActive = href !== undefined && pathname === href;
 
   if (!href) {
     return (
-      // TODO: take typography from udao
       <h1 className="text-muted-foreground mb-2 text-lg font-medium">
         {label}
       </h1>

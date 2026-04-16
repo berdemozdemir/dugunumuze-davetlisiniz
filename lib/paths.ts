@@ -16,8 +16,11 @@ export const paths = {
     wedding: {
       base: (weddingSlug: string) => `/dashboard/${weddingSlug}`,
       overview: (weddingSlug: string) => `/dashboard/${weddingSlug}/overview`,
-      invitation: (weddingSlug: string) =>
-        `/dashboard/${weddingSlug}/invitation`,
+      /** Düğün çekirdek bilgileri + kapak görseli (`modules/invitation`) */
+      cover: (weddingSlug: string) => `/dashboard/${weddingSlug}/cover`,
+      countdown: (weddingSlug: string) => `/dashboard/${weddingSlug}/countdown`,
+      story: (weddingSlug: string) => `/dashboard/${weddingSlug}/story`,
+      closing: (weddingSlug: string) => `/dashboard/${weddingSlug}/closing`,
       rsvp: (weddingSlug: string) => `/dashboard/${weddingSlug}/rsvp`,
       media: (weddingSlug: string) => `/dashboard/${weddingSlug}/media`,
       settings: (weddingSlug: string) => `/dashboard/${weddingSlug}/settings`,

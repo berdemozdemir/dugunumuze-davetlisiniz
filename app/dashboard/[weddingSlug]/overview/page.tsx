@@ -57,7 +57,7 @@ export default async function WeddingOverviewPage({
 
           <Link
             className="underline"
-            href={paths.dashboard.wedding.invitation(wedding.slug)}
+            href={paths.dashboard.wedding.cover(wedding.slug)}
           >
             Edit invitation
           </Link>
