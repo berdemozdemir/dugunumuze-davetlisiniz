@@ -11,6 +11,7 @@ import { InvitationDetails } from '@/modules/invitation/components/InvitationDet
 import { InvitationClosing } from '@/modules/invitation/components/InvitationClosing';
 import { InvitationMusicPlayer } from '@/modules/invitation/components/InvitationMusicPlayer';
 import {
+  buildClosingCarouselPhotos,
   formatInvitationDateTimeLabel,
   formatInvitationYearFooter,
   resolveClosingNote,
@@ -63,6 +64,12 @@ export default async function PublicInvitationPage({
 
   const closingQuote = invitation.template.quote?.trim() ?? '';
   const closingNote = resolveClosingNote(invitation.template);
+
+  const carouselPhotos = buildClosingCarouselPhotos(
+    invitation.template.closingPhotoUris ?? [],
+    invitation.partner1Name,
+    invitation.partner2Name,
+  );
 
   return (
     <main className="overflow-x-hidden">
@@ -117,6 +124,7 @@ export default async function PublicInvitationPage({
           quote={closingQuote}
           note={closingNote}
           yearLabel={yearFooter}
+          carouselPhotos={carouselPhotos}
         />
       )}
 

@@ -1,4 +1,6 @@
+import type { PhotoCarouselItem } from '@/components/PhotoCarousel';
 import type { InvitationDefaults } from '@/modules/templates/types';
+import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 import {
   STORY_HEADLINE_DEFAULT,
   STORY_SUBLINE_DEFAULT,
@@ -21,6 +23,35 @@ export function resolveStorySubline(template: InvitationDefaults): string {
 /** Kapanış notu (boşsa `InvitationClosing` kendi varsayılanını kullanır). */
 export function resolveClosingNote(template: InvitationDefaults): string {
   return template.closingNote?.trim() ?? '';
+}
+
+const CLOSING_CAROUSEL_RENDER = {
+  render: true as const,
+  width: 1200,
+  quality: 85,
+};
+
+/**
+ * Şablondaki storage path’lerini public `next/image` src + erişilebilir alt metne çevirir.
+ * Geçersiz / boş URL’ler elenir.
+ */
+export function buildClosingCarouselPhotos(
+  photoUris: string[],
+  partner1Name: string,
+  partner2Name: string,
+): PhotoCarouselItem[] {
+  return photoUris
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .slice(0, 10)
+    .map((path, i) => {
+      const src = getPublicInvitationImageUrl(path, CLOSING_CAROUSEL_RENDER);
+      return {
+        src,
+        alt: `${partner1Name} & ${partner2Name} — ${i + 1}`,
+      };
+    })
+    .filter((p) => p.src.length > 0);
 }
 
 export function formatInvitationDateTimeLabel(iso: string) {

@@ -7,9 +7,9 @@ Bu dosya **tek doğruluk kaynağı**dır: yeni özellikler ve refaktörler burad
 | # | Adım | Durum | Notlar |
 |---|------|--------|--------|
 | 0 | Şema / veri ayrımı: story ve closing için ayrı metin alanları | ✅ Done | `storyHeadline` / `storySubline` / `closingNote`. Şablon migrasyonu: `0008_invitation_story_closing_fields.sql`. |
-| 1 | **InvitationStory**: iki metin + arka plan rengi (şablondan) | ⬜ TODO | Görsel arka plan şimdilik opsiyonel; solid/gradient renk öncelik. |
-| 2 | **InvitationHero**: özel hero arka plan görseli (URL veya yükleme sonrası public URL) | ⬜ TODO | İlk sürümde URL alanı yeterli olabilir; storage kararı dokümante et. |
-| 3 | **InvitationClosing** + paylaşılan **PhotoCarousel**: en fazla 10 fotoğraf | ⬜ TODO | `PhotoCarousel`’i prop’lu hale getir; template’te liste alanı + validasyon. |
+| 1 | **InvitationStory**: iki metin (şablondan) | ✅ Done | `resolveStoryHeadline` / `resolveStorySubline` → public `InvitationStory`. Şablon/override’dan **arka plan rengi** kapsam dışı (iptal). Story arka plan görseli şu an sabit dosya; istenirse sonra upload/URL ile genişletilir (`InvitationStory` içindeki TODO). |
+| 2 | **InvitationHero**: özel hero arka plan görseli (yükleme → storage path, render URL) | ✅ Done | `heroImageUri` (`invitation-overrides` şeması), dashboard’da kırpma + yükleme (`InvitationOverridesForm`), public’te `InvitationHero` + `getPublicInvitationImageUrl` (`digital-invitation-images`, DB’de path). |
+| 3 | **InvitationClosing** + paylaşılan **PhotoCarousel**: en fazla 10 fotoğraf | ✅ Done | `PhotoCarousel` `photos` prop’u; `closingPhotoUris` (şema + form + `InvitationClosing`); `elif-erdem` demo `ClosingSection` sabit liste. |
 | 4 | **Countdown**: birden fazla etkinlik (örn. kına + düğün) | ⬜ TODO | `events[]` veya sabit 2 slot MVP; `InvitationCountdown` + public model. |
 
 ## Sonraki faz (bu dosyadaki 0–4 tamamlandıktan sonra)
@@ -20,6 +20,9 @@ Bu dosya **tek doğruluk kaynağı**dır: yeni özellikler ve refaktörler burad
 ## Tamamlananlar
 
 - **2026-04-14 — Adım 0:** `storyHeadline`, `storySubline`, `closingNote`; public `resolve*` yardımcıları; dashboard formu; şablon `defaults_json` sade şekil.
+- **2026-04-16 — Adım 1 (güncel kapsam):** Story için şablondan iki metin public sayfada; şablon/gradient **arka plan rengi** roadmap’ten çıkarıldı (yapılmayacak).
+- **2026-04-16 — Adım 2:** Özel hero görseli akışı kodda mevcut (`heroImageUri`, Supabase Storage path, `InvitationHero` / form entegrasyonu).
+- **2026-04-16 — Adım 3:** Kapanış galerisi (`closingPhotoUris`, max 10), paylaşılan `PhotoCarousel`, `buildClosingCarouselPhotos` util.
 
 ---
 
@@ -36,7 +39,7 @@ Kurallar:
 - Bitirdiğin adım için roadmap.md içindeki checkbox/tablosu güncelle (TODO → done notu) — kullanıcı isterse birlikte güncelleriz.
 - Belirsizlikte roadmap'teki notlara ve mevcut kod desenlerine (modules/templates, modules/invitation) uy.
 
-Şu an yapmak istediğim: [BURAYA TEK CÜMLE: örn. "Adım 0 şema ayrımı" veya "Adım 1 story rengi"]
+Şu an yapmak istediğim: [BURAYA TEK CÜMLE: örn. "Adım 3 PhotoCarousel" veya "Adım 4 çoklu countdown"]
 ```
 
 ### Kısa varyant (minimal)
@@ -51,7 +54,7 @@ docs/roadmap.md'ye uy; sıradaki TODO adımı: [adım numarası veya isim]. Sade
 
 - Public sayfa: `app/[slug]/page.tsx`
 - Şablon tipleri: `modules/templates/types.ts`
-- Override şeması: `modules/templates/schemas/invitation-overrides.ts`
+- Override şeması: `modules/templates/schemas/invitation-overrides.ts` (ör. `heroImageUri`, story metinleri)
 - Bileşenler: `modules/invitation/components/*`
 
 Bu bölüm gerektiğinde genişletilir; ana sıra yukarıdaki tabloda kalır.

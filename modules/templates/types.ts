@@ -19,6 +19,8 @@ export type InvitationDefaults = {
   storyHeadline?: string;
   storySubline?: string;
   closingNote?: string;
+  /** Closing section carousel; storage object paths, max 10. */
+  closingPhotoUris?: string[];
 };
 
 // wedding’e özel üstüne yazılanlar

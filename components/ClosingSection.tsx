@@ -2,11 +2,18 @@ import RevealSection from './RevealSection';
 import Ornament from './Ornament';
 import PhotoCarousel from './PhotoCarousel';
 
+const CLOSING_DEMO_PHOTOS = [
+  { src: '/images/nisan-2.jpeg', alt: 'Elif & Erdem - Nişan' },
+  { src: '/images/nisan-4.jpeg', alt: 'Elif & Erdem - Nişan Yürüyüşü' },
+  { src: '/images/nisan-5.jpeg', alt: 'Elif & Erdem - Nişan Girişi' },
+  { src: '/images/nisan-3.jpeg', alt: 'Elif & Erdem - Nişan Töreni' },
+];
+
 const ClosingSection = () => (
   <section className="relative px-4 py-20 sm:py-28">
     <div className="relative z-10 mx-auto max-w-2xl text-center">
       <RevealSection>
-        <PhotoCarousel />
+        <PhotoCarousel photos={CLOSING_DEMO_PHOTOS} />
       </RevealSection>
 
       <RevealSection delay={200}>

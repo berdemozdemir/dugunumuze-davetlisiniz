@@ -3,6 +3,8 @@ import z from 'zod';
 // TODO: add maks limitations for all fields for the following and similar schemas
 export const invitationOverridesSchema = z.object({
   heroImageUri: z.string().max(600).optional(),
+  /** Supabase Storage paths, same bucket as hero; shown in closing carousel (max 10). */
+  closingPhotoUris: z.array(z.string().max(600)).max(10).optional(),
   quote: z.string().optional(),
   storyHeadline: z.string().optional(),
   storySubline: z.string().optional(),

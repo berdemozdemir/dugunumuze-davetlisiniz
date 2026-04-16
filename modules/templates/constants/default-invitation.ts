@@ -19,4 +19,5 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
   storyHeadline: '',
   storySubline: '',
   closingNote: '',
+  closingPhotoUris: [],
 };

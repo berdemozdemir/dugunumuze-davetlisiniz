@@ -1,5 +1,8 @@
 import RevealSection from '@/components/RevealSection';
 import Ornament from '@/components/Ornament';
+import PhotoCarousel, {
+  type PhotoCarouselItem,
+} from '@/components/PhotoCarousel';
 import {
   CLOSING_NOTE_DEFAULT,
   CLOSING_QUOTE_DEFAULT,
@@ -11,6 +14,7 @@ type Props = {
   quote: string;
   note: string;
   yearLabel: string;
+  carouselPhotos?: PhotoCarouselItem[];
 };
 
 export function InvitationClosing({
@@ -19,13 +23,21 @@ export function InvitationClosing({
   quote,
   note,
   yearLabel,
+  carouselPhotos = [],
 }: Props) {
   const displayQuote = quote.trim() ? quote : CLOSING_QUOTE_DEFAULT;
   const displayNote = note.trim() ? note : CLOSING_NOTE_DEFAULT;
+  const hasCarousel = carouselPhotos.length > 0;
 
   return (
     <section className="relative px-4 py-20 sm:py-28">
       <div className="relative z-10 mx-auto max-w-2xl text-center">
+        {hasCarousel && (
+          <RevealSection>
+            <PhotoCarousel photos={carouselPhotos} />
+          </RevealSection>
+        )}
+
         <RevealSection delay={200}>
           <div className="mt-10">
             <Ornament />
