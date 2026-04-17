@@ -8,7 +8,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
         attribute="class" // provide <html class="light"
-        defaultTheme="light"
+        defaultTheme="dark"
         enableSystem // to reach user's system preference
         disableTransitionOnChange // to prevent flickering when switching themes
       >
