@@ -12,6 +12,8 @@ export const orpc_weddings_listMine = procedure_protected.handler(
           slug: table_weddings.slug,
           partner1Name: table_weddings.partner1Name,
           partner2Name: table_weddings.partner2Name,
+          dateTime: table_weddings.dateTime,
+          publishedAt: table_weddings.publishedAt,
           createdAt: table_weddings.createdAt,
         })
         .from(table_weddings)
@@ -28,4 +30,4 @@ export const orpc_weddings_listMine = procedure_protected.handler(
 
     return ok({ weddings });
   },
-);
+).callable();

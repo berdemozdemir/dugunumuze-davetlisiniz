@@ -9,6 +9,7 @@ import {
   IconBook,
   IconClockHour4,
   IconHeart,
+  IconHome,
   IconLayoutDashboard,
   IconMusic,
   IconPhoto,
@@ -22,7 +23,11 @@ export const DashboardSidebar = ({ weddingSlug }: { weddingSlug: string }) => {
   return (
     <aside className="border-border/60 bg-background flex h-auto flex-col justify-between border-r p-4 md:h-full md:min-h-0 md:overflow-hidden">
       <nav className="my-4 grid gap-1 text-sm">
-        <SideBarItem label="Dashboard" />
+        <SideBarItem
+          href={paths.dashboard.base}
+          label="Ana sayfa"
+          Icon={IconHome}
+        />
 
         <SideBarItem
           href={paths.dashboard.wedding.overview(weddingSlug)}

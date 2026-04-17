@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 
+// TODO: refactor this form, initially user shouldnt encounter with that many fields
 export function CreateWeddingForm() {
   const router = useRouter();
 
