@@ -49,5 +49,18 @@ export function getPublicInvitationImageUrl(
   path: string,
   opts: PublicImageUrlOptions = {},
 ) {
-  return getPublicStorageBucketUrl(BucketNames.DigitalInvitationImages, path, opts);
+  return getPublicStorageBucketUrl(
+    BucketNames.DigitalInvitationImages,
+    path,
+    opts,
+  );
+}
+
+/** Public bucket `digital-invitation-audio`; path DB’de saklanan object path. */
+export function getPublicInvitationAudioUrl(path: string) {
+  return getPublicStorageBucketUrl(
+    BucketNames.DigitalInvitationAudio,
+    path,
+    {},
+  );
 }

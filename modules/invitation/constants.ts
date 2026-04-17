@@ -12,3 +12,8 @@ export const CLOSING_QUOTE_DEFAULT =
 
 export const CLOSING_NOTE_DEFAULT =
   'Hayatımızın en mutlu gününde sizi de aramızda görmek istiyoruz. Varlığınız en güzel hediyemiz olacak.';
+
+/** Yerel varsayılan; `musicTrackPath` yoksa kullanılır. */
+export const DEFAULT_INVITATION_MUSIC_SRC = '/music/cihat-askin-kelebek.mp3';
+
+export const LOOP_EPS = 0.08;

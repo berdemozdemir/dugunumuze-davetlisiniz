@@ -79,3 +79,28 @@ export function formatInvitationYearFooter(iso: string) {
     year: 'numeric',
   });
 }
+
+export function normalizeTrim(n: number | undefined): number | undefined {
+  if (n === undefined || Number.isNaN(n)) return undefined;
+  return n;
+}
+
+/** Trim alanlarını bilinen dosya süresine göre sınırlar (0…maxSec). */
+export function clampTrimSecondsToDuration(
+  value: number | undefined,
+  maxSec: number,
+): number | undefined {
+  const v = normalizeTrim(value);
+  if (v === undefined) return undefined;
+  if (!Number.isFinite(maxSec) || maxSec <= 0) return v;
+  return Math.min(Math.max(0, v), maxSec);
+}
+
+/** Örn. 185.3 → `3:05` (gösterim için). */
+export function formatAudioDurationMmSs(seconds: number): string {
+  if (!Number.isFinite(seconds) || seconds < 0) return '';
+  const totalSec = Math.floor(seconds);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}

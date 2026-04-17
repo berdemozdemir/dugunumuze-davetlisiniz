@@ -2,6 +2,7 @@ import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-cl
 
 export const BucketNames = {
   DigitalInvitationImages: 'digital-invitation-images',
+  DigitalInvitationAudio: 'digital-invitation-audio',
 } as const;
 
 export type BucketName = (typeof BucketNames)[keyof typeof BucketNames];

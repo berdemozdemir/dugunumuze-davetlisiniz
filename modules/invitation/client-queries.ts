@@ -7,15 +7,13 @@ export const invitation_dashboard = {
   mutations: {
     updateCover: () =>
       mutationOptions({
-        mutationFn: (
-          args: ArgsOf<typeof orpc.invitation.updateCover.call>,
-        ) => orpc.invitation.updateCover.call(args).then(okOrThrow),
+        mutationFn: (args: ArgsOf<typeof orpc.invitation.updateCover.call>) =>
+          orpc.invitation.updateCover.call(args).then(okOrThrow),
       }),
     updateClosing: () =>
       mutationOptions({
-        mutationFn: (
-          args: ArgsOf<typeof orpc.invitation.updateClosing.call>,
-        ) => orpc.invitation.updateClosing.call(args).then(okOrThrow),
+        mutationFn: (args: ArgsOf<typeof orpc.invitation.updateClosing.call>) =>
+          orpc.invitation.updateClosing.call(args).then(okOrThrow),
       }),
     updateCountdown: () =>
       mutationOptions({
@@ -34,6 +32,11 @@ export const invitation_dashboard = {
         mutationFn: (
           args: ArgsOf<typeof orpc.invitation.updateVisibility.call>,
         ) => orpc.invitation.updateVisibility.call(args).then(okOrThrow),
+      }),
+    updateMedia: () =>
+      mutationOptions({
+        mutationFn: (args: ArgsOf<typeof orpc.invitation.updateMedia.call>) =>
+          orpc.invitation.updateMedia.call(args).then(okOrThrow),
       }),
   },
 } as const;

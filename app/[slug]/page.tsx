@@ -10,6 +10,7 @@ import { InvitationStory } from '@/modules/invitation/components/InvitationStory
 import { InvitationDetails } from '@/modules/invitation/components/InvitationDetails';
 import { InvitationClosing } from '@/modules/invitation/components/InvitationClosing';
 import { InvitationMusicPlayer } from '@/modules/invitation/components/InvitationMusicPlayer';
+import { getPublicInvitationAudioUrl } from '@/lib/supabase/public-image-url';
 import {
   buildClosingCarouselPhotos,
   formatInvitationDateTimeLabel,
@@ -76,12 +77,21 @@ export default async function PublicInvitationPage({
       targetIso: e.dateTime,
       subtitle: e.subtitle?.trim(),
     }))
-    .filter((e) => e.title.length > 0 && !Number.isNaN(Date.parse(e.targetIso)));
+    .filter(
+      (e) => e.title.length > 0 && !Number.isNaN(Date.parse(e.targetIso)),
+    );
+
+  const musicPath = invitation.template.musicTrackPath?.trim();
+  const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');
 
   return (
     <main className="overflow-x-hidden">
       {isInvitationSectionVisible(sections, 'musicPlayer') && (
-        <InvitationMusicPlayer />
+        <InvitationMusicPlayer
+          src={musicSrc}
+          trimStartSec={invitation.template.musicTrimStartSec}
+          trimEndSec={invitation.template.musicTrimEndSec}
+        />
       )}
 
       {isInvitationSectionVisible(sections, 'hero') && (

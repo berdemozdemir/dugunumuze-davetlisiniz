@@ -30,6 +30,15 @@ export type InvitationDefaults = {
   closingPhotoUris?: string[];
   /** Countdown kartları; en fazla `COUNTDOWN_EVENTS_MAX` (invitation constants). */
   countdownEvents?: CountdownEventConfig[];
+  /**
+   * Supabase Storage object path (bucket: `digital-invitation-audio`).
+   * Kesme sadece oynatma sırasında `musicTrimStartSec` / `musicTrimEndSec` ile uygulanır.
+   */
+  musicTrackPath?: string;
+  /** Oynatma penceresi başlangıcı (saniye). */
+  musicTrimStartSec?: number;
+  /** Oynatma penceresi sonu (saniye); tanımlıysa başlangıçtan büyük olmalı. */
+  musicTrimEndSec?: number;
 };
 
 // wedding’e özel üstüne yazılanlar

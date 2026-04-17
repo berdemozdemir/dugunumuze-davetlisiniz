@@ -2,13 +2,15 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { okOrThrow, err, ok } from '@/lib/result';
-import type { MimeType } from '@/lib/constants';
 import { getFileType } from '@/lib/utils';
-import { ClientStorageService, type BucketName } from '@/integrations/supabase/supabase-storage';
+import {
+  ClientStorageService,
+  type BucketName,
+} from '@/integrations/supabase/supabase-storage';
 
 export type UseSupabaseStorageUploadOptions = {
   bucket: BucketName;
-  allowedMimeTypes?: readonly MimeType[];
+  allowedMimeTypes?: readonly string[];
   maxSizeMB?: number;
   oldPath?: string;
   path: (args: { file: File; extension: string; timestamp: number }) => string;
@@ -20,7 +22,9 @@ export type UseSupabaseStorageUploadOptions = {
   onUploadError?: (args: { errorMessage: string }) => void;
 };
 
-export function useSupabaseStorageUpload(opts: UseSupabaseStorageUploadOptions) {
+export function useSupabaseStorageUpload(
+  opts: UseSupabaseStorageUploadOptions,
+) {
   const mutation = useMutation({
     mutationFn: (file?: File) => uploadFile({ file, opts }).then(okOrThrow),
     onSuccess: (data) => {
@@ -49,12 +53,16 @@ async function uploadFile({
   const extension = getFileType(file.name);
   if (!extension) {
     opts.onInvalidMimeType?.({ mimeType: file.type });
-    return err({ reason: 'file-with-no-extension', message: 'File has no extension' });
+    return err({
+      reason: 'file-with-no-extension',
+      message: 'File has no extension',
+    });
   }
 
   const isValidMimeType = opts.allowedMimeTypes?.length
-    ? opts.allowedMimeTypes.includes(file.type as MimeType)
+    ? opts.allowedMimeTypes.includes(file.type)
     : true;
+
   if (!isValidMimeType) {
     opts.onInvalidMimeType?.({ mimeType: file.type });
     return err({ reason: 'invalid-mime-type', message: 'Invalid mime type' });
@@ -64,7 +72,10 @@ async function uploadFile({
     const maxBytes = opts.maxSizeMB * 1024 * 1024;
     if (file.size > maxBytes) {
       opts.onMaxSizeExceeded?.({ maxSizeMB: opts.maxSizeMB });
-      return err({ reason: 'exceeds-max-limit', message: 'File size exceeds the maximum limit' });
+      return err({
+        reason: 'exceeds-max-limit',
+        message: 'File size exceeds the maximum limit',
+      });
     }
   }
 

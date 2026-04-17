@@ -15,6 +15,7 @@ import { orpc_invitation_updateCover } from '@/modules/invitation/actions/update
 import { orpc_invitation_updateCountdown } from '@/modules/invitation/actions/update-invitation-countdown';
 import { orpc_invitation_updateStoryText } from '@/modules/invitation/actions/update-invitation-story-text';
 import { orpc_invitation_updateVisibility } from '@/modules/invitation/actions/update-invitation-visibility';
+import { orpc_invitation_updateMedia } from '@/modules/invitation/actions/update-invitation-media';
 
 export const router = {
   auth: {
@@ -41,5 +42,6 @@ export const router = {
     updateCountdown: orpc_invitation_updateCountdown,
     updateStoryText: orpc_invitation_updateStoryText,
     updateVisibility: orpc_invitation_updateVisibility,
+    updateMedia: orpc_invitation_updateMedia,
   },
 } as const;
