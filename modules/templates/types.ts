@@ -22,6 +22,15 @@ export type InvitationDefaults = {
   sections?: InvitationSections;
   /** Supabase Storage object path (bucket: `digital-invitation-images`). Example: `weddings/<id>/hero-<ts>.webp` */
   heroImageUri?: string;
+  /** Kapak üst satırı (kısa davet cümlesi); boşsa `HERO_EYEBROW_DEFAULT`. */
+  heroEyebrow?: string;
+  /**
+   * Kapaktaki tarih/saat satırı; boşsa düğün `dateTime` alanından biçimlendirilir.
+   * (Şema: makul uzunluk üst sınırı.)
+   */
+  heroDateLine?: string;
+  /** Kapakta isimlerin altındaki italik satır; boşsa `HERO_TAGLINE_DEFAULT`. */
+  heroTagline?: string;
   quote?: string;
   storyHeadline?: string;
   storySubline?: string;

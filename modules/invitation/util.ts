@@ -2,9 +2,37 @@ import type { PhotoCarouselItem } from '@/components/PhotoCarousel';
 import type { InvitationDefaults } from '@/modules/templates/types';
 import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 import {
+  HERO_EYEBROW_DEFAULT,
+  HERO_TAGLINE_DEFAULT,
   STORY_HEADLINE_DEFAULT,
   STORY_SUBLINE_DEFAULT,
 } from '@/modules/invitation/constants';
+
+/** Kapak üst satırı: boşsa varsayılan metin. */
+export function resolveHeroEyebrow(template: InvitationDefaults): string {
+  const v = template.heroEyebrow?.trim();
+  if (v) return v;
+  return HERO_EYEBROW_DEFAULT;
+}
+
+/**
+ * Kapak tarih/saat satırı: özelleştirilmiş metin yoksa düğün tarihinden üretilir.
+ */
+export function resolveHeroDateLabel(
+  template: InvitationDefaults,
+  dateTimeIso: string,
+): string {
+  const v = template.heroDateLine?.trim();
+  if (v) return v;
+  return formatInvitationDateTimeLabel(dateTimeIso);
+}
+
+/** Kapak italik vurgu (isimlerin altı): boşsa varsayılan metin. */
+export function resolveHeroTagline(template: InvitationDefaults): string {
+  const v = template.heroTagline?.trim();
+  if (v) return v;
+  return HERO_TAGLINE_DEFAULT;
+}
 
 /** Hikâye başlığı: boşsa varsayılan metin. */
 export function resolveStoryHeadline(template: InvitationDefaults): string {

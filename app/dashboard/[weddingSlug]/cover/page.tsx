@@ -37,6 +37,9 @@ export default async function WeddingCoverPage({
       }}
       coverDefaults={{
         heroImageUri: merged?.heroImageUri?.trim(),
+        heroEyebrow: merged?.heroEyebrow?.trim() ?? '',
+        heroTagline: merged?.heroTagline?.trim() ?? '',
+        heroDateLine: merged?.heroDateLine?.trim() ?? '',
       }}
       invitationSettingsReady={!sErr}
     />

@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/Form';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ImagePreviewWithActions } from '@/components/ImagePreviewWithActions';
 import { UploadImageWithCrop } from '@/components/UploadImageWithCrop';
@@ -28,6 +29,10 @@ import { IMAGE_ALLOWED_MIME_TYPES, IMAGE_MAX_SIZE_MB } from '@/lib/constants';
 import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 import { EditWeddingForm } from '@/modules/weddings/components/EditWeddingForm';
 import type { EditWeddingFormProps } from '@/modules/weddings/components/EditWeddingForm';
+import {
+  HERO_EYEBROW_DEFAULT,
+  HERO_TAGLINE_DEFAULT,
+} from '@/modules/invitation/constants';
 import { invitation_dashboard } from '../client-queries';
 import {
   invitationCoverFormSchema,
@@ -120,6 +125,9 @@ export function InvitationCoverPageEditor({
     await saveMutation.mutateAsync({
       weddingSlug,
       heroImageUri: data.heroImageUri,
+      heroEyebrow: (data.heroEyebrow ?? '').trim(),
+      heroTagline: (data.heroTagline ?? '').trim(),
+      heroDateLine: (data.heroDateLine ?? '').trim(),
     });
     router.refresh();
     toast.success('Kapak kaydedildi');
@@ -146,10 +154,10 @@ export function InvitationCoverPageEditor({
       )}
 
       <section className="max-w-xl">
-        <h2 className="text-lg font-semibold">Kapak görseli</h2>
+        <h2 className="text-lg font-semibold">Kapak</h2>
         <p className="text-muted-foreground mt-1 text-sm">
-          Davetiyenin en üst bölümündeki arka plan görseli. Hangi blokların
-          görüneceğini Ayarlar sayfasından yönetirsiniz.
+          En üst bölümdeki görsel ve metinler. Hangi blokların görüneceğini
+          Ayarlar sayfasından yönetirsiniz.
         </p>
 
         <Form {...form}>
@@ -201,8 +209,81 @@ export function InvitationCoverPageEditor({
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="heroEyebrow"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Üst satır</FormLabel>
+                  <FormDescription>
+                    Kısa davet cümlesi (en fazla 64 karakter). Boş bırakırsanız:{' '}
+                    «{HERO_EYEBROW_DEFAULT}»
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value ?? ''}
+                      placeholder={HERO_EYEBROW_DEFAULT}
+                      maxLength={64}
+                      autoComplete="off"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="heroTagline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Vurgu satırı</FormLabel>
+                  <FormDescription>
+                    İsimlerin altındaki italik kısa metin (en fazla 64 karakter).
+                    Boş bırakırsanız: «{HERO_TAGLINE_DEFAULT}»
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value ?? ''}
+                      placeholder={HERO_TAGLINE_DEFAULT}
+                      maxLength={64}
+                      autoComplete="off"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="heroDateLine"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tarih ve saat satırı</FormLabel>
+                  <FormDescription>
+                    Kapaktaki tarih/saat metni (en fazla 120 karakter). Boş
+                    bırakırsanız düğün bilgisindeki tarih ve saat otomatik
+                    gösterilir.
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value ?? ''}
+                      placeholder="Örn. Cumartesi, 15 Haziran 2026 · 18:00"
+                      maxLength={120}
+                      autoComplete="off"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button type="submit" disabled={saveMutation.isPending}>
-              Kapak görselini kaydet
+              Kapak ayarlarını kaydet
               {saveMutation.isPending && <LoadingSpinner />}
             </Button>
 

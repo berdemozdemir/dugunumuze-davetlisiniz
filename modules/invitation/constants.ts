@@ -2,6 +2,12 @@
 
 export const COUNTDOWN_EVENTS_MAX = 4;
 
+/** Kapak üst satırı; boşsa bu metin kullanılır. */
+export const HERO_EYEBROW_DEFAULT = 'Düğünümüze davetlisiniz';
+
+/** İsimlerin altındaki italik vurgu; boşsa bu metin kullanılır. */
+export const HERO_TAGLINE_DEFAULT = 'Evleniyoruz';
+
 export const STORY_HEADLINE_DEFAULT = 'Bir "Evet" ile Başladı';
 
 export const STORY_SUBLINE_DEFAULT =

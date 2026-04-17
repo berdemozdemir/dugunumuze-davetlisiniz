@@ -6,6 +6,8 @@ import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 type Props = {
   partner1Name: string;
   partner2Name: string;
+  eyebrowText: string;
+  taglineText: string;
   dateLabel: string;
   /** Supabase Storage object path (`digital-invitation-images` bucket). */
   heroImageUri?: string;
@@ -14,6 +16,8 @@ type Props = {
 export function InvitationHero({
   partner1Name,
   partner2Name,
+  eyebrowText,
+  taglineText,
   dateLabel,
   heroImageUri,
 }: Props) {
@@ -62,7 +66,7 @@ export function InvitationHero({
           style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
         >
           <p className="text-gold-light mb-6 text-xs tracking-[0.3em] uppercase sm:text-sm">
-            Düğünümüze davetlisiniz
+            {eyebrowText}
           </p>
         </div>
 
@@ -101,7 +105,7 @@ export function InvitationHero({
             <Ornament />
           </div>
           <p className="font-display text-cream text-lg tracking-wide italic sm:text-xl md:text-2xl">
-            Evleniyoruz
+            {taglineText}
           </p>
           <p className="text-gold-light mt-3 text-sm tracking-wider sm:text-base">
             {dateLabel}

@@ -13,9 +13,11 @@ import { InvitationMusicPlayer } from '@/modules/invitation/components/Invitatio
 import { getPublicInvitationAudioUrl } from '@/lib/supabase/public-image-url';
 import {
   buildClosingCarouselPhotos,
-  formatInvitationDateTimeLabel,
   formatInvitationYearFooter,
   resolveClosingNote,
+  resolveHeroDateLabel,
+  resolveHeroEyebrow,
+  resolveHeroTagline,
   resolveStoryHeadline,
   resolveStorySubline,
 } from '@/modules/invitation/util';
@@ -56,7 +58,12 @@ export default async function PublicInvitationPage({
   const invitation = data.invitation as PublicInvitationView;
   const sections = invitation.template.sections;
 
-  const dateLabel = formatInvitationDateTimeLabel(invitation.dateTime);
+  const heroEyebrow = resolveHeroEyebrow(invitation.template);
+  const heroTagline = resolveHeroTagline(invitation.template);
+  const dateLabel = resolveHeroDateLabel(
+    invitation.template,
+    invitation.dateTime,
+  );
   const yearFooter = formatInvitationYearFooter(invitation.dateTime);
 
   const storyHeadline = resolveStoryHeadline(invitation.template);
@@ -98,6 +105,8 @@ export default async function PublicInvitationPage({
         <InvitationHero
           partner1Name={invitation.partner1Name}
           partner2Name={invitation.partner2Name}
+          eyebrowText={heroEyebrow}
+          taglineText={heroTagline}
           dateLabel={dateLabel}
           heroImageUri={invitation.template.heroImageUri?.trim()}
         />
