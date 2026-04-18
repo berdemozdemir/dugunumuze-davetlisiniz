@@ -118,13 +118,13 @@ export default async function PublicInvitationPage({
         />
       )}
 
-      {showCountdownSection ? (
+      {showCountdownSection && (
         <>
           <InvitationCountdown events={countdownRows} />
 
           <SectionDivider />
         </>
-      ) : null}
+      )}
 
       {isInvitationSectionVisible(sections, 'story') && (
         <>

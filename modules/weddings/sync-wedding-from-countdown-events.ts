@@ -11,11 +11,9 @@ import {
   normalizeCountdownEventsFromTemplate,
   selectPrimaryEventForWeddingRow,
 } from '@/modules/invitation/util';
+import { WEDDING_LOCATION_PLACEHOLDER } from '@/modules/weddings/constants';
 import { table_weddings } from '@/modules/weddings/db-tables';
 import { and, eq } from 'drizzle-orm';
-
-/** DB `notNull` kolonları için boş konumda kullanılan yer tutucu. */
-const LOCATION_PLACEHOLDER = 'Belirtilmedi';
 
 /**
  * Etkinlik listesi kaydedildiğinde `weddings` çekirdek tarih/konum alanlarını
@@ -45,8 +43,9 @@ export async function syncWeddingRowFromCountdownEvents(input: {
     return err({ reason: 'validation-error', message: 'Invalid event date' });
   }
 
-  const city = primary.city?.trim() || LOCATION_PLACEHOLDER;
-  const addressText = primary.addressText?.trim() || LOCATION_PLACEHOLDER;
+  const city = primary.city?.trim() || WEDDING_LOCATION_PLACEHOLDER;
+  const addressText =
+    primary.addressText?.trim() || WEDDING_LOCATION_PLACEHOLDER;
   const venueName = primary.venueName?.trim() || null;
 
   const [updateErr] = await tryCatchDb(() =>

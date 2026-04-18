@@ -1,5 +1,6 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
+import { WEDDING_LOCATION_PLACEHOLDER } from '@/modules/weddings/constants';
 import { createWeddingSchema } from '../schemas/create-wedding';
 import { table_weddings } from '../db-tables';
 import { SlugHelper } from '@/lib/utils';
@@ -8,15 +9,6 @@ import { bindDefaultTemplateToWedding } from '@/modules/templates/actions/bind-d
 export const orpc_weddings_create = procedure_protected
   .input(createWeddingSchema)
   .handler(async ({ input, context: { db, auth } }) => {
-    const date = new Date(input.dateTime);
-
-    if (Number.isNaN(date.getTime())) {
-      return err({
-        reason: 'invalid-date',
-        message: 'Invalid date/time',
-      });
-    }
-
     const slug = SlugHelper.generateUnique(
       `${input.partner1Name}-${input.partner2Name}`,
       Date.now().toString(),
@@ -30,10 +22,11 @@ export const orpc_weddings_create = procedure_protected
           slug,
           partner1Name: input.partner1Name,
           partner2Name: input.partner2Name,
-          dateTime: date,
-          city: input.city,
-          venueName: input.venueName,
-          addressText: input.addressText,
+          /** Etkinlik eklenene kadar kapak/footera referans; sonra senkron güncellenir. */
+          dateTime: new Date(),
+          city: WEDDING_LOCATION_PLACEHOLDER,
+          venueName: null,
+          addressText: WEDDING_LOCATION_PLACEHOLDER,
         })
         .returning({ id: table_weddings.id }),
     );
@@ -56,4 +49,5 @@ export const orpc_weddings_create = procedure_protected
     }
 
     return ok({ slug });
-  });
+  })
+  .callable();

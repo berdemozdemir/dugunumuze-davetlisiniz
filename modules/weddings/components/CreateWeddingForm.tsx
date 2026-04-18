@@ -23,7 +23,6 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 
-// TODO: refactor this form, initially user shouldnt encounter with that many fields
 export function CreateWeddingForm() {
   const router = useRouter();
 
@@ -34,17 +33,13 @@ export function CreateWeddingForm() {
     defaultValues: {
       partner1Name: '',
       partner2Name: '',
-      dateTime: '',
-      city: '',
-      venueName: '',
-      addressText: '',
     },
   });
 
   const submit = form.handleSubmit(async (data: CreateWeddingSchema) => {
     const res = await createMutation.mutateAsync(data);
 
-    toast.success('Wedding created');
+    toast.success('Düğün oluşturuldu');
 
     router.push(paths.dashboard.wedding.overview(res.slug));
   });
@@ -55,10 +50,12 @@ export function CreateWeddingForm() {
         className="mx-auto mt-8 grid w-full max-w-xl gap-4"
         onSubmit={submit}
       >
-        <h1 className="text-2xl font-semibold">Create your wedding</h1>
+        <h1 className="text-2xl font-semibold">Düğününüzü oluşturun</h1>
 
         <p className="text-muted-foreground mt-1 text-sm">
-          Fill the basics to generate your invitation link.
+          Önce çift isimlerini girin. Tarih ve mekânları sonradan{' '}
+          <strong>Etkinlik detayları</strong> sayfasından ekleyebilirsiniz; kapak
+          metinlerini <strong>Kapak</strong> sayfasından düzenlersiniz.
         </p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -70,7 +67,7 @@ export function CreateWeddingForm() {
                 <FormLabel>Partner 1</FormLabel>
 
                 <FormControl>
-                  <Input placeholder="Elif" {...field} />
+                  <Input placeholder="Elif" {...field} autoComplete="given-name" />
                 </FormControl>
 
                 <FormMessage />
@@ -85,80 +82,20 @@ export function CreateWeddingForm() {
               <FormItem>
                 <FormLabel>Partner 2</FormLabel>
                 <FormControl>
-                  <Input placeholder="Erdem" {...field} />
+                  <Input placeholder="Erdem" {...field} autoComplete="given-name" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-
-        {/* TODO: add date picker */}
-        <FormField
-          control={form.control}
-          name="dateTime"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Date & time</FormLabel>
-              <FormControl>
-                <Input type="datetime-local" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* TODO: add location picker from google maps */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input placeholder="İstanbul" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="venueName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Venue (optional)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Salon adı" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="addressText"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Input placeholder="Tam adres" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         <Button
           type="submit"
           disabled={createMutation.isPending}
           className="w-full"
         >
-          Create wedding
+          Devam et
           {createMutation.isPending && <LoadingSpinner />}
         </Button>
 
