@@ -4,7 +4,6 @@ import { orpc_getAuthSession } from '@/modules/auth/actions/get-auth-session';
 import { orpc_weddings_create } from '@/modules/weddings/actions/create';
 import { orpc_weddings_listMine } from '@/modules/weddings/actions/list-mine';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
-import { orpc_updateWedding } from '@/modules/weddings/actions/update-wedding';
 import { orpc_publishWedding } from '@/modules/weddings/actions/publish-wedding';
 import { orpc_unpublishWedding } from '@/modules/weddings/actions/unpublish-wedding';
 import { orpc_weddings_getInvitationPreviewBySlug } from '@/modules/weddings/actions/get-invitation-preview-by-slug';
@@ -28,7 +27,6 @@ export const router = {
     listMine: orpc_weddings_listMine,
     getBySlug: orpc_getWeddingBySlug,
     getInvitationPreviewBySlug: orpc_weddings_getInvitationPreviewBySlug,
-    update: orpc_updateWedding,
     publish: orpc_publishWedding,
     unpublish: orpc_unpublishWedding,
   },

@@ -10,4 +10,8 @@ export const countdownEventSchema = z.object({
       'Geçerli bir tarih/saat girin',
     ),
   subtitle: z.string().max(400).optional(),
+  venueName: z.string().max(200).optional(),
+  /** TODO: İsteğe bağlı; ileride harita seçimi. */
+  addressText: z.string().max(500).optional(),
+  city: z.string().max(120).optional(),
 });

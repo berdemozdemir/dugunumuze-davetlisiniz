@@ -23,12 +23,6 @@ export const service_weddings = {
         },
       }),
 
-    update: () =>
-      mutationOptions({
-        mutationFn: (args: ArgsOf<typeof orpc.weddings.update.call>) =>
-          orpc.weddings.update.call(args).then(okOrThrow),
-      }),
-
     publish: () =>
       mutationOptions({
         mutationFn: (args: ArgsOf<typeof orpc.weddings.publish.call>) =>

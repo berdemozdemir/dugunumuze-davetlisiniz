@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import type { ComponentType, SVGProps } from 'react';
 import {
   IconBook,
-  IconClockHour4,
+  IconMapPin,
   IconHeart,
   IconHome,
   IconLayoutDashboard,
@@ -37,14 +37,14 @@ export const DashboardSidebar = ({ weddingSlug }: { weddingSlug: string }) => {
 
         <SideBarItem
           href={paths.dashboard.wedding.cover(weddingSlug)}
-          label="Kapak ve bilgiler"
+          label="Kapak"
           Icon={IconPhoto}
         />
 
         <SideBarItem
           href={paths.dashboard.wedding.countdown(weddingSlug)}
-          label="Geri sayım"
-          Icon={IconClockHour4}
+          label="Etkinlik detayları"
+          Icon={IconMapPin}
         />
 
         <SideBarItem

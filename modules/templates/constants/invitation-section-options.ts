@@ -8,8 +8,9 @@ export const INVITATION_SECTION_OPTIONS = [
   },
   {
     key: 'countdown',
-    label: 'Countdown',
-    description: 'Düğün tarihine kalan süre sayacı.',
+    label: 'Geri sayım',
+    description:
+      'Etkinlik tarihlerine kalan süre; etkinlik listesiyle aynı kaynaktan gelir.',
   },
   {
     key: 'story',
@@ -18,8 +19,9 @@ export const INVITATION_SECTION_OPTIONS = [
   },
   {
     key: 'details',
-    label: 'Details',
-    description: 'Konum, saat, program ve diğer etkinlik detayları.',
+    label: 'Etkinlik detayları',
+    description:
+      'Mekân ve adres kartları; etkinlik listesiyle aynı kaynaktan gelir.',
   },
   {
     key: 'closing',

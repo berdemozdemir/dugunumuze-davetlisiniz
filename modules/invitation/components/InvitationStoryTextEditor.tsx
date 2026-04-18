@@ -66,8 +66,8 @@ export function InvitationStoryTextEditor({
     <div className="max-w-xl">
       <h2 className="text-lg font-semibold">Hikâye metni</h2>
       <p className="text-muted-foreground mt-1 text-sm">
-        Hikâye bölümündeki başlık ve alt metin. Tarih ve adres gibi çekirdek
-        bilgiler düğün bilgilerinden (Kapak sayfası) gelir.
+        Hikâye bölümündeki başlık ve alt metin. İsimler Kapak sayfasından;
+        tarih ve mekânlar Etkinlik detayları sayfasından gelir.
       </p>
 
       <Form {...form}>

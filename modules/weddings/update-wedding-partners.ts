@@ -1,31 +1,24 @@
-import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
-import { table_weddings } from '../db-tables';
-import { updateWeddingSchema } from '../schemas/update-wedding';
+import { table_weddings } from '@/modules/weddings/db-tables';
 import { and, eq } from 'drizzle-orm';
+import { procedure_protected } from '@/integrations/orpc/procedure';
+import { z } from 'zod';
 
-export const orpc_updateWedding = procedure_protected
-  .input(updateWeddingSchema)
+export const orpc_updateWeddingPartnerNames = procedure_protected
+  .input(
+    z.object({
+      weddingSlug: z.string().min(1),
+      partner1Name: z.string().min(1),
+      partner2Name: z.string().min(1),
+    }),
+  )
   .handler(async ({ input, context: { db, auth } }) => {
-    const date = new Date(input.dateTime);
-
-    if (Number.isNaN(date.getTime())) {
-      return err({
-        reason: 'invalid-date',
-        message: 'Invalid date/time',
-      });
-    }
-
     const [updateErr] = await tryCatchDb(() =>
       db
         .update(table_weddings)
         .set({
           partner1Name: input.partner1Name,
           partner2Name: input.partner2Name,
-          dateTime: date,
-          city: input.city,
-          venueName: input.venueName,
-          addressText: input.addressText,
         })
         .where(
           and(

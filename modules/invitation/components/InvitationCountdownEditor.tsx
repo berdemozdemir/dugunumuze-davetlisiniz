@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { invitation_dashboard } from '../client-queries';
@@ -64,6 +65,9 @@ export function InvitationCountdownEditor({
       title: row.title.trim(),
       dateTime: new Date(row.dateTime).toISOString(),
       subtitle: row.subtitle?.trim() ? row.subtitle.trim() : undefined,
+      venueName: row.venueName?.trim() ? row.venueName.trim() : undefined,
+      addressText: row.addressText?.trim() ? row.addressText.trim() : undefined,
+      city: row.city?.trim() ? row.city.trim() : undefined,
     }));
 
     await saveMutation.mutateAsync({
@@ -76,23 +80,23 @@ export function InvitationCountdownEditor({
 
   return (
     <div className="max-w-xl">
-      <h2 className="text-lg font-semibold">Geri sayım etkinlikleri</h2>
+      <h2 className="text-lg font-semibold">Etkinlik detayları</h2>
       <p className="text-muted-foreground mt-1 text-sm">
-        Herkese açık sayfadaki geri sayım kartları. En fazla{' '}
-        {COUNTDOWN_EVENTS_MAX} etkinlik; bölüm yalnızca en az bir etkinlik
-        varken görünür (görünürlük ayarlardan da açık olmalıdır).
+        Her etkinlik için tarih ve konum girin; aynı kayıt hem geri sayım hem
+        davetiyedeki detay kartlarında kullanılır. En fazla{' '}
+        {COUNTDOWN_EVENTS_MAX} etkinlik. Bölümler Ayarlardan açık olmalıdır.
       </p>
 
       <Form {...form}>
         <form className="mt-6 grid gap-6" onSubmit={submit}>
           <FormItem className="gap-3">
             <div className="mt-4 grid gap-6">
-              {countdownFieldArray.fields.length === 0 && (
+              {countdownFieldArray.fields.length === 0 ? (
                 <p className="text-muted-foreground text-sm">
-                  Henüz etkinlik yok. Geri sayım bölümü yalnızca en az bir
-                  etkinlik eklediğinizde görünür.
+                  Henüz etkinlik yok. Liste boşken geri sayım ve etkinlik detayları
+                  bölümleri görünmez.
                 </p>
-              )}
+              ) : null}
 
               {countdownFieldArray.fields.map((fieldItem, index) => (
                 <div
@@ -148,15 +152,65 @@ export function InvitationCountdownEditor({
                     name={`countdownEvents.${index}.subtitle`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Alt satır (isteğe bağlı)</FormLabel>
+                        <FormLabel>Alt satır (geri sayım, isteğe bağlı)</FormLabel>
                         <FormDescription>
-                          Örn. şehir, mekân veya kısa açıklama.
+                          Kısa not; geri sayım kartında görünür.
                         </FormDescription>
                         <FormControl>
                           <Input
-                            placeholder="Elazığ · Kral Palace"
+                            placeholder="Örn. akşam 20:00"
                             {...field}
                           />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.venueName`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mekân adı</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Salon / otel adı" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.addressText`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Adres</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Sokak, mahalle, yön tarifi…"
+                            className="min-h-[80px] resize-y"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name={`countdownEvents.${index}.city`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Şehir (isteğe bağlı)</FormLabel>
+                        <FormDescription>
+                          {/* TODO: harita / adres otomatik doldurma */}
+                          İleride haritadan seçim ile doldurulacak.
+                        </FormDescription>
+                        <FormControl>
+                          <Input placeholder="Örn. İstanbul" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -165,7 +219,7 @@ export function InvitationCountdownEditor({
                 </div>
               ))}
 
-              {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX && (
+              {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX ? (
                 <Button
                   type="button"
                   variant="outline"
@@ -175,25 +229,28 @@ export function InvitationCountdownEditor({
                       title: 'Yeni etkinlik',
                       dateTime: toDateTimeLocal(new Date()),
                       subtitle: '',
+                      venueName: '',
+                      addressText: '',
+                      city: '',
                     })
                   }
                 >
                   Etkinlik ekle
                 </Button>
-              )}
+              ) : null}
             </div>
           </FormItem>
 
           <Button type="submit" disabled={saveMutation.isPending}>
             Kaydet
-            {saveMutation.isPending && <LoadingSpinner />}
+            {saveMutation.isPending ? <LoadingSpinner /> : null}
           </Button>
 
-          {saveMutation.error && (
+          {saveMutation.error ? (
             <div className="text-destructive text-sm">
               {saveMutation.error.message}
             </div>
-          )}
+          ) : null}
         </form>
       </Form>
     </div>

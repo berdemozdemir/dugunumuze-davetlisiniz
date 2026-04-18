@@ -23,3 +23,5 @@ export const CLOSING_NOTE_DEFAULT =
 export const DEFAULT_INVITATION_MUSIC_SRC = '/music/cihat-askin-kelebek.mp3';
 
 export const LOOP_EPS = 0.08;
+
+export const COUNTDOWN_SKELETON_KEYS = [0, 1, 2, 3] as const;

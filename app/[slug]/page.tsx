@@ -14,12 +14,15 @@ import { getPublicInvitationAudioUrl } from '@/lib/supabase/public-image-url';
 import {
   buildClosingCarouselPhotos,
   formatInvitationYearFooter,
+  normalizeCountdownEventsFromTemplate,
   resolveClosingNote,
   resolveHeroDateLabel,
   resolveHeroEyebrow,
   resolveHeroTagline,
   resolveStoryHeadline,
   resolveStorySubline,
+  toCountdownDisplayEvents,
+  toEventDetailCards,
 } from '@/modules/invitation/util';
 import type { PublicInvitationView } from '@/modules/invitation/types';
 
@@ -78,15 +81,18 @@ export default async function PublicInvitationPage({
     invitation.partner2Name,
   );
 
-  const countdownEvents = (invitation.template.countdownEvents ?? [])
-    .map((e) => ({
-      title: e.title.trim(),
-      targetIso: e.dateTime,
-      subtitle: e.subtitle?.trim(),
-    }))
-    .filter(
-      (e) => e.title.length > 0 && !Number.isNaN(Date.parse(e.targetIso)),
-    );
+  const normalizedCountdownEvents = normalizeCountdownEventsFromTemplate(
+    invitation.template.countdownEvents,
+  );
+  const countdownRows = toCountdownDisplayEvents(normalizedCountdownEvents);
+  const eventDetailCards = toEventDetailCards(normalizedCountdownEvents);
+
+  const showCountdownSection =
+    isInvitationSectionVisible(sections, 'countdown') &&
+    countdownRows.length > 0;
+  const showDetailsSection =
+    isInvitationSectionVisible(sections, 'details') &&
+    eventDetailCards.length > 0;
 
   const musicPath = invitation.template.musicTrackPath?.trim();
   const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');
@@ -112,14 +118,13 @@ export default async function PublicInvitationPage({
         />
       )}
 
-      {isInvitationSectionVisible(sections, 'countdown') &&
-        countdownEvents.length > 0 && (
-          <>
-            <InvitationCountdown events={countdownEvents} />
+      {showCountdownSection ? (
+        <>
+          <InvitationCountdown events={countdownRows} />
 
-            <SectionDivider />
-          </>
-        )}
+          <SectionDivider />
+        </>
+      ) : null}
 
       {isInvitationSectionVisible(sections, 'story') && (
         <>
@@ -129,13 +134,9 @@ export default async function PublicInvitationPage({
         </>
       )}
 
-      {isInvitationSectionVisible(sections, 'details') && (
+      {showDetailsSection && (
         <>
-          <InvitationDetails
-            city={invitation.city}
-            venueName={invitation.venueName}
-            addressText={invitation.addressText}
-          />
+          <InvitationDetails events={eventDetailCards} />
 
           <SectionDivider />
         </>

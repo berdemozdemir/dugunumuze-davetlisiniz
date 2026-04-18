@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { InvitationCoverPageEditor } from '@/modules/invitation/components/InvitationCoverPageEditor';
 import { orpc_templates_getWeddingInvitationSettings } from '@/modules/templates/actions/get-wedding-invitation-settings';
 import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
-import { toDateTimeLocal } from '@/modules/weddings/util';
 
 export default async function WeddingCoverPage({
   params,
@@ -27,15 +26,9 @@ export default async function WeddingCoverPage({
     <InvitationCoverPageEditor
       weddingSlug={weddingSlug}
       weddingId={w.id}
-      weddingDefaults={{
+      defaultValues={{
         partner1Name: w.partner1Name,
         partner2Name: w.partner2Name,
-        dateTime: toDateTimeLocal(new Date(w.dateTime)),
-        city: w.city,
-        venueName: w.venueName ?? '',
-        addressText: w.addressText,
-      }}
-      coverDefaults={{
         heroImageUri: merged?.heroImageUri?.trim(),
         heroEyebrow: merged?.heroEyebrow?.trim() ?? '',
         heroTagline: merged?.heroTagline?.trim() ?? '',

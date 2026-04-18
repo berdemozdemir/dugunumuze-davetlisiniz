@@ -1,5 +1,3 @@
-export type TemplateKey = string;
-
 // davetiye sayfasındaki blokların aç/kapa haritası (hero/countdown/story/details/closing/musicPlayer).
 export type InvitationSections = {
   hero?: boolean;
@@ -10,11 +8,18 @@ export type InvitationSections = {
   musicPlayer?: boolean;
 };
 
-/** Countdown bölümündeki tek etkinlik satırı (ISO 8601 `dateTime`). */
+/**
+ * Tek etkinlik: geri sayım + etkinlik detayları aynı kayıttan beslenir.
+ * ISO 8601 `dateTime`; konum alanları detay kartında kullanılır.
+ */
 export type CountdownEventConfig = {
   title: string;
   dateTime: string;
   subtitle?: string;
+  venueName?: string;
+  /** TODO: İsteğe bağlı; ileride harita seçimi. */
+  addressText?: string;
+  city?: string;
 };
 
 // şablondan gelen varsayılan davetiye ayarları (sections + opsiyonel metinler).
@@ -52,17 +57,3 @@ export type InvitationDefaults = {
 
 // wedding’e özel üstüne yazılanlar
 export type InvitationOverrides = InvitationDefaults;
-
-// public sayfaya vereceğimiz “birleşik sonuç” modeli (wedding çekirdek bilgiler + merge edilmiş template).
-export type InvitationViewModel = {
-  slug: string;
-  partner1Name: string;
-  partner2Name: string;
-  dateTime: string;
-  city: string;
-  venueName?: string;
-  addressText: string;
-  publishedAt?: string;
-
-  template: InvitationDefaults;
-};

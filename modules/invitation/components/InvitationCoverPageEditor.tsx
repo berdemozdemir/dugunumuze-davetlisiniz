@@ -27,8 +27,6 @@ import {
 import { useSupabaseStorageUpload } from '@/lib/hooks/useSupabaseStorageUpload';
 import { IMAGE_ALLOWED_MIME_TYPES, IMAGE_MAX_SIZE_MB } from '@/lib/constants';
 import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
-import { EditWeddingForm } from '@/modules/weddings/components/EditWeddingForm';
-import type { EditWeddingFormProps } from '@/modules/weddings/components/EditWeddingForm';
 import {
   HERO_EYEBROW_DEFAULT,
   HERO_TAGLINE_DEFAULT,
@@ -42,30 +40,30 @@ import {
 export type InvitationCoverPageEditorProps = {
   weddingSlug: string;
   weddingId: string;
-  weddingDefaults: EditWeddingFormProps['defaultValues'];
-  coverDefaults: InvitationCoverFormSchema;
+  defaultValues: InvitationCoverFormSchema;
   invitationSettingsReady: boolean;
 };
 
 export function InvitationCoverPageEditor({
   weddingSlug,
   weddingId,
-  weddingDefaults,
-  coverDefaults,
+  defaultValues,
   invitationSettingsReady,
 }: InvitationCoverPageEditorProps) {
   const router = useRouter();
 
-  const saveMutation = useMutation(invitation_dashboard.mutations.updateCover());
+  const saveMutation = useMutation(
+    invitation_dashboard.mutations.updateCover(),
+  );
 
   const form = useForm<InvitationCoverFormSchema>({
     resolver: zodResolver(invitationCoverFormSchema),
-    defaultValues: coverDefaults,
+    defaultValues,
   });
 
   useEffect(() => {
-    form.reset(coverDefaults);
-  }, [coverDefaults, form]);
+    form.reset(defaultValues);
+  }, [defaultValues, form]);
 
   const heroImageUriRaw = useWatch({
     control: form.control,
@@ -121,47 +119,69 @@ export function InvitationCoverPageEditor({
     });
   };
 
-  const submitCover = form.handleSubmit(async (data) => {
+  const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
       weddingSlug,
+      partner1Name: data.partner1Name,
+      partner2Name: data.partner2Name,
       heroImageUri: data.heroImageUri,
       heroEyebrow: (data.heroEyebrow ?? '').trim(),
       heroTagline: (data.heroTagline ?? '').trim(),
       heroDateLine: (data.heroDateLine ?? '').trim(),
     });
+
     router.refresh();
-    toast.success('Kapak kaydedildi');
+
+    toast.success('Kaydedildi');
   });
 
   return (
     <div className="space-y-12">
-      <section className="max-w-xl space-y-2">
-        <h2 className="text-lg font-semibold">Düğün bilgileri</h2>
-        <p className="text-muted-foreground text-sm">
-          İsimler, tarih ve yer; herkese açık davetiyede görünür.
-        </p>
-        <EditWeddingForm
-          weddingSlug={weddingSlug}
-          defaultValues={weddingDefaults}
-        />
-      </section>
-
       {!invitationSettingsReady && (
         <p className="text-muted-foreground max-w-xl text-sm">
-          Şablon ayarları geçici olarak kullanılamıyor; kapak görseli
-          kaydetmek şu an sorun çıkarabilir.
+          Şablon ayarları geçici olarak kullanılamıyor; kapak kaydı şu an sorun
+          çıkarabilir.
         </p>
       )}
 
       <section className="max-w-xl">
-        <h2 className="text-lg font-semibold">Kapak</h2>
+        <h2 className="text-lg font-semibold">Kapak ve çift bilgileri</h2>
         <p className="text-muted-foreground mt-1 text-sm">
-          En üst bölümdeki görsel ve metinler. Hangi blokların görüneceğini
-          Ayarlar sayfasından yönetirsiniz.
+          Çift isimleri ve kapak görseli/metinleri tek kayıtta gider. Tarih ve
+          mekânlar Etkinlik detayları sayfasından eklenir.
         </p>
 
         <Form {...form}>
-          <form className="mt-6 grid gap-6" onSubmit={submitCover}>
+          <form className="mt-6 grid gap-6" onSubmit={submit}>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="partner1Name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Partner 1</FormLabel>
+                    <FormControl>
+                      <Input {...field} autoComplete="name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="partner2Name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Partner 2</FormLabel>
+                    <FormControl>
+                      <Input {...field} autoComplete="name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
               name="heroImageUri"
@@ -240,8 +260,8 @@ export function InvitationCoverPageEditor({
                 <FormItem>
                   <FormLabel>Vurgu satırı</FormLabel>
                   <FormDescription>
-                    İsimlerin altındaki italik kısa metin (en fazla 64 karakter).
-                    Boş bırakırsanız: «{HERO_TAGLINE_DEFAULT}»
+                    İsimlerin altındaki italik kısa metin (en fazla 64
+                    karakter). Boş bırakırsanız: «{HERO_TAGLINE_DEFAULT}»
                   </FormDescription>
                   <FormControl>
                     <Input
@@ -265,8 +285,8 @@ export function InvitationCoverPageEditor({
                   <FormLabel>Tarih ve saat satırı</FormLabel>
                   <FormDescription>
                     Kapaktaki tarih/saat metni (en fazla 120 karakter). Boş
-                    bırakırsanız düğün bilgisindeki tarih ve saat otomatik
-                    gösterilir.
+                    bırakırsanız, etkinliklerdeki en erken tarih/saatten
+                    üretilir.
                   </FormDescription>
                   <FormControl>
                     <Input
@@ -283,7 +303,7 @@ export function InvitationCoverPageEditor({
             />
 
             <Button type="submit" disabled={saveMutation.isPending}>
-              Kapak ayarlarını kaydet
+              Kaydet
               {saveMutation.isPending && <LoadingSpinner />}
             </Button>
 

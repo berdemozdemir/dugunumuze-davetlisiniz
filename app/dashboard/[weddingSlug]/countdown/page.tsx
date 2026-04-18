@@ -37,6 +37,9 @@ export default async function WeddingCountdownPage({
           title: e.title,
           dateTime: toDateTimeLocal(new Date(e.dateTime)),
           subtitle: e.subtitle ?? '',
+          venueName: e.venueName ?? '',
+          addressText: e.addressText ?? '',
+          city: e.city ?? '',
         })),
       }}
     />
