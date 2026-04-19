@@ -50,6 +50,20 @@
       "when": 1775862554512,
       "tag": "0006_past_sir_ram",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1776539581453,
+      "tag": "0007_sleepy_fat_cobra",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1776600000000,
+      "tag": "0008_seed_classic_event_template",
+      "breakpoints": true
     }
   ]
 }
