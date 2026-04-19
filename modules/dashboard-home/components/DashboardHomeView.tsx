@@ -10,7 +10,6 @@ type DashboardHomeViewProps = {
   events: DashboardEventListItem[];
 };
 
-// TODO: user should see just one crate button if the state is empty
 export function DashboardHomeView({ events }: DashboardHomeViewProps) {
   return (
     <PageLayout variant="wide" className="pt-8 pb-24">
@@ -27,9 +26,11 @@ export function DashboardHomeView({ events }: DashboardHomeViewProps) {
             </p>
           </div>
 
-          <Button asChild className="shrink-0 self-start sm:self-auto">
-            <Link href={paths.dashboard.new}>Yeni etkinlik oluştur</Link>
-          </Button>
+          {events.length > 0 && (
+            <Button asChild className="shrink-0 self-start sm:self-auto">
+              <Link href={paths.dashboard.new}>Yeni etkinlik oluştur</Link>
+            </Button>
+          )}
         </div>
 
         {events.length === 0 && <EmptyState />}
