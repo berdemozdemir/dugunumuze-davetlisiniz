@@ -11,7 +11,7 @@ export const orpc_createEvent = procedure_protected
   .input(createEventSchema)
   .handler(async ({ input, context: { db, auth } }) => {
     const slug = SlugHelper.generateUnique(
-      `${input.partner1Name}&${input.partner2Name}`,
+      `${input.partner1Name}-${input.partner2Name}`,
       Date.now().toString(),
     );
 
