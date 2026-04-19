@@ -25,6 +25,7 @@ import {
 import { useSupabaseStorageUpload } from '@/lib/hooks/useSupabaseStorageUpload';
 import { AUDIO_ALLOWED_MIME_TYPES, AUDIO_MAX_SIZE_MB } from '@/lib/constants';
 import { getPublicInvitationAudioUrl } from '@/lib/supabase/public-image-url';
+import { TOAST_REMEMBER_SAVE_SUFFIX } from '@/modules/invitation/constants';
 import { invitation_dashboard } from '../client-queries';
 import {
   invitationMediaFormSchema,
@@ -147,7 +148,7 @@ export function InvitationMediaPageEditor({
         shouldDirty: true,
         shouldTouch: true,
       });
-      toast.success('Müzik yüklendi; kaydetmeyi unutmayın');
+      toast.success(`Müzik yüklendi${TOAST_REMEMBER_SAVE_SUFFIX}`);
     },
     onInvalidMimeType: () => toast.error('Desteklenen türler: MP3, M4A, WAV'),
     onMaxSizeExceeded: ({ maxSizeMB }) =>
@@ -174,7 +175,7 @@ export function InvitationMediaPageEditor({
     });
     form.setValue('musicTrimStartSec', undefined, { shouldDirty: true });
     form.setValue('musicTrimEndSec', undefined, { shouldDirty: true });
-    toast.success('Müzik kaldırıldı; kaydetmeyi unutmayın');
+    toast.success(`Müzik kaldırıldı${TOAST_REMEMBER_SAVE_SUFFIX}`);
   };
 
   let trimMaxSec: number | undefined;

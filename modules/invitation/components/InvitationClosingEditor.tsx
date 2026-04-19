@@ -50,7 +50,9 @@ export function InvitationClosingEditor({
 }: InvitationClosingEditorProps) {
   const router = useRouter();
 
-  const saveMutation = useMutation(invitation_dashboard.mutations.updateClosing());
+  const saveMutation = useMutation(
+    invitation_dashboard.mutations.updateClosing(),
+  );
 
   const form = useForm<InvitationClosingFormSchema>({
     resolver: zodResolver(invitationClosingFormSchema),
@@ -86,7 +88,7 @@ export function InvitationClosingEditor({
           shouldDirty: true,
           shouldTouch: true,
         });
-        toast.success('Fotoğraf eklendi');
+        toast.success('Fotoğraf eklendi; kaydetmeyi unutmayın');
       } else {
         const oldP = replaceOldClosingPhotoPathRef.current;
         replaceOldClosingPhotoPathRef.current = undefined;
@@ -105,7 +107,7 @@ export function InvitationClosingEditor({
             );
           }
         }
-        toast.success('Fotoğraf güncellendi');
+        toast.success('Fotoğraf güncellendi; kaydetmeyi unutmayın');
       }
     },
     onInvalidMimeType: () => toast.error('Geçersiz dosya türü'),
@@ -134,6 +136,7 @@ export function InvitationClosingEditor({
       shouldDirty: true,
       shouldTouch: true,
     });
+    toast.success('Fotoğraf kaldırıldı; kaydetmeyi unutmayın');
   };
 
   const submit = form.handleSubmit(async (data) => {
@@ -277,8 +280,11 @@ export function InvitationClosingEditor({
                 />
 
                 {closingGalleryUpload.isPending && (
-                  <div className="mt-3 flex justify-center" aria-busy="true">
-                    <LoadingSpinner />
+                  <div
+                    className="text-muted-foreground mt-3 flex items-center justify-center gap-2 text-sm"
+                    aria-busy="true"
+                  >
+                    Yükleniyor… <LoadingSpinner />
                   </div>
                 )}
 

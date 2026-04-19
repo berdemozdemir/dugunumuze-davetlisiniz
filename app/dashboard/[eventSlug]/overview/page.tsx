@@ -36,6 +36,7 @@ export default async function EventOverviewPage({
       <div className="grid gap-2">
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <span>
+            {/* TODO: this should show warning if the missing parts exists (like hero image, countdown, etc.) */}
             Status:{' '}
             {event.publishedAt ? (
               <span className="text-emerald-600">Published</span>

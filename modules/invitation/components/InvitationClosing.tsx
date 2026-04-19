@@ -17,6 +17,7 @@ type Props = {
   carouselPhotos?: PhotoCarouselItem[];
 };
 
+// TODO: images are broken while the user in uploading process
 export function InvitationClosing({
   partner1Name,
   partner2Name,

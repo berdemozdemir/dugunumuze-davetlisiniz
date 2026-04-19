@@ -10,6 +10,7 @@ type DashboardHomeViewProps = {
   events: DashboardEventListItem[];
 };
 
+// TODO: user should see just one crate button if the state is empty
 export function DashboardHomeView({ events }: DashboardHomeViewProps) {
   return (
     <PageLayout variant="wide" className="pt-8 pb-24">

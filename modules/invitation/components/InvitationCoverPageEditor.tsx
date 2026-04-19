@@ -30,6 +30,7 @@ import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 import {
   HERO_EYEBROW_DEFAULT,
   HERO_TAGLINE_DEFAULT,
+  TOAST_REMEMBER_SAVE_SUFFIX,
 } from '@/modules/invitation/constants';
 import { invitation_dashboard } from '../client-queries';
 import {
@@ -94,7 +95,7 @@ export function InvitationCoverPageEditor({
         shouldDirty: true,
         shouldTouch: true,
       });
-      toast.success('Kapak görseli yüklendi');
+      toast.success(`Kapak görseli yüklendi${TOAST_REMEMBER_SAVE_SUFFIX}`);
     },
     onInvalidMimeType: () => toast.error('Geçersiz dosya türü'),
     onMaxSizeExceeded: ({ maxSizeMB }) =>
@@ -117,6 +118,7 @@ export function InvitationCoverPageEditor({
       shouldDirty: true,
       shouldTouch: true,
     });
+    toast.success(`Kapak görseli kaldırıldı${TOAST_REMEMBER_SAVE_SUFFIX}`);
   };
 
   const submit = form.handleSubmit(async (data) => {
@@ -218,8 +220,8 @@ export function InvitationCoverPageEditor({
                       />
 
                       {heroUpload.isPending && (
-                        <span className="text-muted-foreground text-sm">
-                          Yükleniyor…
+                        <span className="text-muted-foreground flex items-center gap-2 text-sm">
+                          Yükleniyor… <LoadingSpinner />
                         </span>
                       )}
                     </div>

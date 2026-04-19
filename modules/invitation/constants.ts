@@ -25,3 +25,9 @@ export const DEFAULT_INVITATION_MUSIC_SRC = '/music/cihat-askin-kelebek.mp3';
 export const LOOP_EPS = 0.08;
 
 export const COUNTDOWN_SKELETON_KEYS = [0, 1, 2, 3] as const;
+
+/**
+ * Depoya dosya yükleme veya silme yalnızca formu günceller; kalıcı kayıt için Kaydet gerekir.
+ * İlgili toast mesajlarının sonuna eklenir.
+ */
+export const TOAST_REMEMBER_SAVE_SUFFIX = '; kaydetmeyi unutmayın';

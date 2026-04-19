@@ -97,6 +97,7 @@ export default async function PublicInvitationPage({
   const musicPath = invitation.template.musicTrackPath?.trim();
   const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');
 
+  // TODO: the transitions between sections are not smooth, they should be improved.
   return (
     <main className="overflow-x-hidden">
       {isInvitationSectionVisible(sections, 'musicPlayer') && (

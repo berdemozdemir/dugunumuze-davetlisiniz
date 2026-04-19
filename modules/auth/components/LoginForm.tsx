@@ -49,6 +49,7 @@ export const LoginForm = () => {
     router.push(paths.dashboard.base);
   });
 
+  // TODO: when user login, even if loging process was successfull cant enter the dashboard page, it redirects to login page again
   return (
     <Form {...form}>
       <AuthFormShell
