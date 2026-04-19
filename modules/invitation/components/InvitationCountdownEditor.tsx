@@ -26,6 +26,7 @@ import {
   invitationCountdownFormSchema,
   type InvitationCountdownFormSchema,
 } from '../schemas/invitation-countdown-form';
+import { paths } from '@/lib/paths';
 
 export type InvitationCountdownEditorProps = {
   eventSlug: string;
@@ -74,8 +75,10 @@ export function InvitationCountdownEditor({
       eventSlug,
       countdownEvents,
     });
-    router.refresh();
+
     toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.story(eventSlug));
   });
 
   return (
@@ -93,8 +96,8 @@ export function InvitationCountdownEditor({
             <div className="mt-4 grid gap-6">
               {countdownFieldArray.fields.length === 0 ? (
                 <p className="text-muted-foreground text-sm">
-                  Henüz etkinlik yok. Liste boşken geri sayım ve etkinlik detayları
-                  bölümleri görünmez.
+                  Henüz etkinlik yok. Liste boşken geri sayım ve etkinlik
+                  detayları bölümleri görünmez.
                 </p>
               ) : null}
 
@@ -152,15 +155,14 @@ export function InvitationCountdownEditor({
                     name={`countdownEvents.${index}.subtitle`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Alt satır (geri sayım, isteğe bağlı)</FormLabel>
+                        <FormLabel>
+                          Alt satır (geri sayım, isteğe bağlı)
+                        </FormLabel>
                         <FormDescription>
                           Kısa not; geri sayım kartında görünür.
                         </FormDescription>
                         <FormControl>
-                          <Input
-                            placeholder="Örn. akşam 20:00"
-                            {...field}
-                          />
+                          <Input placeholder="Örn. akşam 20:00" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -241,7 +243,10 @@ export function InvitationCountdownEditor({
             </div>
           </FormItem>
 
-          <Button type="submit" disabled={saveMutation.isPending}>
+          <Button
+            type="submit"
+            disabled={!form.formState.isDirty || saveMutation.isPending}
+          >
             Kaydet
             {saveMutation.isPending ? <LoadingSpinner /> : null}
           </Button>

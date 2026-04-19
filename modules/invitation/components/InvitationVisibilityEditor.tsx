@@ -23,6 +23,7 @@ import {
   invitationVisibilityFormSchema,
   type InvitationVisibilityFormSchema,
 } from '../schemas/invitation-visibility-form';
+import { paths } from '@/lib/paths';
 
 export type InvitationVisibilityEditorProps = {
   eventSlug: string;
@@ -53,8 +54,10 @@ export function InvitationVisibilityEditor({
       eventSlug,
       sections: data.sections,
     });
-    router.refresh();
+
     toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.overview(eventSlug));
   });
 
   return (
@@ -84,7 +87,9 @@ export function InvitationVisibilityEditor({
                     <FormControl>
                       <Checkbox
                         checked={field.value !== false}
-                        onCheckedChange={(next) => field.onChange(next === true)}
+                        onCheckedChange={(next) =>
+                          field.onChange(next === true)
+                        }
                       />
                     </FormControl>
                   </FormItem>
@@ -95,7 +100,10 @@ export function InvitationVisibilityEditor({
 
           <FormMessage />
 
-          <Button type="submit" disabled={saveMutation.isPending}>
+          <Button
+            type="submit"
+            disabled={!form.formState.isDirty || saveMutation.isPending}
+          >
             Kaydet
             {saveMutation.isPending && <LoadingSpinner />}
           </Button>

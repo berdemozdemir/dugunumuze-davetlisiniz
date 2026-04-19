@@ -37,6 +37,7 @@ import {
   invitationStoryTextFormSchema,
   type InvitationStoryTextFormSchema,
 } from '../schemas/invitation-story-text-form';
+import { paths } from '@/lib/paths';
 
 export type InvitationStoryTextEditorProps = {
   eventSlug: string;
@@ -126,8 +127,10 @@ export function InvitationStoryTextEditor({
       storySubline: data.storySubline,
       storyImageUri: data.storyImageUri,
     });
-    router.refresh();
+
     toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.closing(eventSlug));
   });
 
   return (
@@ -225,7 +228,10 @@ export function InvitationStoryTextEditor({
             )}
           />
 
-          <Button type="submit" disabled={saveMutation.isPending}>
+          <Button
+            type="submit"
+            disabled={!form.formState.isDirty || saveMutation.isPending}
+          >
             Kaydet
             {saveMutation.isPending && <LoadingSpinner />}
           </Button>

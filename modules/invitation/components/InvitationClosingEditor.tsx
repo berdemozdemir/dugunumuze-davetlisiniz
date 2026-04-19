@@ -36,6 +36,7 @@ import {
   invitationClosingFormSchema,
   type InvitationClosingFormSchema,
 } from '../schemas/invitation-closing-form';
+import { paths } from '@/lib/paths';
 
 export type InvitationClosingEditorProps = {
   eventSlug: string;
@@ -146,8 +147,10 @@ export function InvitationClosingEditor({
       closingNote: data.closingNote,
       closingPhotoUris: data.closingPhotoUris,
     });
-    router.refresh();
+
     toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.media(eventSlug));
   });
 
   return (
@@ -293,7 +296,10 @@ export function InvitationClosingEditor({
             )}
           />
 
-          <Button type="submit" disabled={saveMutation.isPending}>
+          <Button
+            type="submit"
+            disabled={!form.formState.isDirty || saveMutation.isPending}
+          >
             Kaydet
             {saveMutation.isPending && <LoadingSpinner />}
           </Button>

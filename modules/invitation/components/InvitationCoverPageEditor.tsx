@@ -37,6 +37,7 @@ import {
   invitationCoverFormSchema,
   type InvitationCoverFormSchema,
 } from '../schemas/invitation-cover-form';
+import { paths } from '@/lib/paths';
 
 export type InvitationCoverPageEditorProps = {
   eventSlug: string;
@@ -132,9 +133,9 @@ export function InvitationCoverPageEditor({
       heroDateLine: (data.heroDateLine ?? '').trim(),
     });
 
-    router.refresh();
-
     toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.countdown(eventSlug));
   });
 
   return (
@@ -304,7 +305,10 @@ export function InvitationCoverPageEditor({
               )}
             />
 
-            <Button type="submit" disabled={saveMutation.isPending}>
+            <Button
+              type="submit"
+              disabled={!form.formState.isDirty || saveMutation.isPending}
+            >
               Kaydet
               {saveMutation.isPending && <LoadingSpinner />}
             </Button>

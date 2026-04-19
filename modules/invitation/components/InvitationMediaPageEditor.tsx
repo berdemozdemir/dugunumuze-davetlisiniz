@@ -39,6 +39,7 @@ import {
   parseOptionalTrimSecondsFromInput,
   resolveTrimUpperBoundForSubmit,
 } from '../utils/media-trim-input';
+import { paths } from '@/lib/paths';
 
 export type InvitationMediaPageEditorProps = {
   eventSlug: string;
@@ -199,12 +200,15 @@ export function InvitationMediaPageEditor({
         upper,
       ),
     };
+
     await saveMutation.mutateAsync({
       eventSlug,
       ...patch,
     });
-    router.refresh();
-    toast.success('Müzik ayarları kaydedildi');
+
+    toast.success('Kaydedildi');
+
+    router.push(paths.dashboard.event.settings(eventSlug));
   });
 
   const showDurationHint = hasMusicTrack && previewUrl.length > 0;
@@ -345,16 +349,19 @@ export function InvitationMediaPageEditor({
               />
             </div>
 
-            <Button type="submit" disabled={saveMutation.isPending}>
+            <Button
+              type="submit"
+              disabled={!form.formState.isDirty || saveMutation.isPending}
+            >
               Kaydet
-              {saveMutation.isPending ? <LoadingSpinner /> : null}
+              {saveMutation.isPending && <LoadingSpinner />}
             </Button>
 
-            {saveMutation.error ? (
+            {saveMutation.error && (
               <div className="text-destructive text-sm">
                 {saveMutation.error.message ?? 'Kayıt başarısız'}
               </div>
-            ) : null}
+            )}
           </form>
         </Form>
       </section>
