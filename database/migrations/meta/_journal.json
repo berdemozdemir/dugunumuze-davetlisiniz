@@ -64,6 +64,13 @@
       "when": 1776600000000,
       "tag": "0008_seed_classic_event_template",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1776700000000,
+      "tag": "0009_classic_template_story_image",
+      "breakpoints": true
     }
   ]
 }

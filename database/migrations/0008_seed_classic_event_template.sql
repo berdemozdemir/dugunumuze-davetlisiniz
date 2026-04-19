@@ -17,6 +17,7 @@ VALUES (
     "quote": "",
     "storyHeadline": "",
     "storySubline": "",
+    "storyImageUri": "",
     "closingNote": "",
     "closingPhotoUris": [],
     "countdownEvents": []
