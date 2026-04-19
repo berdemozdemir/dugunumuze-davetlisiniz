@@ -4,6 +4,7 @@ import z from 'zod';
 export const invitationStoryTextFormSchema = z.object({
   storyHeadline: z.string().optional(),
   storySubline: z.string().optional(),
+  storyImageUri: z.string().max(600).optional(),
 });
 
 export type InvitationStoryTextFormSchema = z.infer<

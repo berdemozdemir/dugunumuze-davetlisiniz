@@ -129,7 +129,11 @@ export default async function PublicInvitationPage({
 
       {isInvitationSectionVisible(sections, 'story') && (
         <>
-          <InvitationStory headline={storyHeadline} subline={storySubline} />
+          <InvitationStory
+            headline={storyHeadline}
+            subline={storySubline}
+            storyImageUri={invitation.template.storyImageUri?.trim()}
+          />
 
           <SectionDivider />
         </>

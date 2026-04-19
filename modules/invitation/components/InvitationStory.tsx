@@ -1,21 +1,31 @@
 import Image from 'next/image';
 import RevealSection from '@/components/RevealSection';
 import Ornament from '@/components/Ornament';
+import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 
 type Props = {
   headline: string;
   subline: string;
+  /** Supabase Storage object path (`digital-invitation-images` bucket). */
+  storyImageUri?: string;
 };
 
-// TODO: next adımda bunu dinamik yapacağız (upload/URL).
-const STORY_IMAGE_SRC = '/images/nisan-1.jpeg';
+const STORY_IMAGE_FALLBACK = '/images/nisan-1.jpeg';
 
-export function InvitationStory({ headline, subline }: Props) {
+export function InvitationStory({ headline, subline, storyImageUri }: Props) {
+  const dynamicSrc = storyImageUri
+    ? getPublicInvitationImageUrl(storyImageUri, {
+        render: true,
+        width: 2200,
+        quality: 85,
+      })
+    : null;
+
   return (
     <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden sm:min-h-[70vh]">
       <div className="absolute inset-0">
         <Image
-          src={STORY_IMAGE_SRC}
+          src={dynamicSrc || STORY_IMAGE_FALLBACK}
           alt="invitation story background"
           fill
           className="object-cover object-top"

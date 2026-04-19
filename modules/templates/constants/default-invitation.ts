@@ -18,6 +18,7 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
   quote: '',
   storyHeadline: '',
   storySubline: '',
+  storyImageUri: '',
   closingNote: '',
   closingPhotoUris: [],
   countdownEvents: [],

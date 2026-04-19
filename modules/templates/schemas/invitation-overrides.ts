@@ -21,6 +21,7 @@ export const invitationOverridesSchema = z
     quote: z.string().optional(),
     storyHeadline: z.string().optional(),
     storySubline: z.string().optional(),
+    storyImageUri: z.string().max(600).optional(),
     closingNote: z.string().optional(),
     sections: z
       .object({

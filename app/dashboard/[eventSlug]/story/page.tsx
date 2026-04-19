@@ -10,7 +10,7 @@ export default async function EventStoryPage({
 }>) {
   const { eventSlug } = await params;
 
-  const [wErr] = await orpc_getEventBySlug({ eventSlug });
+  const [wErr, wData] = await orpc_getEventBySlug({ eventSlug });
   if (wErr) {
     notFound();
   }
@@ -31,9 +31,11 @@ export default async function EventStoryPage({
   return (
     <InvitationStoryTextEditor
       eventSlug={eventSlug}
+      eventId={wData.event.id}
       defaultValues={{
         storyHeadline: merged.storyHeadline ?? '',
         storySubline: merged.storySubline ?? '',
+        storyImageUri: merged.storyImageUri?.trim(),
       }}
     />
   );

@@ -39,6 +39,8 @@ export type InvitationDefaults = {
   quote?: string;
   storyHeadline?: string;
   storySubline?: string;
+  /** Hikâye bölümü arka planı; bucket: `digital-invitation-images`. */
+  storyImageUri?: string;
   closingNote?: string;
   /** Closing section carousel; storage object paths, max 10. */
   closingPhotoUris?: string[];
