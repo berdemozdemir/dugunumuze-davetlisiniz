@@ -1,8 +1,8 @@
 import { jsonb, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { timestamps } from '@/lib/db/timestamps';
-import { table_weddings } from '@/modules/weddings/db-tables';
+import { table_events } from '@/modules/events/db-tables';
 
-export const table_weddingTemplates = pgTable('wedding_templates', {
+export const table_eventTemplates = pgTable('event_templates', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
 
   key: text('key').notNull().unique(),
@@ -13,14 +13,14 @@ export const table_weddingTemplates = pgTable('wedding_templates', {
   ...timestamps,
 });
 
-export const table_weddingOverrides = pgTable('wedding_overrides', {
-  weddingId: uuid('wedding_id')
+export const table_eventOverrides = pgTable('event_overrides', {
+  eventId: uuid('event_id')
     .primaryKey()
     .notNull()
-    .references(() => table_weddings.id, { onDelete: 'cascade' }),
+    .references(() => table_events.id, { onDelete: 'cascade' }),
   templateId: uuid('template_id')
     .notNull()
-    .references(() => table_weddingTemplates.id, { onDelete: 'cascade' }),
+    .references(() => table_eventTemplates.id, { onDelete: 'cascade' }),
 
   overridesJson: jsonb('overrides_json').notNull(),
 

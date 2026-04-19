@@ -53,7 +53,7 @@ export const SignUpForm = () => {
     <Form {...form}>
       <AuthFormShell
         title="Aramıza katılın"
-        subtitle="Hesap oluşturarak misafir listesi ve düğün detaylarına erişin."
+        subtitle="Hesap oluşturarak davet sayfalarınızı ve etkinlik detaylarını yönetin."
       >
         <form className="space-y-4" onSubmit={submit}>
           <FormField

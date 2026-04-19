@@ -25,12 +25,12 @@ export type CountdownEventConfig = {
 // şablondan gelen varsayılan davetiye ayarları (sections + opsiyonel metinler).
 export type InvitationDefaults = {
   sections?: InvitationSections;
-  /** Supabase Storage object path (bucket: `digital-invitation-images`). Example: `weddings/<id>/hero-<ts>.webp` */
+  /** Supabase Storage object path (bucket: `digital-invitation-images`). Example: `events/<id>/hero-<ts>.webp` */
   heroImageUri?: string;
   /** Kapak üst satırı (kısa davet cümlesi); boşsa `HERO_EYEBROW_DEFAULT`. */
   heroEyebrow?: string;
   /**
-   * Kapaktaki tarih/saat satırı; boşsa düğün `dateTime` alanından biçimlendirilir.
+   * Kapaktaki tarih/saat satırı; boşsa `events.date_time` (çekirdek kayıt) üzerinden biçimlendirilir.
    * (Şema: makul uzunluk üst sınırı.)
    */
   heroDateLine?: string;
@@ -55,5 +55,5 @@ export type InvitationDefaults = {
   musicTrimEndSec?: number;
 };
 
-// wedding’e özel üstüne yazılanlar
+// şablona göre etkinliğe özel üstüne yazılanlar
 export type InvitationOverrides = InvitationDefaults;

@@ -2,20 +2,20 @@ import { procedure_protected } from '@/integrations/orpc/procedure';
 import z from 'zod';
 import { patchInvitationOverrides } from './patch-invitation-overrides';
 import { invitationCoverFormSchema } from '../schemas/invitation-cover-form';
-import { orpc_updateWeddingPartnerNames } from '@/modules/weddings/update-wedding-partners';
+import { orpc_updateEventPartnerNames } from '@/modules/events/update-event-partners';
 import { err } from '@/lib/result';
 
 export const orpc_invitation_updateCover = procedure_protected
   .input(
     z
       .object({
-        weddingSlug: z.string().min(1),
+        eventSlug: z.string().min(1),
       })
       .merge(invitationCoverFormSchema),
   )
   .handler(async ({ input, context: { db, auth } }) => {
     const {
-      weddingSlug,
+      eventSlug,
       partner1Name,
       partner2Name,
       heroImageUri,
@@ -24,8 +24,8 @@ export const orpc_invitation_updateCover = procedure_protected
       heroDateLine,
     } = input;
 
-    const [partnersErr] = await orpc_updateWeddingPartnerNames({
-      weddingSlug,
+    const [partnersErr] = await orpc_updateEventPartnerNames({
+      eventSlug,
       partner1Name,
       partner2Name,
     });
@@ -39,7 +39,7 @@ export const orpc_invitation_updateCover = procedure_protected
     return patchInvitationOverrides({
       db,
       auth,
-      weddingSlug,
+      eventSlug,
       patch: {
         heroImageUri,
         heroEyebrow,

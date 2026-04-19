@@ -25,12 +25,12 @@ import {
 } from '../schemas/invitation-visibility-form';
 
 export type InvitationVisibilityEditorProps = {
-  weddingSlug: string;
+  eventSlug: string;
   defaultValues: InvitationVisibilityFormSchema;
 };
 
 export function InvitationVisibilityEditor({
-  weddingSlug,
+  eventSlug,
   defaultValues,
 }: InvitationVisibilityEditorProps) {
   const router = useRouter();
@@ -50,7 +50,7 @@ export function InvitationVisibilityEditor({
 
   const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       sections: data.sections,
     });
     router.refresh();

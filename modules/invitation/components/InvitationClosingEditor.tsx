@@ -38,14 +38,14 @@ import {
 } from '../schemas/invitation-closing-form';
 
 export type InvitationClosingEditorProps = {
-  weddingSlug: string;
-  weddingId: string;
+  eventSlug: string;
+  eventId: string;
   defaultValues: InvitationClosingFormSchema;
 };
 
 export function InvitationClosingEditor({
-  weddingSlug,
-  weddingId,
+  eventSlug,
+  eventId,
   defaultValues,
 }: InvitationClosingEditorProps) {
   const router = useRouter();
@@ -73,7 +73,7 @@ export function InvitationClosingEditor({
     allowedMimeTypes: IMAGE_ALLOWED_MIME_TYPES,
     maxSizeMB: IMAGE_MAX_SIZE_MB,
     path: ({ extension, timestamp }) =>
-      `weddings/${weddingId}/closing-${timestamp}.${extension}`,
+      `events/${eventId}/closing-${timestamp}.${extension}`,
     onSuccess: async ({ uploadedPath }) => {
       const target = closingCropTarget.current;
       if (target === 'append') {
@@ -138,7 +138,7 @@ export function InvitationClosingEditor({
 
   const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       quote: data.quote,
       closingNote: data.closingNote,
       closingPhotoUris: data.closingPhotoUris,

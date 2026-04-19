@@ -1,18 +1,18 @@
 import { redirect } from 'next/navigation';
 import { paths } from '@/lib/paths';
 import { DashboardHomeView } from '@/modules/dashboard-home/components/DashboardHomeView';
-import type { DashboardWeddingListItem } from '@/modules/dashboard-home/types';
-import { orpc_weddings_listMine } from '@/modules/weddings/actions/list-mine';
+import type { DashboardEventListItem } from '@/modules/dashboard-home/types';
+import { orpc_events_listMine } from '@/modules/events/actions/list-mine';
 
 export default async function DashboardPage() {
-  const [listErr, data] = await orpc_weddings_listMine();
+  const [listErr, data] = await orpc_events_listMine();
 
   if (listErr) {
     console.error(listErr);
     redirect(paths.auth.login);
   }
 
-  const weddings: DashboardWeddingListItem[] = data.weddings.map((w) => ({
+  const events: DashboardEventListItem[] = data.events.map((w) => ({
     id: w.id,
     slug: w.slug,
     partner1Name: w.partner1Name,
@@ -22,5 +22,5 @@ export default async function DashboardPage() {
     createdAt: w.createdAt,
   }));
 
-  return <DashboardHomeView weddings={weddings} />;
+  return <DashboardHomeView events={events} />;
 }

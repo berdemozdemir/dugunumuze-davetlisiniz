@@ -38,15 +38,15 @@ import {
 } from '../schemas/invitation-cover-form';
 
 export type InvitationCoverPageEditorProps = {
-  weddingSlug: string;
-  weddingId: string;
+  eventSlug: string;
+  eventId: string;
   defaultValues: InvitationCoverFormSchema;
   invitationSettingsReady: boolean;
 };
 
 export function InvitationCoverPageEditor({
-  weddingSlug,
-  weddingId,
+  eventSlug,
+  eventId,
   defaultValues,
   invitationSettingsReady,
 }: InvitationCoverPageEditorProps) {
@@ -88,7 +88,7 @@ export function InvitationCoverPageEditor({
     maxSizeMB: IMAGE_MAX_SIZE_MB,
     oldPath: heroImageUri || undefined,
     path: ({ extension, timestamp }) =>
-      `weddings/${weddingId}/hero-${timestamp}.${extension}`,
+      `events/${eventId}/hero-${timestamp}.${extension}`,
     onSuccess: async ({ uploadedPath }) => {
       form.setValue('heroImageUri', uploadedPath, {
         shouldDirty: true,
@@ -121,7 +121,7 @@ export function InvitationCoverPageEditor({
 
   const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       partner1Name: data.partner1Name,
       partner2Name: data.partner2Name,
       heroImageUri: data.heroImageUri,

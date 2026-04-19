@@ -1,16 +1,16 @@
 import { PageLayout } from '@/components/ui/layout/PageLayout';
 import { Button } from '@/components/ui/Button';
 import { paths } from '@/lib/paths';
-import type { DashboardWeddingListItem } from '@/modules/dashboard-home/types';
+import type { DashboardEventListItem } from '@/modules/dashboard-home/types';
 import Link from 'next/link';
 import { EmptyState } from './EmptyState';
 import { EventCard } from './EventCard';
 
 type DashboardHomeViewProps = {
-  weddings: DashboardWeddingListItem[];
+  events: DashboardEventListItem[];
 };
 
-export function DashboardHomeView({ weddings }: DashboardHomeViewProps) {
+export function DashboardHomeView({ events }: DashboardHomeViewProps) {
   return (
     <PageLayout variant="wide" className="pt-8 pb-24">
       <div className="space-y-10">
@@ -31,18 +31,18 @@ export function DashboardHomeView({ weddings }: DashboardHomeViewProps) {
           </Button>
         </div>
 
-        {weddings.length === 0 && <EmptyState />}
+        {events.length === 0 && <EmptyState />}
 
-        {weddings.length > 0 && (
+        {events.length > 0 && (
           <section className="space-y-4">
             <h2 className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-              Etkinlikleriniz
+              Davetleriniz
             </h2>
 
             <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {weddings.map((w) => (
-                <li key={w.id}>
-                  <EventCard wedding={w} />
+              {events.map((ev) => (
+                <li key={ev.id}>
+                  <EventCard event={ev} />
                 </li>
               ))}
             </ul>

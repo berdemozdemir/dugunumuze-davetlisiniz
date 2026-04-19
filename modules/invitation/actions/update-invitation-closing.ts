@@ -7,16 +7,16 @@ export const orpc_invitation_updateClosing = procedure_protected
   .input(
     z
       .object({
-        weddingSlug: z.string().min(1),
+        eventSlug: z.string().min(1),
       })
       .merge(invitationClosingFormSchema),
   )
   .handler(async ({ input, context: { db, auth } }) => {
-    const { weddingSlug, ...patch } = input;
+    const { eventSlug, ...patch } = input;
     return patchInvitationOverrides({
       db,
       auth,
-      weddingSlug,
+      eventSlug,
       patch,
     });
   })

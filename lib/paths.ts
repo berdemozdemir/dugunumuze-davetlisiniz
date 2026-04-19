@@ -12,18 +12,19 @@ export const paths = {
 
   dashboard: {
     base: '/dashboard',
+    /** Yeni davet/etkinlik oluşturma formu */
     new: '/dashboard/new',
-    wedding: {
-      base: (weddingSlug: string) => `/dashboard/${weddingSlug}`,
-      overview: (weddingSlug: string) => `/dashboard/${weddingSlug}/overview`,
-      /** Düğün çekirdek bilgileri + kapak görseli (`modules/invitation`) */
-      cover: (weddingSlug: string) => `/dashboard/${weddingSlug}/cover`,
-      countdown: (weddingSlug: string) => `/dashboard/${weddingSlug}/countdown`,
-      story: (weddingSlug: string) => `/dashboard/${weddingSlug}/story`,
-      closing: (weddingSlug: string) => `/dashboard/${weddingSlug}/closing`,
-      rsvp: (weddingSlug: string) => `/dashboard/${weddingSlug}/rsvp`,
-      media: (weddingSlug: string) => `/dashboard/${weddingSlug}/media`,
-      settings: (weddingSlug: string) => `/dashboard/${weddingSlug}/settings`,
+    event: {
+      base: (eventSlug: string) => `/dashboard/${eventSlug}`,
+      overview: (eventSlug: string) => `/dashboard/${eventSlug}/overview`,
+      /** Çift isimleri + kapak (`modules/invitation`); dinamik segment: `[eventSlug]`. */
+      cover: (eventSlug: string) => `/dashboard/${eventSlug}/cover`,
+      countdown: (eventSlug: string) => `/dashboard/${eventSlug}/countdown`,
+      story: (eventSlug: string) => `/dashboard/${eventSlug}/story`,
+      closing: (eventSlug: string) => `/dashboard/${eventSlug}/closing`,
+      rsvp: (eventSlug: string) => `/dashboard/${eventSlug}/rsvp`,
+      media: (eventSlug: string) => `/dashboard/${eventSlug}/media`,
+      settings: (eventSlug: string) => `/dashboard/${eventSlug}/settings`,
     },
   },
 } as const;

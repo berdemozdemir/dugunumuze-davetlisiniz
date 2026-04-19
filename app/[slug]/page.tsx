@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
-import { orpc_weddings_getInvitationPreviewBySlug } from '@/modules/weddings/actions/get-invitation-preview-by-slug';
+import { orpc_events_getInvitationPreviewBySlug } from '@/modules/events/actions/get-invitation-preview-by-slug';
 import { paths } from '@/lib/paths';
 import SectionDivider from '@/components/SectionDivider';
 import { isInvitationSectionVisible } from '@/modules/invitation/section-visibility';
@@ -40,7 +40,7 @@ export default async function PublicInvitationPage({
 
   // TODO: there are too much if statements here. We should use a more functional approach.
   const [invErr, data] = preview
-    ? await orpc_weddings_getInvitationPreviewBySlug({ slug })
+    ? await orpc_events_getInvitationPreviewBySlug({ slug })
     : await orpc_getInvitationBySlug({ slug });
 
   if (invErr) {

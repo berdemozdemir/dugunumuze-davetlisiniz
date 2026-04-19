@@ -1,10 +1,10 @@
 import { AuthenticatedPage } from '@/components/ui/layout/Authenticated';
-import { CreateWeddingForm } from '@/modules/weddings/components/CreateWeddingForm';
+import { CreateEventForm } from '@/modules/events/components/CreateEventForm';
 
-export default function DashboardNewWeddingPage() {
+export default function DashboardNewEventPage() {
   return (
     <AuthenticatedPage variant="wide">
-      <CreateWeddingForm />
+      <CreateEventForm />
     </AuthenticatedPage>
   );
 }

@@ -1,7 +1,7 @@
 import { procedure_public } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
-import { table_weddings } from '@/modules/weddings/db-tables';
-import { table_weddingOverrides, table_weddingTemplates } from '../db-tables';
+import { table_events } from '@/modules/events/db-tables';
+import { table_eventOverrides, table_eventTemplates } from '../db-tables';
 import { eq } from 'drizzle-orm';
 import z from 'zod';
 import { deepMerge } from '../utils/merge';
@@ -15,34 +15,34 @@ export const orpc_getInvitationBySlug = procedure_public
     }),
   )
   .handler(async ({ input, context: { db } }) => {
-    const [weddingErr, weddingRows] = await tryCatchDb(() =>
+    const [rowErr, eventRows] = await tryCatchDb(() =>
       db
         .select({
-          id: table_weddings.id,
-          slug: table_weddings.slug,
-          partner1Name: table_weddings.partner1Name,
-          partner2Name: table_weddings.partner2Name,
-          dateTime: table_weddings.dateTime,
-          city: table_weddings.city,
-          venueName: table_weddings.venueName,
-          addressText: table_weddings.addressText,
-          publishedAt: table_weddings.publishedAt,
+          id: table_events.id,
+          slug: table_events.slug,
+          partner1Name: table_events.partner1Name,
+          partner2Name: table_events.partner2Name,
+          dateTime: table_events.dateTime,
+          city: table_events.city,
+          venueName: table_events.venueName,
+          addressText: table_events.addressText,
+          publishedAt: table_events.publishedAt,
         })
-        .from(table_weddings)
-        .where(eq(table_weddings.slug, input.slug))
+        .from(table_events)
+        .where(eq(table_events.slug, input.slug))
         .limit(1),
     );
 
-    if (weddingErr) {
-      return err({ reason: 'database-error', message: weddingErr.message });
+    if (rowErr) {
+      return err({ reason: 'database-error', message: rowErr.message });
     }
 
-    const wedding = weddingRows[0];
-    if (!wedding) {
+    const event = eventRows[0];
+    if (!event) {
       return err({ reason: 'not-found', message: 'Invitation not found' });
     }
 
-    if (!wedding.publishedAt) {
+    if (!event.publishedAt) {
       return err({
         reason: 'not-published',
         message: 'Invitation is not published',
@@ -52,15 +52,15 @@ export const orpc_getInvitationBySlug = procedure_public
     const [overrideErr, overrideRows] = await tryCatchDb(() =>
       db
         .select({
-          templateDefaults: table_weddingTemplates.defaultsJson,
-          overridesJson: table_weddingOverrides.overridesJson,
+          templateDefaults: table_eventTemplates.defaultsJson,
+          overridesJson: table_eventOverrides.overridesJson,
         })
-        .from(table_weddingOverrides)
+        .from(table_eventOverrides)
         .innerJoin(
-          table_weddingTemplates,
-          eq(table_weddingTemplates.id, table_weddingOverrides.templateId),
+          table_eventTemplates,
+          eq(table_eventTemplates.id, table_eventOverrides.templateId),
         )
-        .where(eq(table_weddingOverrides.weddingId, wedding.id))
+        .where(eq(table_eventOverrides.eventId, event.id))
         .limit(1),
     );
 
@@ -80,14 +80,14 @@ export const orpc_getInvitationBySlug = procedure_public
 
     return ok({
       invitation: {
-        slug: wedding.slug,
-        partner1Name: wedding.partner1Name,
-        partner2Name: wedding.partner2Name,
-        dateTime: wedding.dateTime.toISOString(),
-        city: wedding.city,
-        venueName: wedding.venueName ?? undefined,
-        addressText: wedding.addressText,
-        publishedAt: wedding.publishedAt.toISOString(),
+        slug: event.slug,
+        partner1Name: event.partner1Name,
+        partner2Name: event.partner2Name,
+        dateTime: event.dateTime.toISOString(),
+        city: event.city,
+        venueName: event.venueName ?? undefined,
+        addressText: event.addressText,
+        publishedAt: event.publishedAt.toISOString(),
         template: mergedTemplate,
       },
     });

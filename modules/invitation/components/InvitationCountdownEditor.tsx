@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { toDateTimeLocal } from '@/modules/weddings/util';
+import { toDateTimeLocal } from '@/modules/events/util';
 import { COUNTDOWN_EVENTS_MAX } from '@/modules/invitation/constants';
 import {
   Form,
@@ -28,12 +28,12 @@ import {
 } from '../schemas/invitation-countdown-form';
 
 export type InvitationCountdownEditorProps = {
-  weddingSlug: string;
+  eventSlug: string;
   defaultValues: InvitationCountdownFormSchema;
 };
 
 export function InvitationCountdownEditor({
-  weddingSlug,
+  eventSlug,
   defaultValues,
 }: InvitationCountdownEditorProps) {
   const router = useRouter();
@@ -71,7 +71,7 @@ export function InvitationCountdownEditor({
     }));
 
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       countdownEvents,
     });
     router.refresh();

@@ -29,12 +29,12 @@ import {
 } from '../schemas/invitation-story-text-form';
 
 export type InvitationStoryTextEditorProps = {
-  weddingSlug: string;
+  eventSlug: string;
   defaultValues: InvitationStoryTextFormSchema;
 };
 
 export function InvitationStoryTextEditor({
-  weddingSlug,
+  eventSlug,
   defaultValues,
 }: InvitationStoryTextEditorProps) {
   const router = useRouter();
@@ -54,7 +54,7 @@ export function InvitationStoryTextEditor({
 
   const submit = form.handleSubmit(async (data) => {
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       storyHeadline: data.storyHeadline,
       storySubline: data.storySubline,
     });

@@ -2,7 +2,7 @@ import z from 'zod';
 
 /**
  * Kapak sayfası — çift isimleri + şablon üstü yazma alanları tek formda.
- * Sunucu: önce `weddings` isimleri, sonra davetiye override JSON (hero alanları).
+ * Sunucu: önce `events` çift isimleri, sonra davetiye override JSON (hero alanları).
  */
 export const invitationCoverFormSchema = z.object({
   partner1Name: z.string().min(1, 'İsim gerekli'),

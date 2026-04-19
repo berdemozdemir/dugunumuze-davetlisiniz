@@ -6,10 +6,10 @@ import {
   type StandardRpcError,
 } from '@/lib/result';
 import type { DbClient } from '@/integrations/drizzle/db-type';
-import { table_weddings } from '@/modules/weddings/db-tables';
+import { table_events } from '@/modules/events/db-tables';
 import { and, eq } from 'drizzle-orm';
-import { bindDefaultTemplateToWedding } from '@/modules/templates/actions/bind-default-template-to-wedding';
-import { table_weddingOverrides } from '@/modules/templates/db-tables';
+import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { table_eventOverrides } from '@/modules/templates/db-tables';
 import { invitationOverridesSchema } from '@/modules/templates/schemas/invitation-overrides';
 import type { InvitationOverrides } from '@/modules/templates/types';
 import { deepMerge } from '@/modules/templates/utils/merge';
@@ -22,19 +22,19 @@ import { deepMerge } from '@/modules/templates/utils/merge';
 export async function patchInvitationOverrides(input: {
   db: DbClient;
   auth: { userId: string };
-  weddingSlug: string;
+  eventSlug: string;
   patch: Partial<InvitationOverrides>;
 }): Promise<Result<void, StandardRpcError>> {
-  const { db, auth, weddingSlug, patch } = input;
+  const { db, auth, eventSlug, patch } = input;
 
-  const [wErr, weddingRows] = await tryCatchDb(() =>
+  const [wErr, eventRows] = await tryCatchDb(() =>
     db
-      .select({ id: table_weddings.id })
-      .from(table_weddings)
+      .select({ id: table_events.id })
+      .from(table_events)
       .where(
         and(
-          eq(table_weddings.slug, weddingSlug),
-          eq(table_weddings.ownerId, auth.userId),
+          eq(table_events.slug, eventSlug),
+          eq(table_events.ownerId, auth.userId),
         ),
       )
       .limit(1),
@@ -42,12 +42,12 @@ export async function patchInvitationOverrides(input: {
   if (wErr) {
     return err({ reason: 'database-error', message: wErr.message });
   }
-  const weddingId = weddingRows[0]?.id;
-  if (!weddingId) {
-    return err({ reason: 'not-found', message: 'Wedding not found' });
+  const eventId = eventRows[0]?.id;
+  if (!eventId) {
+    return err({ reason: 'not-found', message: 'Event not found' });
   }
 
-  const [bindErr] = await bindDefaultTemplateToWedding(db, weddingId);
+  const [bindErr] = await bindDefaultTemplateToEvent(db, eventId);
   if (bindErr) {
     return err({
       reason: 'template-bind-failed',
@@ -63,9 +63,9 @@ export async function patchInvitationOverrides(input: {
 
   const [readErr, overrideRows] = await tryCatchDb(() =>
     db
-      .select({ overridesJson: table_weddingOverrides.overridesJson })
-      .from(table_weddingOverrides)
-      .where(eq(table_weddingOverrides.weddingId, weddingId))
+      .select({ overridesJson: table_eventOverrides.overridesJson })
+      .from(table_eventOverrides)
+      .where(eq(table_eventOverrides.eventId, eventId))
       .limit(1),
   );
   if (readErr) {
@@ -89,12 +89,12 @@ export async function patchInvitationOverrides(input: {
   const now = new Date();
   const [updateErr] = await tryCatchDb(() =>
     db
-      .update(table_weddingOverrides)
+      .update(table_eventOverrides)
       .set({
         overridesJson: parsed.data,
         updatedAt: now,
       })
-      .where(eq(table_weddingOverrides.weddingId, weddingId)),
+      .where(eq(table_eventOverrides.eventId, eventId)),
   );
   if (updateErr) {
     return err({ reason: 'database-error', message: updateErr.message });

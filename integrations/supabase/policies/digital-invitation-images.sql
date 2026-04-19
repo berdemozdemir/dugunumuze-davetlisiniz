@@ -1,12 +1,15 @@
--- Storage RLS: `digital-invitation-images` + `public.weddings` sahiplik kontrolü
+-- Storage RLS: `digital-invitation-images` + `public.events` sahiplik kontrolü
 --
--- Path: `weddings/<wedding_id>/<dosya>` (başta / yok)
--- INSERT/DELETE: sadece `weddings.id` = path’teki uuid VE `weddings.owner_id` = `auth.uid()`
+-- Path: `events/<event_id>/<dosya>` (başta / yok)
+-- INSERT/DELETE: sadece `events.id` = path’teki uuid VE `events.owner_id` = `auth.uid()`
 --
 -- Supabase → SQL Editor’de çalıştırın.
 
--- `weddings` üzerinde RLS varsa EXISTS bazen görünmez; definer + row_security off ile okunur.
-CREATE OR REPLACE FUNCTION public.invitation_storage_wedding_path_allows(p_object_name text)
+-- Eski `weddings` tabanlı fonksiyon (varsa) kaldırılır; yeni isimle yeniden oluşturulur.
+DROP FUNCTION IF EXISTS public.invitation_storage_wedding_path_allows(text);
+
+-- `events` üzerinde RLS varsa EXISTS bazen görünmez; definer + row_security off ile okunur.
+CREATE OR REPLACE FUNCTION public.invitation_storage_event_path_allows(p_object_name text)
 RETURNS boolean
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -16,7 +19,7 @@ STABLE
 AS $$
 DECLARE
   p text;
-  wid uuid;
+  eid uuid;
   uid uuid;
 BEGIN
   p := trim(both '/' from coalesce(p_object_name, ''));
@@ -26,12 +29,12 @@ BEGIN
     RETURN false;
   END IF;
 
-  IF split_part(p, '/', 1) <> 'weddings' THEN
+  IF split_part(p, '/', 1) <> 'events' THEN
     RETURN false;
   END IF;
 
   BEGIN
-    wid := split_part(p, '/', 2)::uuid;
+    eid := split_part(p, '/', 2)::uuid;
   EXCEPTION
     WHEN invalid_text_representation THEN
       RETURN false;
@@ -39,15 +42,15 @@ BEGIN
 
   RETURN EXISTS (
     SELECT 1
-    FROM public.weddings w
-    WHERE w.id = wid
-      AND w.owner_id = uid
+    FROM public.events e
+    WHERE e.id = eid
+      AND e.owner_id = uid
   );
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.invitation_storage_wedding_path_allows(text) FROM PUBLIC;
-GRANT EXECUTE ON FUNCTION public.invitation_storage_wedding_path_allows(text) TO PUBLIC;
+REVOKE ALL ON FUNCTION public.invitation_storage_event_path_allows(text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.invitation_storage_event_path_allows(text) TO PUBLIC;
 
 DROP POLICY IF EXISTS "digital_invitation_images_select_public" ON storage.objects;
 DROP POLICY IF EXISTS "digital_invitation_images_insert_authenticated" ON storage.objects;
@@ -65,8 +68,8 @@ CREATE POLICY "digital_invitation_images_insert_authenticated"
   TO authenticated
   WITH CHECK (
     bucket_id = 'digital-invitation-images'
-    AND split_part(trim(both '/' from name), '/', 1) = 'weddings'
-    AND public.invitation_storage_wedding_path_allows(name)
+    AND split_part(trim(both '/' from name), '/', 1) = 'events'
+    AND public.invitation_storage_event_path_allows(name)
   );
 
 CREATE POLICY "digital_invitation_images_delete_authenticated"
@@ -75,8 +78,8 @@ CREATE POLICY "digital_invitation_images_delete_authenticated"
   TO authenticated
   USING (
     bucket_id = 'digital-invitation-images'
-    AND split_part(trim(both '/' from name), '/', 1) = 'weddings'
-    AND public.invitation_storage_wedding_path_allows(name)
+    AND split_part(trim(both '/' from name), '/', 1) = 'events'
+    AND public.invitation_storage_event_path_allows(name)
   );
 
 /*
@@ -91,13 +94,13 @@ CREATE POLICY "digital_invitation_images_insert_authenticated"
   ON storage.objects FOR INSERT TO authenticated
   WITH CHECK (
     bucket_id = 'digital-invitation-images'
-    AND split_part(trim(both '/' from name), '/', 1) = 'weddings'
+    AND split_part(trim(both '/' from name), '/', 1) = 'events'
   );
 
 CREATE POLICY "digital_invitation_images_delete_authenticated"
   ON storage.objects FOR DELETE TO authenticated
   USING (
     bucket_id = 'digital-invitation-images'
-    AND split_part(trim(both '/' from name), '/', 1) = 'weddings'
+    AND split_part(trim(both '/' from name), '/', 1) = 'events'
   );
 */

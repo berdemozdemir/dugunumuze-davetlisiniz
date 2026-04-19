@@ -1,14 +1,14 @@
 import { orpc_login } from '@/modules/auth/actions/login';
 import { orpc_signup } from '@/modules/auth/actions/signup';
 import { orpc_getAuthSession } from '@/modules/auth/actions/get-auth-session';
-import { orpc_weddings_create } from '@/modules/weddings/actions/create';
-import { orpc_weddings_listMine } from '@/modules/weddings/actions/list-mine';
-import { orpc_getWeddingBySlug } from '@/modules/weddings/actions/get-wedding-by-slug';
-import { orpc_publishWedding } from '@/modules/weddings/actions/publish-wedding';
-import { orpc_unpublishWedding } from '@/modules/weddings/actions/unpublish-wedding';
-import { orpc_weddings_getInvitationPreviewBySlug } from '@/modules/weddings/actions/get-invitation-preview-by-slug';
+import { orpc_createEvent } from '@/modules/events/actions/create-event';
+import { orpc_events_listMine } from '@/modules/events/actions/list-mine';
+import { orpc_getEventBySlug } from '@/modules/events/actions/get-event-by-slug';
+import { orpc_publishEvent } from '@/modules/events/actions/publish-event';
+import { orpc_unpublishEvent } from '@/modules/events/actions/unpublish-event';
+import { orpc_events_getInvitationPreviewBySlug } from '@/modules/events/actions/get-invitation-preview-by-slug';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
-import { orpc_templates_getWeddingInvitationSettings } from '@/modules/templates/actions/get-wedding-invitation-settings';
+import { orpc_templates_getEventInvitationSettings } from '@/modules/templates/actions/get-event-invitation-settings';
 import { orpc_invitation_updateClosing } from '@/modules/invitation/actions/update-invitation-closing';
 import { orpc_invitation_updateCover } from '@/modules/invitation/actions/update-invitation-cover';
 import { orpc_invitation_updateCountdown } from '@/modules/invitation/actions/update-invitation-countdown';
@@ -22,17 +22,17 @@ export const router = {
     signup: orpc_signup,
     getAuthSession: orpc_getAuthSession,
   },
-  weddings: {
-    create: orpc_weddings_create,
-    listMine: orpc_weddings_listMine,
-    getBySlug: orpc_getWeddingBySlug,
-    getInvitationPreviewBySlug: orpc_weddings_getInvitationPreviewBySlug,
-    publish: orpc_publishWedding,
-    unpublish: orpc_unpublishWedding,
+  events: {
+    create: orpc_createEvent,
+    listMine: orpc_events_listMine,
+    getBySlug: orpc_getEventBySlug,
+    getInvitationPreviewBySlug: orpc_events_getInvitationPreviewBySlug,
+    publish: orpc_publishEvent,
+    unpublish: orpc_unpublishEvent,
   },
   templates: {
     getInvitationBySlug: orpc_getInvitationBySlug,
-    getWeddingInvitationSettings: orpc_templates_getWeddingInvitationSettings,
+    getEventInvitationSettings: orpc_templates_getEventInvitationSettings,
   },
   invitation: {
     updateCover: orpc_invitation_updateCover,

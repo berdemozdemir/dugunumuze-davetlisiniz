@@ -186,9 +186,9 @@ export function toEventDetailCards(
 }
 
 /**
- * `weddings` satırı için kaynak: doğrulanmış etkinlikler içinde takvimde en erken olan.
+ * `events` çekirdek satırı için kaynak: doğrulanmış etkinlikler içinde takvimde en erken olan.
  */
-export function selectPrimaryEventForWeddingRow(
+export function selectPrimaryEventForEventRow(
   events: CountdownEventConfig[],
 ): CountdownEventConfig | null {
   if (events.length === 0) return null;

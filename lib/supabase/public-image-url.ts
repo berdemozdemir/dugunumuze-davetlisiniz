@@ -1,14 +1,17 @@
 import { BucketNames } from '@/integrations/supabase/supabase-storage';
 
 /**
- * Supabase Storage **public** ve **render** URL üretimi.
+ * Supabase Storage **public** ve isteğe bağlı **render** URL üretimi.
  *
- * DB’de tam URL tutmuyoruz; sadece bucket içi **path** (örn. `weddings/<id>/hero.webp`).
- * `next/image` ve tarayıcı bu path + proje URL’si ile dosyayı çeker; bu modül o tam
- * adresi üretir (`digital-invitation-images` public bucket varsayımıyla).
+ * DB’de tam URL tutmuyoruz; sadece bucket içi **path** (örn. `events/<id>/hero.webp`).
+ * Varsayılan: `/storage/v1/object/public/...` (her public bucket’ta çalışır).
+ *
+ * `/storage/v1/render/image/...` (resize/kalite) Supabase’te **Image Transformations**
+ * gerektirir; planda yoksa veya free tier’da sık **403** verir. Açmak için:
+ * `NEXT_PUBLIC_SUPABASE_IMAGE_TRANSFORM=true` ve panelde özelliğin aktif olması gerekir.
  */
 type PublicImageUrlOptions = {
-  /** Use Supabase's image render endpoint. */
+  /** Use Supabase image render endpoint (resize). Ignored unless env transform is on. */
   render?: boolean;
   /** Only for render endpoint. */
   width?: number;
@@ -49,11 +52,14 @@ export function getPublicInvitationImageUrl(
   path: string,
   opts: PublicImageUrlOptions = {},
 ) {
-  return getPublicStorageBucketUrl(
-    BucketNames.DigitalInvitationImages,
-    path,
-    opts,
-  );
+  const transformEnabled =
+    process.env.NEXT_PUBLIC_SUPABASE_IMAGE_TRANSFORM === 'true';
+  const useRender = transformEnabled && (opts.render ?? false);
+
+  return getPublicStorageBucketUrl(BucketNames.DigitalInvitationImages, path, {
+    ...opts,
+    render: useRender,
+  });
 }
 
 /** Public bucket `digital-invitation-audio`; path DB’de saklanan object path. */

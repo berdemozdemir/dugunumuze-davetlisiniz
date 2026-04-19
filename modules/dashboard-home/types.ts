@@ -1,5 +1,5 @@
-/** `orpc_weddings_listMine` yanıtındaki tek kayıt (UI için). */
-export type DashboardWeddingListItem = {
+/** `orpc_events_listMine` yanıtındaki tek kayıt (UI için). */
+export type DashboardEventListItem = {
   id: string;
   slug: string;
   partner1Name: string;

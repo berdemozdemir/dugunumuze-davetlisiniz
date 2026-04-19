@@ -4,15 +4,15 @@ import { cn } from '@/lib/utils';
 import { IconCalendarEvent } from '@tabler/icons-react';
 import { formatEventDateTime } from '../util/format-event-datetime';
 import { IconChevronRight } from '@tabler/icons-react';
-import type { DashboardWeddingListItem } from '../types';
+import type { DashboardEventListItem } from '../types';
 
-export function EventCard({ wedding }: { wedding: DashboardWeddingListItem }) {
-  const title = `${wedding.partner1Name} & ${wedding.partner2Name}`;
-  const isPublished = wedding.publishedAt !== null;
+export function EventCard({ event }: { event: DashboardEventListItem }) {
+  const title = `${event.partner1Name} & ${event.partner2Name}`;
+  const isPublished = event.publishedAt !== null;
 
   return (
     <Link
-      href={paths.dashboard.wedding.overview(wedding.slug)}
+      href={paths.dashboard.event.overview(event.slug)}
       className={cn(
         'border-border/60 bg-card group flex h-full flex-col rounded-xl border p-4 shadow-sm transition-colors',
         'hover:border-border hover:bg-muted/40',
@@ -25,7 +25,7 @@ export function EventCard({ wedding }: { wedding: DashboardWeddingListItem }) {
           <p className="text-muted-foreground mt-1 flex items-center gap-1.5 text-xs">
             <IconCalendarEvent className="size-3.5 shrink-0" aria-hidden />
 
-            {formatEventDateTime(wedding.dateTime)}
+            {formatEventDateTime(event.dateTime)}
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function EventCard({ wedding }: { wedding: DashboardWeddingListItem }) {
       </div>
 
       <p className="text-muted-foreground mt-3 truncate font-mono text-[0.7rem]">
-        /{wedding.slug}
+        /{event.slug}
       </p>
 
       <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">

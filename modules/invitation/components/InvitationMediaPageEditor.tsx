@@ -40,15 +40,15 @@ import {
 } from '../utils/media-trim-input';
 
 export type InvitationMediaPageEditorProps = {
-  weddingSlug: string;
-  weddingId: string;
+  eventSlug: string;
+  eventId: string;
   mediaDefaults: InvitationMediaFormSchema;
   invitationSettingsReady: boolean;
 };
 
 export function InvitationMediaPageEditor({
-  weddingSlug,
-  weddingId,
+  eventSlug,
+  eventId,
   mediaDefaults,
   invitationSettingsReady,
 }: InvitationMediaPageEditorProps) {
@@ -141,7 +141,7 @@ export function InvitationMediaPageEditor({
     maxSizeMB: AUDIO_MAX_SIZE_MB,
     oldPath: musicTrackPath || undefined,
     path: ({ extension, timestamp }) =>
-      `weddings/${weddingId}/music-${timestamp}.${extension}`,
+      `events/${eventId}/music-${timestamp}.${extension}`,
     onSuccess: async ({ uploadedPath }) => {
       form.setValue('musicTrackPath', uploadedPath, {
         shouldDirty: true,
@@ -199,7 +199,7 @@ export function InvitationMediaPageEditor({
       ),
     };
     await saveMutation.mutateAsync({
-      weddingSlug,
+      eventSlug,
       ...patch,
     });
     router.refresh();

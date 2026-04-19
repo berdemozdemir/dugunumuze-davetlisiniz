@@ -2,7 +2,7 @@ import HeroSection from '@/components/HeroSection';
 import CountdownSection from '@/components/CountdownSection';
 import SectionDivider from '@/components/SectionDivider';
 import StorySection from '@/components/StorySection';
-import WeddingDetailsSection from '@/components/WeddingDetailsSection';
+import EventDetailsSection from '@/components/EventDetailsSection';
 import ClosingSection from '@/components/ClosingSection';
 import MusicPlayer from '@/components/MusicPlayer';
 
@@ -21,7 +21,7 @@ export default function ElifErdemPage() {
 
       <SectionDivider />
 
-      <WeddingDetailsSection />
+      <EventDetailsSection />
 
       <SectionDivider />
 

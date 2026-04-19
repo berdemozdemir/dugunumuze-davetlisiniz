@@ -53,7 +53,7 @@ export const LoginForm = () => {
     <Form {...form}>
       <AuthFormShell
         title="Hoş geldiniz"
-        subtitle="Hesabınıza giriş yaparak düğün planlamanıza devam edin."
+        subtitle="Hesabınıza giriş yaparak davet ve etkinlik planlamanıza devam edin."
       >
         <form className="space-y-4" onSubmit={submit}>
           <FormField
