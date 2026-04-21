@@ -2,22 +2,19 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 
-const pageLayoutVariants = cva(
-  'container pt-6 pb-24 w-full lg:px-5 min-h-dvh',
-  {
-    variants: {
-      variant: {
-        narrow: 'max-w-2xl',
-        standard: 'max-w-5xl',
-        wide: 'max-w-7xl',
-        full: 'w-full max-w-full px-0',
-      },
-    },
-    defaultVariants: {
-      variant: 'standard',
+const pageLayoutVariants = cva('container pt-6 pb-24 w-full lg:px-5', {
+  variants: {
+    variant: {
+      narrow: 'max-w-2xl',
+      standard: 'max-w-5xl',
+      wide: 'max-w-7xl',
+      full: 'w-full max-w-full px-0',
     },
   },
-);
+  defaultVariants: {
+    variant: 'standard',
+  },
+});
 
 export type PageLayoutProps = ComponentProps<'div'> &
   VariantProps<typeof pageLayoutVariants>;

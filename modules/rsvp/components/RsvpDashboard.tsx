@@ -7,6 +7,7 @@ import { RsvpDashboardSettingsTab } from '@/modules/rsvp/components/RsvpDashboar
 import {} from '@/modules/rsvp/schemas/rsvp-dashboard-settings-form';
 import type { RsvpOwnerSummary } from '@/modules/rsvp/types';
 import { paths } from '@/lib/paths';
+import { AuthenticatedPage } from '@/components/ui/layout/Authenticated';
 
 export function RsvpDashboard({
   eventSlug,
@@ -30,8 +31,8 @@ export function RsvpDashboard({
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
-      <div>
+    <AuthenticatedPage>
+      <div className="mb-2">
         <h1 className="text-2xl font-semibold">RSVP</h1>
 
         <p className="text-muted-foreground mt-1 text-sm">
@@ -55,6 +56,6 @@ export function RsvpDashboard({
           <RsvpDashboardGuestsTab eventSlug={eventSlug} activeTab={activeTab} />
         </TabsContent>
       </Tabs>
-    </div>
+    </AuthenticatedPage>
   );
 }
