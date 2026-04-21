@@ -71,6 +71,13 @@
       "when": 1776700000000,
       "tag": "0009_classic_template_story_image",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1776646518545,
+      "tag": "0010_rsvp_responses",
+      "breakpoints": true
     }
   ]
 }
