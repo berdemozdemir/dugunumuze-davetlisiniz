@@ -11,11 +11,10 @@ export default async function EventDashboardLayout({
   const { eventSlug } = await params;
 
   return (
-    <div className="grid min-h-dvh grid-cols-1 md:h-dvh md:min-h-0 md:grid-cols-[260px_1fr] md:grid-rows-1">
+    <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] md:grid-rows-1">
       <DashboardSidebar eventSlug={eventSlug} />
 
-      {/* TODO: fix 2 scrollbar issue */}
-      <PageLayout className="min-h-0 overflow-y-auto">{children}</PageLayout>
+      <PageLayout className="overflow-y-auto">{children}</PageLayout>
     </div>
   );
 }
