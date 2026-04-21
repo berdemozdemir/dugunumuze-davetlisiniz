@@ -100,11 +100,11 @@ export function PublicRsvpSection({
       note: data.note?.trim() || undefined,
     });
 
+    toast.success('Kaydınız alındı');
+
     form.reset();
 
     setOpen(false);
-
-    toast.success('Kaydınız alındı');
   });
 
   const blocked = rsvpGuestClosedMessage(initialState.closedReason);
