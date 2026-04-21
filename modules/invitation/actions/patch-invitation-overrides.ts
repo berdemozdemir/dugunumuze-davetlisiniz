@@ -3,7 +3,10 @@ import { err, ok, tryCatchDb } from '@/lib/result';
 import { table_events } from '@/modules/events/db-tables';
 import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 import { table_eventOverrides } from '@/modules/templates/db-tables';
-import { invitationOverridesSchema } from '@/modules/templates/schemas/invitation-overrides';
+import {
+  invitationOverridesObjectSchema,
+  invitationOverridesSchema,
+} from '@/modules/templates/schemas/invitation-overrides';
 import type { InvitationOverrides } from '@/modules/templates/types';
 import { deepMerge } from '@/modules/templates/utils/merge';
 import { and, eq } from 'drizzle-orm';
@@ -15,7 +18,7 @@ import z from 'zod';
  */
 export const patchInvitationOverridesInputSchema = z.object({
   eventSlug: z.string().min(1),
-  patch: invitationOverridesSchema.partial(),
+  patch: invitationOverridesObjectSchema.partial(),
 });
 
 export const orpc_patchInvitationOverrides = procedure_protected
