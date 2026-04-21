@@ -15,6 +15,11 @@ import { orpc_invitation_updateCountdown } from '@/modules/invitation/actions/up
 import { orpc_invitation_updateStoryText } from '@/modules/invitation/actions/update-invitation-story-text';
 import { orpc_invitation_updateVisibility } from '@/modules/invitation/actions/update-invitation-visibility';
 import { orpc_invitation_updateMedia } from '@/modules/invitation/actions/update-invitation-media';
+import { orpc_rsvp_getPublicState } from '@/modules/rsvp/actions/get-public-state';
+import { orpc_rsvp_submit } from '@/modules/rsvp/actions/submit';
+import { orpc_rsvp_updateSettings } from '@/modules/rsvp/actions/update-settings';
+import { orpc_rsvp_listResponses } from '@/modules/rsvp/actions/list-responses';
+import { orpc_rsvp_getOwnerSummary } from '@/modules/rsvp/actions/get-owner-summary';
 
 export const router = {
   auth: {
@@ -41,5 +46,12 @@ export const router = {
     updateStoryText: orpc_invitation_updateStoryText,
     updateVisibility: orpc_invitation_updateVisibility,
     updateMedia: orpc_invitation_updateMedia,
+  },
+  rsvp: {
+    getPublicState: orpc_rsvp_getPublicState,
+    submit: orpc_rsvp_submit,
+    updateSettings: orpc_rsvp_updateSettings,
+    listResponses: orpc_rsvp_listResponses,
+    getOwnerSummary: orpc_rsvp_getOwnerSummary,
   },
 } as const;

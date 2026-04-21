@@ -1,6 +1,6 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import z from 'zod';
-import { patchInvitationOverrides } from './patch-invitation-overrides';
+import { orpc_patchInvitationOverrides } from './patch-invitation-overrides';
 import { invitationStoryTextFormSchema } from '../schemas/invitation-story-text-form';
 
 export const orpc_invitation_updateStoryText = procedure_protected
@@ -11,11 +11,9 @@ export const orpc_invitation_updateStoryText = procedure_protected
       })
       .merge(invitationStoryTextFormSchema),
   )
-  .handler(async ({ input, context: { db, auth } }) => {
+  .handler(async ({ input }) => {
     const { eventSlug, ...patch } = input;
-    return patchInvitationOverrides({
-      db,
-      auth,
+    return orpc_patchInvitationOverrides({
       eventSlug,
       patch,
     });

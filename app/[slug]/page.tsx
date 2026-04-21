@@ -25,6 +25,10 @@ import {
   toEventDetailCards,
 } from '@/modules/invitation/util';
 import type { PublicInvitationView } from '@/modules/invitation/types';
+import { orpc_rsvp_getPublicState } from '@/modules/rsvp/actions/get-public-state';
+import { PublicRsvpSection } from '@/modules/rsvp/components/PublicRsvpSection';
+import { RsvpPreviewPlaceholder } from '@/modules/rsvp/components/RsvpPreviewPlaceholder';
+import type { RsvpPublicState } from '@/modules/rsvp/types';
 
 export default async function PublicInvitationPage({
   params,
@@ -97,6 +101,19 @@ export default async function PublicInvitationPage({
   const musicPath = invitation.template.musicTrackPath?.trim();
   const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');
 
+  const rsvpSectionEnabled = isInvitationSectionVisible(sections, 'rsvp');
+
+  const showRsvpPreviewSection = rsvpSectionEnabled && preview;
+  const showRsvpSection = rsvpSectionEnabled && !preview;
+
+  let rsvpState: RsvpPublicState | null = null;
+  if (showRsvpSection) {
+    const [rsvpErr, rsvpOk] = await orpc_rsvp_getPublicState({ slug });
+    if (rsvpErr === null) {
+      rsvpState = rsvpOk;
+    }
+  }
+
   // TODO: the transitions between sections are not smooth, they should be improved.
   return (
     <main className="overflow-x-hidden">
@@ -156,6 +173,20 @@ export default async function PublicInvitationPage({
           yearLabel={yearFooter}
           carouselPhotos={carouselPhotos}
         />
+      )}
+
+      {showRsvpPreviewSection && (
+        <>
+          <SectionDivider />
+          <RsvpPreviewPlaceholder />
+        </>
+      )}
+
+      {showRsvpSection && rsvpState && (
+        <>
+          <SectionDivider />
+          <PublicRsvpSection slug={slug} initialState={rsvpState} />
+        </>
       )}
 
       <footer className="border-t border-white/5 py-8 text-center">

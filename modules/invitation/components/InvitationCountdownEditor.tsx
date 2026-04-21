@@ -94,12 +94,12 @@ export function InvitationCountdownEditor({
         <form className="mt-6 grid gap-6" onSubmit={submit}>
           <FormItem className="gap-3">
             <div className="mt-4 grid gap-6">
-              {countdownFieldArray.fields.length === 0 ? (
+              {countdownFieldArray.fields.length === 0 && (
                 <p className="text-muted-foreground text-sm">
                   Henüz etkinlik yok. Liste boşken geri sayım ve etkinlik
                   detayları bölümleri görünmez.
                 </p>
-              ) : null}
+              )}
 
               {countdownFieldArray.fields.map((fieldItem, index) => (
                 <div
@@ -221,7 +221,7 @@ export function InvitationCountdownEditor({
                 </div>
               ))}
 
-              {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX ? (
+              {countdownFieldArray.fields.length < COUNTDOWN_EVENTS_MAX && (
                 <Button
                   type="button"
                   variant="outline"
@@ -239,7 +239,7 @@ export function InvitationCountdownEditor({
                 >
                   Etkinlik ekle
                 </Button>
-              ) : null}
+              )}
             </div>
           </FormItem>
 
@@ -248,14 +248,14 @@ export function InvitationCountdownEditor({
             disabled={!form.formState.isDirty || saveMutation.isPending}
           >
             Kaydet
-            {saveMutation.isPending ? <LoadingSpinner /> : null}
+            {saveMutation.isPending && <LoadingSpinner />}
           </Button>
 
-          {saveMutation.error ? (
+          {saveMutation.error && (
             <div className="text-destructive text-sm">
               {saveMutation.error.message}
             </div>
-          ) : null}
+          )}
         </form>
       </Form>
     </div>

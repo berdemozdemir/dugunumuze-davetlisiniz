@@ -33,6 +33,12 @@ export const INVITATION_SECTION_OPTIONS = [
     label: 'Music player',
     description: 'Sayfada müzik çaların görünürlüğü.',
   },
+  {
+    key: 'rsvp',
+    label: 'RSVP',
+    description:
+      'Rezervasyon butonu ve formu; son etkinlik için katılım bildirimi.',
+  },
 ] as const satisfies ReadonlyArray<{
   key: keyof NonNullable<InvitationDefaults['sections']>;
   label: string;

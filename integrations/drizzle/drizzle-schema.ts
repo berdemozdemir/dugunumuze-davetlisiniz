@@ -11,6 +11,7 @@
 import * as userSchema from '@/modules/auth/db-tables';
 import * as eventSchema from '@/modules/events/db-tables';
 import * as templateSchema from '@/modules/templates/db-tables';
+import * as rsvpSchema from '@/modules/rsvp/db-tables';
 
 // ## RELATIONS ##
 
@@ -21,4 +22,5 @@ export const drizzleSchema = {
   ...userSchema,
   ...eventSchema,
   ...templateSchema,
+  ...rsvpSchema,
 };

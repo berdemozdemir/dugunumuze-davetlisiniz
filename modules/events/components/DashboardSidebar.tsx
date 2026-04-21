@@ -60,15 +60,15 @@ export const DashboardSidebar = ({ eventSlug }: { eventSlug: string }) => {
         />
 
         <SideBarItem
-          href={paths.dashboard.event.rsvp(eventSlug)}
-          label="RSVP"
-          Icon={IconUsers}
-        />
-
-        <SideBarItem
           href={paths.dashboard.event.media(eventSlug)}
           label="Media"
           Icon={IconMusic}
+        />
+
+        <SideBarItem
+          href={paths.dashboard.event.rsvp(eventSlug)}
+          label="RSVP"
+          Icon={IconUsers}
         />
 
         <SideBarItem

@@ -31,6 +31,7 @@ export const invitationOverridesSchema = z
         details: z.boolean().optional(),
         closing: z.boolean().optional(),
         musicPlayer: z.boolean().optional(),
+        rsvp: z.boolean().optional(),
       })
       .optional(),
     /**
@@ -42,6 +43,14 @@ export const invitationOverridesSchema = z
     musicTrimStartSec: z.number().min(0).optional(),
     /** Oynatma penceresi: bitiş (saniye). İkisi de doluysa `musicTrimEndSec > musicTrimStartSec` olmalı. */
     musicTrimEndSec: z.number().min(0).optional(),
+    rsvpDeadlineIso: z
+      .string()
+      .min(1)
+      .refine((s) => !Number.isNaN(Date.parse(s)), 'Geçerli bir tarih/saat')
+      .optional(),
+    /** `null` = üst sınır yok. */
+    rsvpMaxTotalGuests: z.number().int().min(1).max(500_000).nullable().optional(),
+    rsvpButtonLabel: z.string().max(80).optional(),
   })
   .superRefine((data, ctx) => {
     if (

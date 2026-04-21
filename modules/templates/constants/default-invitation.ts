@@ -13,6 +13,7 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
     details: true,
     closing: true,
     musicPlayer: true,
+    rsvp: false,
   },
   heroImageUri: '',
   quote: '',

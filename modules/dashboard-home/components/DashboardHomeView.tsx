@@ -17,7 +17,7 @@ export function DashboardHomeView({ events }: DashboardHomeViewProps) {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight">
-              Panel&eacute;ye hoş geldiniz
+              Panel&apos;e hoş geldiniz
             </h1>
 
             <p className="text-muted-foreground max-w-xl text-sm leading-relaxed">

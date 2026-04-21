@@ -52,6 +52,7 @@ export default async function EventSettingsPage({
             details: merged.sections?.details ?? true,
             closing: merged.sections?.closing ?? true,
             musicPlayer: merged.sections?.musicPlayer ?? true,
+            rsvp: merged.sections?.rsvp ?? false,
           },
         }}
       />

@@ -1,6 +1,6 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import z from 'zod';
-import { patchInvitationOverrides } from './patch-invitation-overrides';
+import { orpc_patchInvitationOverrides } from './patch-invitation-overrides';
 import { invitationCoverFormSchema } from '../schemas/invitation-cover-form';
 import { orpc_updateEventPartnerNames } from '@/modules/events/update-event-partners';
 import { err } from '@/lib/result';
@@ -13,7 +13,7 @@ export const orpc_invitation_updateCover = procedure_protected
       })
       .merge(invitationCoverFormSchema),
   )
-  .handler(async ({ input, context: { db, auth } }) => {
+  .handler(async ({ input }) => {
     const {
       eventSlug,
       partner1Name,
@@ -36,9 +36,7 @@ export const orpc_invitation_updateCover = procedure_protected
       });
     }
 
-    return patchInvitationOverrides({
-      db,
-      auth,
+    return orpc_patchInvitationOverrides({
       eventSlug,
       patch: {
         heroImageUri,
