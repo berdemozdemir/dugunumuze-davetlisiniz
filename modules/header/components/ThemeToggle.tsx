@@ -42,7 +42,7 @@ export const ThemeToggle = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuLabel>Theme</DropdownMenuLabel>
+        <DropdownMenuLabel>Tema</DropdownMenuLabel>
 
         <DropdownMenuSeparator />
 
@@ -50,21 +50,21 @@ export const ThemeToggle = () => {
           checked={theme === 'light'}
           onClick={() => setTheme('light')}
         >
-          Light
+          Açık
         </DropdownMenuCheckboxItem>
 
         <DropdownMenuCheckboxItem
           checked={theme === 'dark'}
           onClick={() => setTheme('dark')}
         >
-          Dark
+          Koyu
         </DropdownMenuCheckboxItem>
 
         <DropdownMenuCheckboxItem
           checked={theme === 'system'}
           onClick={() => setTheme('system')}
         >
-          System
+          Sistem
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>

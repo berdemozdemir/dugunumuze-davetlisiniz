@@ -9,7 +9,7 @@ export type FinalEventResolution = {
 /**
  * Kronolojik olarak en geç program öğesi; liste boşsa çekirdek etkinlik kullanılır.
  */
-export function resolveFinalEventForRsvp(
+export function resolveFinalEventForRezervation(
   countdownEvents: CountdownEventConfig[] | undefined,
   core: {
     dateTimeIso: string;
@@ -19,8 +19,7 @@ export function resolveFinalEventForRsvp(
 ): FinalEventResolution {
   const list = normalizeCountdownEventsFromTemplate(countdownEvents);
   if (list.length === 0) {
-    const title =
-      core.venueName?.trim() || core.city?.trim() || 'Etkinlik';
+    const title = core.venueName?.trim() || core.city?.trim() || 'Etkinlik';
     return {
       title,
       dateTime: new Date(core.dateTimeIso),

@@ -8,7 +8,7 @@ export const invitationVisibilityFormSchema = z.object({
     details: z.boolean().optional(),
     closing: z.boolean().optional(),
     musicPlayer: z.boolean().optional(),
-    rsvp: z.boolean().optional(),
+    rezervation: z.boolean().optional(),
   }),
 });
 

@@ -37,8 +37,8 @@ export default async function EventSettingsPage({
       <div>
         <h1 className="text-2xl font-semibold">Ayarlar</h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          Davetiye ve hesap ile ilgili tercihler. Aşağıda herkese açık
-          davetiye sayfasında hangi blokların listeleneceğini seçersiniz.
+          Davetiye ve hesap ile ilgili tercihler. Aşağıda herkese açık davetiye
+          sayfasında hangi blokların listeleneceğini seçersiniz.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export default async function EventSettingsPage({
             details: merged.sections?.details ?? true,
             closing: merged.sections?.closing ?? true,
             musicPlayer: merged.sections?.musicPlayer ?? true,
-            rsvp: merged.sections?.rsvp ?? false,
+            rezervation: merged.sections?.rezervation ?? false,
           },
         }}
       />

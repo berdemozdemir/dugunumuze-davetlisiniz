@@ -34,8 +34,8 @@ export const INVITATION_SECTION_OPTIONS = [
     description: 'Sayfada müzik çaların görünürlüğü.',
   },
   {
-    key: 'rsvp',
-    label: 'RSVP',
+    key: 'rezervation',
+    label: 'Rezervasyon',
     description:
       'Rezervasyon butonu ve formu; son etkinlik için katılım bildirimi.',
   },

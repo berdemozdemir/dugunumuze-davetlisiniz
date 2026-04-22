@@ -31,7 +31,7 @@ export const DashboardSidebar = ({ eventSlug }: { eventSlug: string }) => {
 
         <SideBarItem
           href={paths.dashboard.event.overview(eventSlug)}
-          label="Overview"
+          label="Genel Bakış"
           Icon={IconLayoutDashboard}
         />
 
@@ -67,13 +67,13 @@ export const DashboardSidebar = ({ eventSlug }: { eventSlug: string }) => {
 
         <SideBarItem
           href={paths.dashboard.event.rsvp(eventSlug)}
-          label="RSVP"
+          label="Rezervasyon"
           Icon={IconUsers}
         />
 
         <SideBarItem
           href={paths.dashboard.event.settings(eventSlug)}
-          label="Settings"
+          label="Ayarlar"
           Icon={IconSettings}
         />
       </nav>

@@ -101,10 +101,13 @@ export default async function PublicInvitationPage({
   const musicPath = invitation.template.musicTrackPath?.trim();
   const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');
 
-  const rsvpSectionEnabled = isInvitationSectionVisible(sections, 'rsvp');
+  const rezervationSectionEnabled = isInvitationSectionVisible(
+    sections,
+    'rezervation',
+  );
 
-  const showRsvpPreviewSection = rsvpSectionEnabled && preview;
-  const showRsvpSection = rsvpSectionEnabled && !preview;
+  const showRsvpPreviewSection = rezervationSectionEnabled && preview;
+  const showRsvpSection = rezervationSectionEnabled && !preview;
 
   let rsvpState: RsvpPublicState | null = null;
   if (showRsvpSection) {

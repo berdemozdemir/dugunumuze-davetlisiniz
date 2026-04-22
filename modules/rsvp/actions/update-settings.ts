@@ -24,9 +24,9 @@ export const orpc_rsvp_updateSettings = procedure_protected
     const { dateTime, city, venueName, merged } = loaded[1];
 
     const patch: Partial<InvitationOverrides> = {
-      rsvpDeadlineIso: input.rsvpDeadlineIso,
-      rsvpMaxTotalGuests: input.rsvpMaxTotalGuests,
-      rsvpButtonLabel: input.rsvpButtonLabel,
+      rezervationDeadlineIso: input.rsvpDeadlineIso,
+      rezervationMaxTotalGuests: input.rsvpMaxTotalGuests,
+      rezervationButtonLabel: input.rsvpButtonLabel,
     };
 
     const mergedPreview = deepMerge(

@@ -6,7 +6,7 @@ export type InvitationSections = {
   details?: boolean;
   closing?: boolean;
   musicPlayer?: boolean;
-  rsvp?: boolean;
+  rezervation?: boolean;
 };
 
 /**
@@ -58,11 +58,11 @@ export type InvitationDefaults = {
   musicTrimEndSec?: number;
 
   /** RSVP son başvuru anı (ISO 8601). Sunucu, son etkinlikten en az 2 saat önce olmasını doğrular. */
-  rsvpDeadlineIso?: string;
+  rezervationDeadlineIso?: string;
   /** Toplam kişi üst sınırı (tüm RSVP’lerin parti büyüklükleri toplamı). `null` / tanımsız = sınır yok. */
-  rsvpMaxTotalGuests?: number | null;
+  rezervationMaxTotalGuests?: number | null;
   /** Public davetiyede rezervasyon butonu metni. */
-  rsvpButtonLabel?: string;
+  rezervationButtonLabel?: string;
 };
 
 // şablona göre etkinliğe özel üstüne yazılanlar

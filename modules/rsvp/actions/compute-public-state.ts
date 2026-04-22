@@ -6,8 +6,8 @@ import { isInvitationSectionVisible } from '@/modules/invitation/section-visibil
 import { RSVP_FINAL_EVENT_BUFFER_MS } from '@/modules/rsvp/constants';
 import { table_rsvpResponses } from '@/modules/rsvp/db-tables';
 import type { RsvpClosedReason, RsvpPublicState } from '@/modules/rsvp/types';
-import { resolveFinalEventForRsvp } from '@/modules/rsvp/utils/resolve-final-event';
 import type { InvitationDefaults } from '@/modules/templates/types';
+import { resolveFinalEventForRezervation } from '../utils/resolve-final-event';
 
 export const computeRsvpPublicStateInputSchema = z.object({
   eventId: z.string().min(1),
@@ -34,10 +34,13 @@ export const orpc_computeRsvpPublicState = procedure_public
   .handler(async ({ input, context: { db } }) => {
     const { eventId, merged, publishedAt, core } = input;
 
-    const sectionOn = isInvitationSectionVisible(merged.sections, 'rsvp');
+    const sectionOn = isInvitationSectionVisible(
+      merged.sections,
+      'rezervation',
+    );
     const enabled = sectionOn && publishedAt !== null;
 
-    const final = resolveFinalEventForRsvp(merged.countdownEvents, {
+    const final = resolveFinalEventForRezervation(merged.countdownEvents, {
       dateTimeIso: core.dateTimeIso,
       venueName: core.venueName,
       city: core.city,
@@ -48,14 +51,14 @@ export const orpc_computeRsvpPublicState = procedure_public
     );
     const deadlineMaxIso = deadlineMax.toISOString();
 
-    const deadlineIso = merged.rsvpDeadlineIso?.trim()
-      ? merged.rsvpDeadlineIso
+    const deadlineIso = merged.rezervationDeadlineIso?.trim()
+      ? merged.rezervationDeadlineIso
       : null;
     const maxTotalGuests =
-      merged.rsvpMaxTotalGuests !== undefined &&
-      merged.rsvpMaxTotalGuests !== null &&
-      Number.isFinite(merged.rsvpMaxTotalGuests)
-        ? merged.rsvpMaxTotalGuests
+      merged.rezervationMaxTotalGuests !== undefined &&
+      merged.rezervationMaxTotalGuests !== null &&
+      Number.isFinite(merged.rezervationMaxTotalGuests)
+        ? merged.rezervationMaxTotalGuests
         : null;
 
     const [agg] = await db
@@ -67,7 +70,8 @@ export const orpc_computeRsvpPublicState = procedure_public
 
     const reservedTotal = Number(agg?.total ?? 0);
 
-    const buttonLabel = merged.rsvpButtonLabel?.trim() || 'Rezervasyon yap';
+    const buttonLabel =
+      merged.rezervationButtonLabel?.trim() || 'Rezervasyon yap';
 
     let closedReason: RsvpClosedReason | null = null;
     if (!enabled) {

@@ -149,7 +149,6 @@ export function countdownHeadingClass(index: number, total: number): string {
 }
 
 // --- Etkinlik listesi (geri sayım + detay kartları; tek şablondan) ---
-
 function isValidCountdownEventRow(e: CountdownEventConfig): boolean {
   const titleOk = e.title.trim().length > 0;
   const dateOk = !Number.isNaN(Date.parse(e.dateTime));
@@ -193,6 +192,6 @@ export function selectPrimaryEventForEventRow(
 ): CountdownEventConfig | null {
   if (events.length === 0) return null;
   return events.reduce((earliest, e) =>
-    Date.parse(e.dateTime) < Date.parse(earliest.dateTime) ? e : earliest,
+    Date.parse(e.dateTime) > Date.parse(earliest.dateTime) ? e : earliest,
   );
 }

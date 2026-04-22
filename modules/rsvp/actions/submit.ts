@@ -7,7 +7,7 @@ import { orpc_computeRsvpPublicState } from '@/modules/rsvp/actions/compute-publ
 import { rsvpSubmitRpcInputSchema } from '@/modules/rsvp/schemas/rsvp-submit-rpc-input';
 import type { RsvpCompanionStored } from '@/modules/rsvp/types';
 import { normalizeTrPhone } from '@/modules/rsvp/utils/phone';
-import { resolveFinalEventForRsvp } from '@/modules/rsvp/utils/resolve-final-event';
+import { resolveFinalEventForRezervation } from '@/modules/rsvp/utils/resolve-final-event';
 import { and, eq } from 'drizzle-orm';
 import { orpc_loadPublishedInvitationBySlug } from './load-published-invitation';
 
@@ -23,16 +23,16 @@ export const orpc_rsvp_submit = procedure_public
     }
     const { event, merged } = loaded[1]!;
 
-    if (!isInvitationSectionVisible(merged.sections, 'rsvp')) {
+    if (!isInvitationSectionVisible(merged.sections, 'rezervation')) {
       return err({
-        reason: 'rsvp-disabled',
+        reason: 'rezervation-disabled',
         message: 'Rezervasyon bu davetiyede kapalı',
       });
     }
 
-    if (!merged.rsvpDeadlineIso?.trim()) {
+    if (!merged.rezervationDeadlineIso?.trim()) {
       return err({
-        reason: 'rsvp-not-configured',
+        reason: 'rezervation-not-configured',
         message: 'Rezervasyon henüz yapılandırılmamış',
       });
     }
@@ -117,7 +117,7 @@ export const orpc_rsvp_submit = procedure_public
       });
     }
 
-    const final = resolveFinalEventForRsvp(merged.countdownEvents, {
+    const final = resolveFinalEventForRezervation(merged.countdownEvents, {
       dateTimeIso: event.dateTime.toISOString(),
       venueName: event.venueName,
       city: event.city,
