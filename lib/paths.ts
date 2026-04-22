@@ -1,7 +1,10 @@
 export const paths = {
   home: '/',
 
-  invitation: (slug: string) => `/${slug}`,
+  invitation: {
+    base: (slug: string) => `/${slug}`,
+    preview: (slug: string) => `${paths.invitation.base(slug)}?preview=1`,
+  },
 
   unauthorized: '/unauthorized',
 

@@ -52,7 +52,7 @@ export default async function EventOverviewPage({
         </div>
 
         <div className="flex gap-3">
-          <Link className="underline" href={paths.invitation(event.slug)}>
+          <Link className="underline" href={paths.invitation.base(event.slug)}>
             View invitation
           </Link>
 

@@ -13,7 +13,7 @@ export function InvitationIframePreview({ slug, heightPx = 760 }: Props) {
           title="Invitation preview"
           className="w-full rounded-[1.9rem]"
           style={{ height: `${heightPx}px` }}
-          src={`${paths.invitation(slug)}?preview=1`}
+          src={paths.invitation.preview(slug)}
         />
       </div>
     </div>

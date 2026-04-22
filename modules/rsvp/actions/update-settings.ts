@@ -2,7 +2,10 @@ import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err } from '@/lib/result';
 import { orpc_patchInvitationOverrides } from '@/modules/invitation/actions/patch-invitation-overrides';
 import { loadOwnerInvitationMergeForEvent } from '@/modules/templates/actions/load-owner-invitation-merge';
-import type { InvitationDefaults, InvitationOverrides } from '@/modules/templates/types';
+import type {
+  InvitationDefaults,
+  InvitationOverrides,
+} from '@/modules/templates/types';
 import { deepMerge } from '@/modules/templates/utils/merge';
 import { isRsvpDeadlineWithinBuffer } from '@/modules/rsvp/utils/validate-deadline';
 import { rsvpUpdateSettingsInputSchema } from '@/modules/rsvp/schemas/rsvp-update-settings-input';
@@ -10,18 +13,20 @@ import { rsvpUpdateSettingsInputSchema } from '@/modules/rsvp/schemas/rsvp-updat
 export const orpc_rsvp_updateSettings = procedure_protected
   .input(rsvpUpdateSettingsInputSchema)
   .handler(async ({ input, context: { db, auth } }) => {
-    const { eventSlug, ...patchInput } = input;
-
-    const loaded = await loadOwnerInvitationMergeForEvent(db, auth, eventSlug);
+    const loaded = await loadOwnerInvitationMergeForEvent(
+      db,
+      auth,
+      input.eventSlug,
+    );
     if (loaded[0]) {
       return err(loaded[0]);
     }
     const { dateTime, city, venueName, merged } = loaded[1];
 
     const patch: Partial<InvitationOverrides> = {
-      rsvpDeadlineIso: patchInput.rsvpDeadlineIso,
-      rsvpMaxTotalGuests: patchInput.rsvpMaxTotalGuests,
-      rsvpButtonLabel: patchInput.rsvpButtonLabel,
+      rsvpDeadlineIso: input.rsvpDeadlineIso,
+      rsvpMaxTotalGuests: input.rsvpMaxTotalGuests,
+      rsvpButtonLabel: input.rsvpButtonLabel,
     };
 
     const mergedPreview = deepMerge(
@@ -29,7 +34,7 @@ export const orpc_rsvp_updateSettings = procedure_protected
       patch as Record<string, unknown>,
     ) as InvitationDefaults;
 
-    const deadlineMs = Date.parse(patchInput.rsvpDeadlineIso);
+    const deadlineMs = Date.parse(input.rsvpDeadlineIso);
     if (
       !isRsvpDeadlineWithinBuffer(
         mergedPreview.countdownEvents ?? [],
@@ -49,7 +54,7 @@ export const orpc_rsvp_updateSettings = procedure_protected
     }
 
     return orpc_patchInvitationOverrides({
-      eventSlug,
+      eventSlug: input.eventSlug,
       patch,
     });
   })
