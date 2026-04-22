@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { paths } from '@/lib/paths';
 import { orpc_getEventBySlug } from '@/modules/events/actions/get-event-by-slug';
 import { PublishEventButtons } from '@/modules/events/components/PublishEventButtons';
 import { InvitationIframePreview } from '@/modules/events/components/InvitationIframePreview';
+import { EventActions } from '@/modules/events/components/EventActions';
 
 export default async function EventOverviewPage({
   params,
@@ -29,7 +29,7 @@ export default async function EventOverviewPage({
         </h1>
 
         <p className="text-muted-foreground mt-1 text-sm">
-          Invitation slug: <span className="font-mono">{event.slug}</span>
+          Davetiye slug: <span className="font-mono">{event.slug}</span>
         </p>
       </div>
 
@@ -37,11 +37,11 @@ export default async function EventOverviewPage({
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <span>
             {/* TODO: this should show warning if the missing parts exists (like hero image, countdown, etc.) */}
-            Status:{' '}
+            Durum:{' '}
             {event.publishedAt ? (
-              <span className="text-emerald-600">Published</span>
+              <span className="text-emerald-600">Yayınlandı</span>
             ) : (
-              <span className="text-amber-600">Draft</span>
+              <span className="text-amber-600">Taslak</span>
             )}
           </span>
 
@@ -51,25 +51,14 @@ export default async function EventOverviewPage({
           />
         </div>
 
-        <div className="flex gap-3">
-          <Link className="underline" href={paths.invitation.base(event.slug)}>
-            View invitation
-          </Link>
-
-          <Link
-            className="underline"
-            href={paths.dashboard.event.cover(event.slug)}
-          >
-            Edit invitation
-          </Link>
-        </div>
+        <EventActions eventSlug={event.slug} />
       </div>
 
       <div className="grid gap-3">
-        <h2 className="text-sm font-medium">Preview</h2>
+        <h2 className="text-sm font-medium">Önizleme</h2>
 
         <p className="text-muted-foreground -mt-2 text-xs">
-          Draft dahil birebir public sayfa önizlemesi.
+          Taslak dahil birebir herkese açık davetiye sayfası önizlemesi.
         </p>
 
         <InvitationIframePreview slug={event.slug} />
