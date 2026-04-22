@@ -39,7 +39,7 @@ export const orpc_unpublishEvent = procedure_protected
     if (!updated?.length) {
       return err({
         reason: 'not-found',
-        message: 'Event not found',
+        message: 'Etkinlik bulunamadı',
       });
     }
 

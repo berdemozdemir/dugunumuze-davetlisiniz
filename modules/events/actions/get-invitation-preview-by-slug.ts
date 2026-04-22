@@ -51,7 +51,7 @@ export const orpc_events_getInvitationPreviewBySlug = procedure_protected
 
     const event = eventRows[0];
     if (!event) {
-      return err({ reason: 'not-found', message: 'Invitation not found' });
+      return err({ reason: 'not-found', message: 'Davetiye bulunamadı' });
     }
 
     const [bindErr] = await bindDefaultTemplateToEvent(db, event.id);

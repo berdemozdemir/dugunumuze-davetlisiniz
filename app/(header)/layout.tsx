@@ -10,7 +10,9 @@ export default function LandingPageLayout({
       <Header />
 
       <main className="flex-1">{children}</main>
-      <div>footer</div>
+      <footer className="text-muted-foreground border-t py-6 text-center text-xs">
+        Düğünümüze Davetlisiniz
+      </footer>
     </div>
   );
 }

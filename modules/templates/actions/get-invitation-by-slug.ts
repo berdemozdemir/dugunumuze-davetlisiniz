@@ -39,13 +39,13 @@ export const orpc_getInvitationBySlug = procedure_public
 
     const event = eventRows[0];
     if (!event) {
-      return err({ reason: 'not-found', message: 'Invitation not found' });
+      return err({ reason: 'not-found', message: 'Davetiye bulunamadı' });
     }
 
     if (!event.publishedAt) {
       return err({
         reason: 'not-published',
-        message: 'Invitation is not published',
+        message: 'Davetiye yayında değil',
       });
     }
 

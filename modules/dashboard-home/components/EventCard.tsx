@@ -7,7 +7,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import type { DashboardEventListItem } from '../types';
 
 export function EventCard({ event }: { event: DashboardEventListItem }) {
-  const title = `${event.partner1Name} & ${event.partner2Name}`;
+  const title = `${event.partner1Name} ve ${event.partner2Name}`;
   const isPublished = event.publishedAt !== null;
 
   return (

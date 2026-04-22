@@ -200,7 +200,7 @@ const ImageCropModal: FC<ImageCropModal> = ({
 
       <div className="relative z-10 w-[min(980px,92vw)] rounded-xl border border-white/10 bg-background p-4 shadow-2xl">
         <div className="mb-3">
-          <p className="text-sm font-semibold">Crop Image</p>
+          <p className="text-sm font-semibold">Görseli kırpın</p>
         </div>
 
         <div className="flex flex-col items-center">
@@ -220,7 +220,7 @@ const ImageCropModal: FC<ImageCropModal> = ({
               src={imageSrc}
               width={1000}
               height={1000}
-              alt="upload"
+              alt="Yüklenecek görsel"
               style={{ maxHeight: '70vh' }}
               onLoad={onImageLoad}
             />
@@ -243,7 +243,7 @@ const ImageCropModal: FC<ImageCropModal> = ({
 
         <div className="mt-4 flex items-center justify-end gap-2">
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            İptal
           </Button>
 
           <Button
@@ -281,7 +281,7 @@ const ImageCropModal: FC<ImageCropModal> = ({
                   );
                 } else {
                   toast.error(
-                    'Görsel işlenemedi. Lütfen crop alanını seçtiğinizden emin olun.',
+                    'Görsel işlenemedi. Lütfen kırpma alanını seçtiğinizden emin olun.',
                   );
                 }
               } catch {
@@ -291,7 +291,7 @@ const ImageCropModal: FC<ImageCropModal> = ({
               onOpenChange(false);
             }}
           >
-            Save
+            Kaydet
           </Button>
         </div>
       </div>

@@ -21,6 +21,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-client';
 import { useRouter } from 'next/navigation';
 import { service_auth } from '../client-queries';
+import { toTurkishSupabaseAuthMessage } from '../utils/supabase-auth-message-tr';
 
 export const SignUpForm = () => {
   const router = useRouter();
@@ -44,7 +45,7 @@ export const SignUpForm = () => {
 
     await supabase.auth.refreshSession();
 
-    toast.success('Account created. You are signed in.');
+    toast.success('Hesabınız oluşturuldu, giriş yapıldı.');
 
     router.push(paths.dashboard.base);
   });
@@ -126,7 +127,7 @@ export const SignUpForm = () => {
 
           {signupMutation.error && (
             <div className="text-destructive border-destructive/25 bg-destructive/10 rounded-lg border px-3 py-2 text-center text-sm">
-              {signupMutation.error.message}
+              {toTurkishSupabaseAuthMessage(signupMutation.error.message)}
             </div>
           )}
 

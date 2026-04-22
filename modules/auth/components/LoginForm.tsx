@@ -19,6 +19,7 @@ import { useMutation } from '@tanstack/react-query';
 import { service_auth } from '../client-queries';
 import { createSupabaseBrowserClient } from '@/integrations/supabase/supabase-client';
 import { loginFormSchema, LoginFormSchemaRequest } from '../schemas/login';
+import { toTurkishSupabaseAuthMessage } from '../utils/supabase-auth-message-tr';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 
@@ -44,7 +45,7 @@ export const LoginForm = () => {
 
     await supabase.auth.refreshSession();
 
-    toast.success('Login successful');
+    toast.success('Giriş başarılı');
 
     router.push(paths.dashboard.base);
   });
@@ -95,7 +96,7 @@ export const LoginForm = () => {
 
           {loginMutation.error && (
             <div className="text-destructive border-destructive/25 bg-destructive/10 rounded-lg border px-3 py-2 text-center text-sm">
-              {loginMutation.error.message}
+              {toTurkishSupabaseAuthMessage(loginMutation.error.message)}
             </div>
           )}
 

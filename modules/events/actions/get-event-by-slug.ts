@@ -46,7 +46,7 @@ export const orpc_getEventBySlug = procedure_protected
     if (!event) {
       return err({
         reason: 'not-found',
-        message: 'Event not found',
+        message: 'Etkinlik bulunamadı',
       });
     }
 

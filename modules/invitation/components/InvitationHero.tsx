@@ -36,7 +36,7 @@ export function InvitationHero({
       <div className="absolute inset-0">
         <Image
           src={dynamicSrc || '/images/pngtree-wedding-invitation-bg.jpg'}
-          alt="invitation hero background"
+          alt="Davetiye kapak arka planı"
           fill
           className="object-cover"
           priority

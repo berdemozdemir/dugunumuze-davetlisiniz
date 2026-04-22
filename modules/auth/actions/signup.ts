@@ -35,14 +35,14 @@ export const orpc_signup = procedure_public
     if (!user) {
       return err({
         reason: 'user-creation-failed',
-        message: 'An error occurred while creating the user',
+        message: 'Kullanıcı oluşturulurken bir hata oluştu',
       });
     }
 
     if (user.identities?.length === 0) {
       return err({
         reason: 'user-already-exists',
-        message: 'A user with this email already exists',
+        message: 'Bu e-posta adresiyle zaten kayıt var',
       });
     }
 
@@ -89,6 +89,6 @@ export const orpc_signup = procedure_public
     return ok({
       userId: user.id,
       email: user.email,
-      message: 'Sign up successful',
+      message: 'Kayıt başarılı',
     });
   });

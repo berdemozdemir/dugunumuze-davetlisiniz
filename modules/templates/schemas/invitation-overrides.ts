@@ -62,7 +62,7 @@ export const invitationOverridesSchema = invitationOverridesObjectSchema.superRe
     ) {
       ctx.addIssue({
         code: 'custom',
-        message: 'musicTrimEndSec must be greater than musicTrimStartSec',
+        message: 'Bitiş süresi başlangıç süresinden büyük olmalıdır',
         path: ['musicTrimEndSec'],
       });
     }

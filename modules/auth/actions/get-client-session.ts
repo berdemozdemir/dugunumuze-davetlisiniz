@@ -9,7 +9,7 @@ export const getClientSession = async () => {
   if (!data.user)
     return err({
       reason: 'user-is-not-logged-in',
-      message: 'User is not logged in',
+      message: 'Oturum açılmamış',
     });
 
   if (error !== null) {
@@ -21,13 +21,13 @@ export const getClientSession = async () => {
 
   if (!data.user.email)
     return err({
-      message: 'User does not have an email',
+      message: 'Hesapta e-posta bulunmuyor',
       reason: 'email-missing',
     });
 
   if (!data.user)
     return err({
-      message: 'User does not have an email',
+      message: 'Hesapta e-posta bulunmuyor',
       reason: 'email-missing',
     });
 

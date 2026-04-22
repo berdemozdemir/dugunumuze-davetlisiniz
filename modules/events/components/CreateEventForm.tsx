@@ -64,7 +64,7 @@ export function CreateEventForm() {
             name="partner1Name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Partner 1</FormLabel>
+                <FormLabel>Birinci isim</FormLabel>
 
                 <FormControl>
                   <Input
@@ -84,7 +84,7 @@ export function CreateEventForm() {
             name="partner2Name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Partner 2</FormLabel>
+                <FormLabel>İkinci isim</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Erdem"

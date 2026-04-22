@@ -44,12 +44,12 @@ export const orpc_loadPublishedInvitationBySlug = procedure_public
       return err({ reason: 'database-error', message: rowErr.message });
 
     if (!eventRows[0])
-      return err({ reason: 'not-found', message: 'Invitation not found' });
+      return err({ reason: 'not-found', message: 'Davetiye bulunamadı' });
 
     if (!eventRows[0].publishedAt)
       return err({
         reason: 'not-published',
-        message: 'Invitation is not published',
+        message: 'Davetiye yayında değil',
       });
 
     const [overrideErr, overrideRows] = await tryCatchDb(() =>

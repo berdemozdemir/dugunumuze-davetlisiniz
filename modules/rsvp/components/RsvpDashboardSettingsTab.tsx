@@ -188,7 +188,7 @@ export function RsvpDashboardSettingsTab({
         >
           Ayarlar
         </Link>{' '}
-        sayfasında RSVP açık olmalıdır.
+        sayfasında rezervasyon bölümü açık olmalıdır.
       </p>
     </div>
   );

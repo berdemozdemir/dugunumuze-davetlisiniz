@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Ornament from '@/components/Ornament';
 
 export const metadata: Metadata = {
-  title: 'Sayfa bulunamadı | Elif & Erdem',
+  title: 'Sayfa bulunamadı | Elif ve Erdem',
   description: 'Aradığınız sayfa bulunamadı.',
 };
 

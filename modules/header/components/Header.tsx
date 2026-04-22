@@ -22,7 +22,7 @@ export default function Header() {
         <Link href={paths.home}>
           <Image
             src="/images/wedding-rings.png"
-            alt="Logo"
+            alt="Site logosu"
             width={100}
             height={100}
             className="h-10 w-10"

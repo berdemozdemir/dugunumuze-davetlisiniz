@@ -29,7 +29,7 @@ export default function ElifErdemPage() {
 
       <footer className="border-t border-white/5 py-8 text-center">
         <p className="text-cream/30 text-xs tracking-wider">
-          Elif & Erdem &middot; 2026
+          Elif ve Erdem &middot; 2026
         </p>
       </footer>
     </main>

@@ -3,10 +3,10 @@ import Ornament from './Ornament';
 import PhotoCarousel from './PhotoCarousel';
 
 const CLOSING_DEMO_PHOTOS = [
-  { src: '/images/nisan-2.jpeg', alt: 'Elif & Erdem - Nişan' },
-  { src: '/images/nisan-4.jpeg', alt: 'Elif & Erdem - Nişan Yürüyüşü' },
-  { src: '/images/nisan-5.jpeg', alt: 'Elif & Erdem - Nişan Girişi' },
-  { src: '/images/nisan-3.jpeg', alt: 'Elif & Erdem - Nişan Töreni' },
+  { src: '/images/nisan-2.jpeg', alt: 'Elif ve Erdem - Nişan' },
+  { src: '/images/nisan-4.jpeg', alt: 'Elif ve Erdem - Nişan yürüyüşü' },
+  { src: '/images/nisan-5.jpeg', alt: 'Elif ve Erdem - Nişan girişi' },
+  { src: '/images/nisan-3.jpeg', alt: 'Elif ve Erdem - Nişan töreni' },
 ];
 
 const ClosingSection = () => (
@@ -40,7 +40,7 @@ const ClosingSection = () => (
       <RevealSection delay={600}>
         <div className="mt-12">
           <p className="font-cursive gold-gradient-text text-3xl sm:text-4xl">
-            Elif & Erdem
+            Elif ve Erdem
           </p>
           <p className="text-cream/40 mt-4 text-xs tracking-widest uppercase">
             Temmuz 2026

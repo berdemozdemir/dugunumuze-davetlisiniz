@@ -7,7 +7,7 @@ const StorySection = () => (
     <div className="absolute inset-0">
       <Image
         src="/images/nisan-1.jpeg"
-        alt="Elif & Erdem - Nişan"
+        alt="Elif ve Erdem - Nişan"
         fill
         className="object-cover object-top"
       />

@@ -40,7 +40,7 @@ export async function syncEventRowFromCountdownEvents(input: {
 
   const date = new Date(primary.dateTime);
   if (Number.isNaN(date.getTime())) {
-    return err({ reason: 'validation-error', message: 'Invalid event date' });
+    return err({ reason: 'validation-error', message: 'Geçersiz etkinlik tarihi' });
   }
 
   const city = primary.city?.trim() || EVENT_LOCATION_PLACEHOLDER;

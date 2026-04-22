@@ -43,7 +43,7 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
     }
     const ev = evRows[0];
     if (!ev) {
-      return err({ reason: 'not-found', message: 'Event not found' });
+      return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
     }
 
     const bindResult = await bindDefaultTemplateToEvent(db, ev.id);
@@ -82,7 +82,7 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
     if (!row) {
       return err({
         reason: 'not-found',
-        message: 'Invitation settings not found',
+        message: 'Davetiye ayarları bulunamadı',
       });
     }
 

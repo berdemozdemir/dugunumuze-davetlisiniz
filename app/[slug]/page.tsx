@@ -194,7 +194,7 @@ export default async function PublicInvitationPage({
 
       <footer className="border-t border-white/5 py-8 text-center">
         <p className="text-cream/30 text-xs tracking-wider">
-          {invitation.partner1Name} &amp; {invitation.partner2Name} &middot;{' '}
+          {invitation.partner1Name} ve {invitation.partner2Name} &middot;{' '}
           {new Date(invitation.dateTime).getFullYear()}
         </p>
       </footer>

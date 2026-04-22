@@ -20,11 +20,11 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: 'Elif & Erdem - Düğünümüze Davetlisiniz',
+  title: 'Elif ve Erdem - Düğünümüze Davetlisiniz',
   description:
-    'Elif & Erdem evleniyor! 4 & 11 Temmuz 2026 - Düğünümüze davetlisiniz.',
+    'Elif ve Erdem evleniyor! 4 ve 11 Temmuz 2026 - Düğünümüze davetlisiniz.',
   openGraph: {
-    title: 'Elif & Erdem - Düğünümüze Davetlisiniz',
+    title: 'Elif ve Erdem - Düğünümüze Davetlisiniz',
     description: 'Elif ve Erdem evleniyor! Sizi de aramızda görmek istiyoruz.',
   },
 };

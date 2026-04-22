@@ -66,7 +66,7 @@ export async function loadOwnerInvitationMergeForEvent(
 
   const event = eventRows[0];
   if (!event) {
-    return err({ reason: 'not-found', message: 'Event not found' });
+    return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
   }
 
   const [bindErr] = await bindDefaultTemplateToEvent(db, event.id);
@@ -99,7 +99,7 @@ export async function loadOwnerInvitationMergeForEvent(
   if (!row) {
     return err({
       reason: 'not-found',
-      message: 'Invitation settings not found',
+      message: 'Davetiye ayarları bulunamadı',
     });
   }
 

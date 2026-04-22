@@ -79,7 +79,7 @@ const HeroSection = () => (
           Evleniyoruz
         </p>
         <p className="text-gold-light mt-3 text-sm tracking-wider sm:text-base">
-          4 & 11 Temmuz 2026
+          4 ve 11 Temmuz 2026
         </p>
       </div>
 

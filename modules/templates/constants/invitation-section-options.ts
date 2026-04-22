@@ -3,7 +3,7 @@ import type { InvitationDefaults } from '../types';
 export const INVITATION_SECTION_OPTIONS = [
   {
     key: 'hero',
-    label: 'Hero',
+    label: 'Kapak',
     description: 'Kapak bölümü: isimler ve ilk izlenim alanı.',
   },
   {
@@ -14,8 +14,8 @@ export const INVITATION_SECTION_OPTIONS = [
   },
   {
     key: 'story',
-    label: 'Story',
-    description: 'Hikaye/akış: tanışma, kısa anlatım ve benzeri içerikler.',
+    label: 'Hikâye',
+    description: 'Hikâye akışı: tanışma, kısa anlatım ve benzeri içerikler.',
   },
   {
     key: 'details',
@@ -25,12 +25,12 @@ export const INVITATION_SECTION_OPTIONS = [
   },
   {
     key: 'closing',
-    label: 'Closing',
+    label: 'Kapanış',
     description: 'Kapanış mesajı: teşekkür, son notlar.',
   },
   {
     key: 'musicPlayer',
-    label: 'Music player',
+    label: 'Müzik çalar',
     description: 'Sayfada müzik çaların görünürlüğü.',
   },
   {

@@ -26,7 +26,7 @@ export function InvitationStory({ headline, subline, storyImageUri }: Props) {
       <div className="absolute inset-0">
         <Image
           src={dynamicSrc || STORY_IMAGE_FALLBACK}
-          alt="invitation story background"
+          alt="Davetiye hikâye arka planı"
           fill
           className="object-cover object-top"
           sizes="100vw"

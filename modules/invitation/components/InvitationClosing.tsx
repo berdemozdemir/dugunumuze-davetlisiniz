@@ -58,7 +58,7 @@ export function InvitationClosing({
         <RevealSection delay={600}>
           <div className="mt-12">
             <p className="font-cursive gold-gradient-text text-3xl sm:text-4xl">
-              {partner1Name} &amp; {partner2Name}
+              {partner1Name} ve {partner2Name}
             </p>
 
             <p className="text-cream/40 mt-4 text-xs tracking-widest uppercase">

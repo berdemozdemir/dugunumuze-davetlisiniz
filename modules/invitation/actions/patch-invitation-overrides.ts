@@ -42,7 +42,7 @@ export const orpc_patchInvitationOverrides = procedure_protected
 
     const eventId = eventRows[0]?.id;
     if (!eventId)
-      return err({ reason: 'not-found', message: 'Event not found' });
+      return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
 
     const [bindErr] = await bindDefaultTemplateToEvent(db, eventId);
     if (bindErr)

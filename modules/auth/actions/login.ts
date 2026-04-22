@@ -24,7 +24,7 @@ export const orpc_login = procedure_public
       }
 
       return err({
-        message: 'An error occurred while logging in',
+        message: 'Giriş yapılırken bir hata oluştu',
         reason: 'login-error',
       });
     }
@@ -38,6 +38,6 @@ export const orpc_login = procedure_public
 
     return ok({
       user: result.data.user,
-      messsage: 'Login successful',
+      message: 'Giriş başarılı',
     });
   });

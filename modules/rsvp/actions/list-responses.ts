@@ -25,7 +25,7 @@ export const orpc_rsvp_listResponses = procedure_protected
     }
 
     if (!evRows[0]) {
-      return err({ reason: 'not-found', message: 'Event not found' });
+      return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
     }
 
     const [listErr, rows] = await tryCatchDb(() =>

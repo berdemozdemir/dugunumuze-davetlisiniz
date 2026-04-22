@@ -33,7 +33,7 @@ export function RsvpDashboard({
   return (
     <AuthenticatedPage>
       <div className="mb-2">
-        <h1 className="text-2xl font-semibold">RSVP</h1>
+        <h1 className="text-2xl font-semibold">Rezervasyon</h1>
 
         <p className="text-muted-foreground mt-1 text-sm">
           Son başvuru tarihi ve kontenjanı yönetin; gelen kayıtları ikinci

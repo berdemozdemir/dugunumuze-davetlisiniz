@@ -4,7 +4,7 @@ import Ornament from '@/components/Ornament';
 import { paths } from '@/lib/paths';
 
 export const metadata: Metadata = {
-  title: 'Yetkisiz erişim | Elif & Erdem',
+  title: 'Yetkisiz erişim | Elif ve Erdem',
   description: 'Bu sayfayı görüntülemek için giriş yapmanız gerekiyor.',
 };
 

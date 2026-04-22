@@ -162,7 +162,7 @@ export function InvitationCoverPageEditor({
                 name="partner1Name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Partner 1</FormLabel>
+                    <FormLabel>Birinci isim</FormLabel>
                     <FormControl>
                       <Input {...field} autoComplete="name" />
                     </FormControl>
@@ -175,7 +175,7 @@ export function InvitationCoverPageEditor({
                 name="partner2Name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Partner 2</FormLabel>
+                    <FormLabel>İkinci isim</FormLabel>
                     <FormControl>
                       <Input {...field} autoComplete="name" />
                     </FormControl>

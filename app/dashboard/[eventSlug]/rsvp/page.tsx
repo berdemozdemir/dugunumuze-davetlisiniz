@@ -20,7 +20,7 @@ export default async function EventRsvpPage({
   if (summaryResult[0]) {
     return (
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">RSVP</h1>
+        <h1 className="text-2xl font-semibold">Rezervasyon</h1>
         <p className="text-muted-foreground text-sm">
           Ayarlar yüklenemedi. Şablon bağlantısını kontrol edin.
         </p>

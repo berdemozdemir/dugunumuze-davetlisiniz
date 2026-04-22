@@ -61,7 +61,7 @@ export const DashboardSidebar = ({ eventSlug }: { eventSlug: string }) => {
 
         <SideBarItem
           href={paths.dashboard.event.media(eventSlug)}
-          label="Media"
+          label="Medya"
           Icon={IconMusic}
         />
 

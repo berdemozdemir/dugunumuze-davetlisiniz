@@ -47,7 +47,7 @@ async function uploadFile({
 }) {
   if (!file) {
     opts.onFileError?.();
-    return err({ reason: 'no-file-provided', message: 'No file provided' });
+    return err({ reason: 'no-file-provided', message: 'Dosya seçilmedi' });
   }
 
   const extension = getFileType(file.name);
@@ -55,7 +55,7 @@ async function uploadFile({
     opts.onInvalidMimeType?.({ mimeType: file.type });
     return err({
       reason: 'file-with-no-extension',
-      message: 'File has no extension',
+      message: 'Dosyanın uzantısı yok',
     });
   }
 
@@ -65,7 +65,7 @@ async function uploadFile({
 
   if (!isValidMimeType) {
     opts.onInvalidMimeType?.({ mimeType: file.type });
-    return err({ reason: 'invalid-mime-type', message: 'Invalid mime type' });
+    return err({ reason: 'invalid-mime-type', message: 'Geçersiz dosya türü' });
   }
 
   if (opts.maxSizeMB !== undefined) {
@@ -74,7 +74,7 @@ async function uploadFile({
       opts.onMaxSizeExceeded?.({ maxSizeMB: opts.maxSizeMB });
       return err({
         reason: 'exceeds-max-limit',
-        message: 'File size exceeds the maximum limit',
+        message: 'Dosya boyutu üst sınırı aştı',
       });
     }
   }
@@ -100,7 +100,7 @@ async function uploadFile({
       'message' in error &&
       typeof (error as { message: unknown }).message === 'string'
         ? (error as { message: string }).message
-        : 'Failed to upload file';
+        : 'Dosya yüklenemedi';
     opts.onUploadError?.({ errorMessage: msg });
     return err({ reason: 'supabase-upload-failed', message: msg });
   }
