@@ -185,13 +185,14 @@ export function toEventDetailCards(
 }
 
 /**
- * `events` çekirdek satırı için kaynak: doğrulanmış etkinlikler içinde takvimde en erken olan.
+ * `events` çekirdek satırı için kaynak: doğrulanmış etkinlikler içinde takvimde en geç olan
+ * (ör. önce küçük etkinlikler, sonda ana düğün — kapak/çekirdek tarih buna göre, ana düğün tarihi en son olan satırdan oluşur).
  */
 export function selectPrimaryEventForEventRow(
   events: CountdownEventConfig[],
 ): CountdownEventConfig | null {
   if (events.length === 0) return null;
-  return events.reduce((earliest, e) =>
-    Date.parse(e.dateTime) > Date.parse(earliest.dateTime) ? e : earliest,
+  return events.reduce((latest, e) =>
+    Date.parse(e.dateTime) > Date.parse(latest.dateTime) ? e : latest,
   );
 }

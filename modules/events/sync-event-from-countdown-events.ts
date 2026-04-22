@@ -18,7 +18,7 @@ import { and, eq } from 'drizzle-orm';
 /**
  * Etkinlik listesi kaydedildiğinde `events` çekirdek tarih/konum alanlarını
  * günceller (kapak varsayılan tarih satırı, footer yılı vb. ile uyum için).
- * Kaynak: doğrulanmış etkinlikler içinde takvimde en erken olan satır.
+ * Kaynak: doğrulanmış etkinlikler içinde takvimde en geç olan satır (ana organizasyon).
  */
 export async function syncEventRowFromCountdownEvents(input: {
   db: DbClient;

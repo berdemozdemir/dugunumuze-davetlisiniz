@@ -1,7 +1,7 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { table_events } from '../db-tables';
-import { desc, eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 
 export const orpc_events_listMine = procedure_protected.handler(
   async ({ context: { db, auth } }) => {
@@ -18,7 +18,7 @@ export const orpc_events_listMine = procedure_protected.handler(
         })
         .from(table_events)
         .where(eq(table_events.ownerId, auth.userId))
-        .orderBy(desc(table_events.createdAt)),
+        .orderBy(asc(table_events.dateTime)),
     );
 
     if (dbErr) {

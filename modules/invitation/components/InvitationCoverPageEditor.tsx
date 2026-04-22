@@ -288,8 +288,8 @@ export function InvitationCoverPageEditor({
                   <FormLabel>Tarih ve saat satırı</FormLabel>
                   <FormDescription>
                     Kapaktaki tarih/saat metni (en fazla 120 karakter). Boş
-                    bırakırsanız, etkinliklerdeki en erken tarih/saatten
-                    üretilir.
+                    bırakırsanız, etkinliklerdeki takvimde en son olan
+                    tarih/saatten oluşan satır üretilir (ana düğün vb.).
                   </FormDescription>
                   <FormControl>
                     <Input
