@@ -14,7 +14,9 @@ export default async function EventDashboardLayout({
     <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] md:grid-rows-1">
       <DashboardSidebar eventSlug={eventSlug} />
 
-      <PageLayout className="overflow-y-auto">{children}</PageLayout>
+      <PageLayout className="max-h-screen overflow-y-auto">
+        {children}
+      </PageLayout>
     </div>
   );
 }

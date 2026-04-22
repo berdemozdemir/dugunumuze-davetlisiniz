@@ -21,7 +21,7 @@ import { UserMenu } from '@/modules/header/components/UserMenu';
 
 export const DashboardSidebar = ({ eventSlug }: { eventSlug: string }) => {
   return (
-    <aside className="border-border/60 bg-background flex h-auto flex-col justify-between border-r p-4 md:h-full md:min-h-0 md:overflow-hidden">
+    <aside className="border-border/60 bg-background flex h-full flex-col justify-between border-r p-4 md:h-full md:min-h-0 md:overflow-hidden">
       <nav className="my-4 grid gap-1 text-sm">
         <SideBarItem
           href={paths.dashboard.base}
