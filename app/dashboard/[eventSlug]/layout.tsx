@@ -11,12 +11,12 @@ export default async function EventDashboardLayout({
   const { eventSlug } = await params;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] md:grid-rows-1">
+    <div className="flex min-h-screen flex-col md:h-screen md:flex-row md:overflow-hidden">
       <DashboardSidebar eventSlug={eventSlug} />
 
-      <PageLayout className="max-h-screen overflow-y-auto">
-        {children}
-      </PageLayout>
+      <div className="min-h-0 w-full flex-1 md:overflow-y-auto">
+        <PageLayout>{children}</PageLayout>
+      </div>
     </div>
   );
 }
