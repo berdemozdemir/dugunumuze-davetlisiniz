@@ -70,9 +70,9 @@ async function useAuthMiddleware(request: NextRequest, response: NextResponse) {
       .length > 0;
 
   const supabase = await createClient();
-  const auth = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
 
-  const isLoggedIn = !auth.error && !!auth.data;
+  const isLoggedIn = !error && !!data.user;
 
   // redirect unauthenticated users attempting to access protected pages to login (with callback)
   if (!isLoggedIn && isAccessingProtectedPage) {
@@ -83,14 +83,12 @@ async function useAuthMiddleware(request: NextRequest, response: NextResponse) {
   }
 
   // authenticated users should not go to the landing page
-  if (isLoggedIn && isAccessingLandingPage) {
+  if (isLoggedIn && isAccessingLandingPage)
     return NextResponse.redirect(new URL(paths.dashboard.base, request.url));
-  }
 
   // authenticated users should not go to the auth pages
-  if (isLoggedIn && isAccessingAuthPage) {
+  if (isLoggedIn && isAccessingAuthPage)
     return NextResponse.redirect(new URL(paths.dashboard.base, request.url));
-  }
 
   // otherwise, everything is a-ok.
   return response;

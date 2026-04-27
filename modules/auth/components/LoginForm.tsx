@@ -22,11 +22,11 @@ import { loginFormSchema, LoginFormSchemaRequest } from '../schemas/login';
 import { toTurkishSupabaseAuthMessage } from '../utils/supabase-auth-message-tr';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
+import { queryClient } from '@/integrations/tanstack-query/query';
 
 const supabase = createSupabaseBrowserClient();
 
 // TODO: create a new page for reset password
-// TODO: if the user is already logged in, redirect to the dashboard
 export const LoginForm = () => {
   const router = useRouter();
 
@@ -45,12 +45,26 @@ export const LoginForm = () => {
 
     await supabase.auth.refreshSession();
 
+    const { data: sessionData } = await supabase.auth.getSession();
+
+    if (sessionData.session?.user) {
+      queryClient.setQueryData(service_auth.queries.auth().queryKey, {
+        isLoggedIn: true,
+        user: {
+          id: sessionData.session?.user.id,
+          email: sessionData.session?.user.email ?? '',
+          fullName:
+            (sessionData.session?.user.user_metadata?.name as string) ?? '',
+          metadata: sessionData.session?.user.user_metadata ?? {},
+        },
+      });
+    }
+
     toast.success('Giriş başarılı');
 
     router.push(paths.dashboard.base);
   });
 
-  // TODO: when user login, even if loging process was successfull cant enter the dashboard page, it redirects to login page again
   return (
     <Form {...form}>
       <AuthFormShell
