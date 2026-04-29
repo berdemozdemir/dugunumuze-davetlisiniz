@@ -34,7 +34,13 @@ export const orpc_createEvent = procedure_protected
     );
 
     if (templateErr)
-      return err({ reason: 'database-error', message: templateErr.message });
+      return err({
+        reason: 'database-error',
+        message:
+          'cause' in templateErr && typeof templateErr.cause === 'string'
+            ? templateErr.cause
+            : templateErr.message,
+      });
 
     const templateId = templateRows[0]?.id;
     if (!templateId)
@@ -65,7 +71,11 @@ export const orpc_createEvent = procedure_protected
     if (insertErr || !inserted?.length) {
       return err({
         reason: 'create-failed',
-        message: insertErr?.message ?? 'Kayıt oluşturulamadı',
+        message: insertErr
+          ? 'cause' in insertErr && typeof insertErr.cause === 'string'
+            ? insertErr.cause
+            : insertErr.message
+          : 'Kayıt oluşturulamadı',
       });
     }
 

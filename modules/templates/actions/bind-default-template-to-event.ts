@@ -4,6 +4,9 @@ import { eq } from 'drizzle-orm';
 import { DEFAULT_EVENT_TEMPLATE_KEY } from '../constants/default-invitation';
 import { table_eventOverrides, table_eventTemplates } from '../db-tables';
 import { table_events } from '@/modules/events/db-tables';
+import { InvitationOverrides } from '../types';
+
+const emptyOverrides: InvitationOverrides = {};
 
 // TODO: buna bir goz at, default olani baglamaya gerek var mi yoksa her zaman kullanici yeni bir taslak olustururken secer mi?
 // cunku direkt template baglayan func bu
@@ -63,7 +66,7 @@ export async function bindDefaultTemplateToEvent(
     dbClient.insert(table_eventOverrides).values({
       eventId,
       templateId,
-      overridesJson: {},
+      overridesJson: emptyOverrides,
     }),
   );
 
