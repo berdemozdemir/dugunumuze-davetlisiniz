@@ -27,8 +27,8 @@ export const orpc_loadPublishedInvitationBySlug = procedure_public
         .select({
           id: table_events.id,
           slug: table_events.slug,
-          partner1Name: table_events.partner1Name,
-          partner2Name: table_events.partner2Name,
+          primaryName: table_events.primaryName,
+          secondaryName: table_events.secondaryName,
           dateTime: table_events.dateTime,
           city: table_events.city,
           venueName: table_events.venueName,
@@ -81,8 +81,8 @@ export const orpc_loadPublishedInvitationBySlug = procedure_public
     const eventRow: PublishedInvitationEventRow = {
       id: eventRows[0].id,
       slug: eventRows[0].slug,
-      partner1Name: eventRows[0].partner1Name,
-      partner2Name: eventRows[0].partner2Name,
+      partner1Name: eventRows[0].primaryName,
+      partner2Name: eventRows[0].secondaryName ?? undefined,
       dateTime: eventRows[0].dateTime,
       city: eventRows[0].city,
       venueName: eventRows[0].venueName,

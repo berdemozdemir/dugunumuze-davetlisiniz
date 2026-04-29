@@ -26,8 +26,8 @@ export const orpc_invitation_updateCover = procedure_protected
 
     const [partnersErr] = await orpc_updateEventPartnerNames({
       eventSlug,
-      partner1Name,
-      partner2Name,
+      primaryName: partner1Name,
+      secondaryName: partner2Name,
     });
     if (partnersErr) {
       return err({

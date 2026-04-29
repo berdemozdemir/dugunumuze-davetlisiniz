@@ -9,6 +9,7 @@ import { orpc_unpublishEvent } from '@/modules/events/actions/unpublish-event';
 import { orpc_events_getInvitationPreviewBySlug } from '@/modules/events/actions/get-invitation-preview-by-slug';
 import { orpc_getInvitationBySlug } from '@/modules/templates/actions/get-invitation-by-slug';
 import { orpc_templates_getEventInvitationSettings } from '@/modules/templates/actions/get-event-invitation-settings';
+import { orpc_templates_list } from '@/modules/templates/actions/list-templates';
 import { orpc_invitation_updateClosing } from '@/modules/invitation/actions/update-invitation-closing';
 import { orpc_invitation_updateCover } from '@/modules/invitation/actions/update-invitation-cover';
 import { orpc_invitation_updateCountdown } from '@/modules/invitation/actions/update-invitation-countdown';
@@ -38,6 +39,7 @@ export const router = {
   templates: {
     getInvitationBySlug: orpc_getInvitationBySlug,
     getEventInvitationSettings: orpc_templates_getEventInvitationSettings,
+    list: orpc_templates_list,
   },
   invitation: {
     updateCover: orpc_invitation_updateCover,

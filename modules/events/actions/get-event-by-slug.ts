@@ -16,8 +16,8 @@ export const orpc_getEventBySlug = procedure_protected
         .select({
           id: table_events.id,
           slug: table_events.slug,
-          partner1Name: table_events.partner1Name,
-          partner2Name: table_events.partner2Name,
+          primaryName: table_events.primaryName,
+          secondaryName: table_events.secondaryName,
           dateTime: table_events.dateTime,
           city: table_events.city,
           venueName: table_events.venueName,

@@ -15,8 +15,8 @@ export default async function DashboardPage() {
   const events: DashboardEventListItem[] = data.events.map((w) => ({
     id: w.id,
     slug: w.slug,
-    partner1Name: w.partner1Name,
-    partner2Name: w.partner2Name,
+    primaryName: w.primaryName,
+    secondaryName: w.secondaryName ?? undefined,
     dateTime: w.dateTime,
     publishedAt: w.publishedAt,
     createdAt: w.createdAt,

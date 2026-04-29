@@ -25,7 +25,9 @@ export default async function EventOverviewPage({
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">
-          {event.partner1Name} ve {event.partner2Name}
+          {event.secondaryName
+            ? `${event.primaryName} ve ${event.secondaryName}`
+            : event.primaryName}
         </h1>
 
         <p className="text-muted-foreground mt-1 text-sm">

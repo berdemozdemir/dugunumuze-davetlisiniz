@@ -113,9 +113,9 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
     ).toISOString();
 
     return ok({
-      rsvpDeadlineIso: merged.rezervationDeadlineIso ?? '',
-      rsvpMaxTotalGuests: merged.rezervationMaxTotalGuests ?? null,
-      rsvpButtonLabel: merged.rezervationButtonLabel ?? '',
+      rsvpDeadlineIso: merged.rezervationDeadlineIso ?? undefined,
+      rsvpMaxTotalGuests: merged.rezervationMaxTotalGuests ?? undefined,
+      rsvpButtonLabel: merged.rezervationButtonLabel ?? undefined,
       reservedTotal,
       deadlineMaxIso,
       finalEventTitle: final.title,

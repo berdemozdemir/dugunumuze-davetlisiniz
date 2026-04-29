@@ -8,8 +8,8 @@ export const orpc_updateEventPartnerNames = procedure_protected
   .input(
     z.object({
       eventSlug: z.string().min(1),
-      partner1Name: z.string().min(1),
-      partner2Name: z.string().min(1),
+      primaryName: z.string().min(1),
+      secondaryName: z.string().optional(),
     }),
   )
   .handler(async ({ input, context: { db, auth } }) => {
@@ -17,8 +17,8 @@ export const orpc_updateEventPartnerNames = procedure_protected
       db
         .update(table_events)
         .set({
-          partner1Name: input.partner1Name,
-          partner2Name: input.partner2Name,
+          primaryName: input.primaryName,
+          secondaryName: input.secondaryName ?? undefined,
         })
         .where(
           and(

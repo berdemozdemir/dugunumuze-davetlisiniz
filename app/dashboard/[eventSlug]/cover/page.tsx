@@ -27,8 +27,8 @@ export default async function EventCoverPage({
       eventSlug={eventSlug}
       eventId={w.id}
       defaultValues={{
-        partner1Name: w.partner1Name,
-        partner2Name: w.partner2Name,
+        partner1Name: w.primaryName,
+        partner2Name: w.secondaryName ?? undefined,
         heroImageUri: merged?.heroImageUri?.trim(),
         heroEyebrow: merged?.heroEyebrow?.trim() ?? '',
         heroTagline: merged?.heroTagline?.trim() ?? '',

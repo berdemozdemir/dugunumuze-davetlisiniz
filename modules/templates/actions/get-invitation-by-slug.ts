@@ -20,8 +20,8 @@ export const orpc_getInvitationBySlug = procedure_public
         .select({
           id: table_events.id,
           slug: table_events.slug,
-          partner1Name: table_events.partner1Name,
-          partner2Name: table_events.partner2Name,
+          primaryName: table_events.primaryName,
+          secondaryName: table_events.secondaryName,
           dateTime: table_events.dateTime,
           city: table_events.city,
           venueName: table_events.venueName,
@@ -81,8 +81,8 @@ export const orpc_getInvitationBySlug = procedure_public
     return ok({
       invitation: {
         slug: event.slug,
-        partner1Name: event.partner1Name,
-        partner2Name: event.partner2Name,
+        partner1Name: event.primaryName,
+        partner2Name: event.secondaryName ?? undefined,
         dateTime: event.dateTime.toISOString(),
         city: event.city,
         venueName: event.venueName ?? undefined,

@@ -1,5 +1,3 @@
-import type { InvitationDefaults } from '@/modules/templates/types';
-
 /** DB’de saklanan yan misafir satırı. */
 export type RsvpCompanionStored = {
   fullName: string;
@@ -45,7 +43,7 @@ export type PublishedInvitationEventRow = {
   partner2Name: string;
   dateTime: Date;
   city: string;
-  venueName: string | null;
+  venueName?: string;
   addressText: string;
   publishedAt: Date;
 };
@@ -53,7 +51,7 @@ export type PublishedInvitationEventRow = {
 /** Dashboard RSVP özet satırı (`getOwnerSummary`). */
 export type RsvpOwnerSummary = {
   rsvpDeadlineIso: string;
-  rsvpMaxTotalGuests: number | null;
+  rsvpMaxTotalGuests?: number;
   rsvpButtonLabel: string;
   reservedTotal: number;
   deadlineMaxIso: string;

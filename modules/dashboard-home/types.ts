@@ -1,10 +1,9 @@
-/** `orpc_events_listMine` yanıtındaki tek kayıt (UI için). */
 export type DashboardEventListItem = {
   id: string;
   slug: string;
-  partner1Name: string;
-  partner2Name: string;
+  primaryName: string;
+  secondaryName?: string;
   dateTime: Date;
-  publishedAt: Date | null;
+  publishedAt?: Date;
   createdAt: Date;
 };
