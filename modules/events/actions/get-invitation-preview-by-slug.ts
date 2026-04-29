@@ -13,7 +13,7 @@ import {
   table_eventOverrides,
   table_eventTemplates,
 } from '@/modules/templates/db-tables';
-import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { bindTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 
 export const orpc_events_getInvitationPreviewBySlug = procedure_protected
   .input(
@@ -54,7 +54,7 @@ export const orpc_events_getInvitationPreviewBySlug = procedure_protected
       return err({ reason: 'not-found', message: 'Davetiye bulunamadı' });
     }
 
-    const [bindErr] = await bindDefaultTemplateToEvent(db, event.id);
+    const [bindErr] = await bindTemplateToEvent(db, event.id);
     if (bindErr) {
       return err({ reason: 'template-bind-failed', message: bindErr.message });
     }

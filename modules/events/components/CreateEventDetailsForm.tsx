@@ -14,9 +14,11 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import type { CreateEventSchema } from '../schemas/create-event';
 import type { UseFormReturn } from 'react-hook-form';
 import { ArrowLeftIcon } from 'lucide-react';
+import type { InvitationDefaults } from '@/modules/templates/types';
 
 type Props = {
   form: UseFormReturn<CreateEventSchema>;
+  templateDefaults?: InvitationDefaults | null;
   onSubmit: React.ComponentPropsWithoutRef<'form'>['onSubmit'];
   onBack: () => void;
   isSubmitting: boolean;
@@ -25,11 +27,15 @@ type Props = {
 
 export function CreateEventDetailsForm({
   form,
+  templateDefaults,
   onSubmit,
   onBack,
   isSubmitting,
   submitErrorMessage,
 }: Props) {
+  const c = templateDefaults?.createForm;
+  const secondarySuffix = c?.secondaryNameOptionalLabelSuffix ?? '(opsiyonel)';
+
   return (
     <Form {...form}>
       <form
@@ -47,9 +53,12 @@ export function CreateEventDetailsForm({
             name="primaryName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Birinci isim</FormLabel>
+                <FormLabel>{c?.primaryNameLabel ?? 'Birinci isim'}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Elif" {...field} />
+                  <Input
+                    placeholder={c?.primaryNamePlaceholder ?? 'Elif'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -61,9 +70,14 @@ export function CreateEventDetailsForm({
             name="secondaryName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>İkinci isim (opsiyonel)</FormLabel>
+                <FormLabel>
+                  {c?.secondaryNameLabel ?? 'İkinci isim'} {secondarySuffix}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Erdem" {...field} />
+                  <Input
+                    placeholder={c?.secondaryNamePlaceholder ?? 'Erdem'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -77,7 +91,7 @@ export function CreateEventDetailsForm({
             name="dateTimeIso"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tarih / saat</FormLabel>
+                <FormLabel>{c?.dateTimeLabel ?? 'Tarih / saat'}</FormLabel>
                 <FormControl>
                   <Input type="datetime-local" {...field} />
                 </FormControl>
@@ -91,9 +105,12 @@ export function CreateEventDetailsForm({
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Şehir</FormLabel>
+                <FormLabel>{c?.cityLabel ?? 'Şehir'}</FormLabel>
                 <FormControl>
-                  <Input placeholder="İstanbul" {...field} />
+                  <Input
+                    placeholder={c?.cityPlaceholder ?? 'İstanbul'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,9 +123,14 @@ export function CreateEventDetailsForm({
           name="venueName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mekân adı (opsiyonel)</FormLabel>
+              <FormLabel>
+                {c?.venueNameLabel ?? 'Mekân adı (opsiyonel)'}
+              </FormLabel>
               <FormControl>
-                <Input placeholder="Bahçe / Salon / Ev" {...field} />
+                <Input
+                  placeholder={c?.venueNamePlaceholder ?? 'Bahçe / Salon / Ev'}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,9 +142,12 @@ export function CreateEventDetailsForm({
           name="addressText"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Adres</FormLabel>
+              <FormLabel>{c?.addressTextLabel ?? 'Adres'}</FormLabel>
               <FormControl>
-                <Input placeholder="Açık adres" {...field} />
+                <Input
+                  placeholder={c?.addressTextPlaceholder ?? 'Açık adres'}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

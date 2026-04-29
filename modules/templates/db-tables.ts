@@ -18,6 +18,7 @@ export const table_eventOverrides = pgTable('event_overrides', {
     .primaryKey()
     .notNull()
     .references(() => table_events.id, { onDelete: 'cascade' }),
+
   templateId: uuid('template_id')
     .notNull()
     .references(() => table_eventTemplates.id, { onDelete: 'cascade' }),

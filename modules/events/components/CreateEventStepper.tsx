@@ -24,6 +24,7 @@ import {
 import { service_templates } from '@/modules/templates/client-queries';
 import { CreateEventDetailsForm } from './CreateEventDetailsForm';
 import { InvitationIframePreview } from './InvitationIframePreview';
+import type { InvitationDefaults } from '@/modules/templates/types';
 
 type CreateEventStepValue = 'template' | 'details' | 'preview';
 
@@ -41,6 +42,11 @@ export function CreateEventStepper() {
 
   const isDetailsEnabled = Boolean(selectedTemplateKey);
   const isPreviewEnabled = Boolean(createdSlug);
+
+  const selectedTemplateDefaults = useMemo(() => {
+    const t = templatesQuery.data?.templates.find((x) => x.key === selectedTemplateKey);
+    return (t?.defaultsJson as InvitationDefaults | undefined) ?? null;
+  }, [selectedTemplateKey, templatesQuery.data?.templates]);
 
   const stepIndex =
     stepValue === 'template' ? 0 : stepValue === 'details' ? 1 : 2;
@@ -180,6 +186,7 @@ export function CreateEventStepper() {
         <StepperContentPersistent value="details" currentValue={stepValue}>
           <CreateEventDetailsForm
             form={form}
+            templateDefaults={selectedTemplateDefaults}
             onSubmit={submitStep2}
             onBack={() => setStepValue('template')}
             isSubmitting={createMutation.isPending}

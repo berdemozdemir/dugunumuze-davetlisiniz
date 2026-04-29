@@ -3,7 +3,7 @@ import { err, ok, tryCatchDb } from '@/lib/result';
 import { createEventSchema } from '../schemas/create-event';
 import { table_events } from '../db-tables';
 import { SlugHelper } from '@/lib/utils';
-import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { bindTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 import { table_eventTemplates } from '@/modules/templates/db-tables';
 import { eq } from 'drizzle-orm';
 
@@ -79,11 +79,7 @@ export const orpc_createEvent = procedure_protected
       });
     }
 
-    const [bindErr] = await bindDefaultTemplateToEvent(
-      db,
-      inserted[0].id,
-      input.templateKey,
-    );
+    const [bindErr] = await bindTemplateToEvent(db, inserted[0].id);
 
     if (bindErr)
       return err({

@@ -1,7 +1,7 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { table_events } from '@/modules/events/db-tables';
-import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { bindTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 import { table_eventOverrides } from '@/modules/templates/db-tables';
 import {
   invitationOverridesObjectSchema,
@@ -44,7 +44,7 @@ export const orpc_patchInvitationOverrides = procedure_protected
     if (!eventId)
       return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
 
-    const [bindErr] = await bindDefaultTemplateToEvent(db, eventId);
+    const [bindErr] = await bindTemplateToEvent(db, eventId);
     if (bindErr)
       return err({
         reason: 'template-bind-failed',

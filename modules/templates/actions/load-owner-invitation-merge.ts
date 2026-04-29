@@ -8,7 +8,7 @@ import {
   type StandardRpcError,
 } from '@/lib/result';
 import { table_events } from '@/modules/events/db-tables';
-import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { bindTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 import {
   table_eventOverrides,
   table_eventTemplates,
@@ -69,7 +69,7 @@ export async function loadOwnerInvitationMergeForEvent(
     return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
   }
 
-  const [bindErr] = await bindDefaultTemplateToEvent(db, event.id);
+  const [bindErr] = await bindTemplateToEvent(db, event.id);
   if (bindErr)
     return err({
       reason: 'template-bind-failed',

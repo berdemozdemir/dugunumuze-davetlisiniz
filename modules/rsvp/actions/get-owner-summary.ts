@@ -2,7 +2,7 @@ import { and, eq, sum } from 'drizzle-orm';
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import { err, ok, tryCatchDb } from '@/lib/result';
 import { table_events } from '@/modules/events/db-tables';
-import { bindDefaultTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
+import { bindTemplateToEvent } from '@/modules/templates/actions/bind-default-template-to-event';
 import {
   table_eventOverrides,
   table_eventTemplates,
@@ -46,18 +46,11 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
       return err({ reason: 'not-found', message: 'Etkinlik bulunamadı' });
     }
 
-    const bindResult = await bindDefaultTemplateToEvent(db, ev.id);
-    if (bindResult[0]) {
-      const e = bindResult[0];
+    const [bindErr] = await bindTemplateToEvent(db, ev.id);
+    if (bindErr) {
       return err({
         reason: 'template-bind-failed',
-        message:
-          typeof e === 'object' &&
-          e !== null &&
-          'message' in e &&
-          typeof (e as { message?: string }).message === 'string'
-            ? (e as { message: string }).message
-            : 'Şablon bağlanamadı',
+        message: bindErr.message ?? 'Şablon bağlanamadı',
       });
     }
 

@@ -11,6 +11,7 @@ export const orpc_templates_list = procedure_protected.handler(
           id: table_eventTemplates.id,
           key: table_eventTemplates.key,
           name: table_eventTemplates.name,
+          defaultsJson: table_eventTemplates.defaultsJson,
         })
         .from(table_eventTemplates)
         .orderBy(asc(table_eventTemplates.name)),

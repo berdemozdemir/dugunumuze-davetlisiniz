@@ -1,26 +1,19 @@
 import { err, ok, tryCatchDb } from '@/lib/result';
 import type { DbClient } from '@/integrations/drizzle/db-type';
 import { eq } from 'drizzle-orm';
-import { DEFAULT_EVENT_TEMPLATE_KEY } from '../constants/default-invitation';
-import { table_eventOverrides, table_eventTemplates } from '../db-tables';
+import { table_eventOverrides } from '../db-tables';
 import { table_events } from '@/modules/events/db-tables';
 import { InvitationOverrides } from '../types';
 
 const emptyOverrides: InvitationOverrides = {};
 
-// TODO: buna bir goz at, default olani baglamaya gerek var mi yoksa her zaman kullanici yeni bir taslak olustururken secer mi?
-// cunku direkt template baglayan func bu
-// TODO: orpc func yap ki db'yi disardan almasin
-
 /**
- * Davet kaydı oluşturulunca varsayılan şablonu bağlar. Zaten `event_overrides`
- * satırı varsa tekrar eklemez.
+ * Event için `event_overrides` satırını garanti eder.
+ *
+ * Artık "default template key" yok: template her zaman `events.template_id` üzerinden gelir.
+ * `event_overrides` satırı yoksa, `events.template_id` ile boş overrides oluşturulur.
  */
-export async function bindDefaultTemplateToEvent(
-  dbClient: DbClient,
-  eventId: string,
-  templateKey: string = DEFAULT_EVENT_TEMPLATE_KEY,
-) {
+export async function bindTemplateToEvent(dbClient: DbClient, eventId: string) {
   const [existingErr, existingRows] = await tryCatchDb(() =>
     dbClient
       .select({ eventId: table_eventOverrides.eventId })
@@ -43,23 +36,11 @@ export async function bindDefaultTemplateToEvent(
 
   if (eventErr) return err(eventErr);
 
-  const templateIdFromEvent = eventRows[0]?.templateId ?? undefined;
-
-  const [templateErr, templateRows] = await tryCatchDb(() =>
-    dbClient
-      .select({ id: table_eventTemplates.id })
-      .from(table_eventTemplates)
-      .where(eq(table_eventTemplates.key, templateKey))
-      .limit(1),
-  );
-
-  if (templateErr) return err(templateErr);
-
-  const templateId = templateIdFromEvent ?? templateRows[0]?.id;
+  const templateId = eventRows[0]?.templateId ?? null;
   if (!templateId)
     return err({
       reason: 'template-not-found',
-      message: `Şablon bulunamadı: ${templateKey}`,
+      message: 'Etkinlik şablonu bulunamadı',
     });
 
   const [insertErr] = await tryCatchDb(() =>

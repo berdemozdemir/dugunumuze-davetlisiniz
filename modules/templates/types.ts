@@ -63,6 +63,25 @@ export type InvitationDefaults = {
   rezervationMaxTotalGuests?: number | null;
   /** Public davetiyede rezervasyon butonu metni. */
   rezervationButtonLabel?: string;
+
+  /**
+   * Create flow (type-first) için minimal label/placeholder konfigurasyonu.
+   * i18n olmadığı için TR metinler template defaults içinde taşınır.
+   */
+  createForm?: {
+    primaryNameLabel?: string;
+    primaryNamePlaceholder?: string;
+    secondaryNameLabel?: string;
+    secondaryNamePlaceholder?: string;
+    secondaryNameOptionalLabelSuffix?: string;
+    dateTimeLabel?: string;
+    cityLabel?: string;
+    cityPlaceholder?: string;
+    venueNameLabel?: string;
+    venueNamePlaceholder?: string;
+    addressTextLabel?: string;
+    addressTextPlaceholder?: string;
+  };
 };
 
 // şablona göre etkinliğe özel üstüne yazılanlar
