@@ -1,0 +1,1 @@
+ALTER TABLE "events" ALTER COLUMN "template_id" SET NOT NULL;
