@@ -5,6 +5,7 @@ import { IconCalendarEvent } from '@tabler/icons-react';
 import { formatEventDateTime } from '../util/format-event-datetime';
 import { IconChevronRight } from '@tabler/icons-react';
 import type { DashboardEventListItem } from '../types';
+import { Badge } from '@/components/ui/Badge';
 
 export function EventCard({ event }: { event: DashboardEventListItem }) {
   const title = event.secondaryName
@@ -43,9 +44,11 @@ export function EventCard({ event }: { event: DashboardEventListItem }) {
         </span>
       </div>
 
-      <p className="text-muted-foreground mt-3 truncate font-mono text-[0.7rem]">
+      <p className="text-muted-foreground my-3 truncate font-mono text-[0.7rem]">
         /{event.slug}
       </p>
+
+      <Badge variant="secondary">{event.templateName}</Badge>
 
       <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">
         Yönet

@@ -81,11 +81,11 @@ export const orpc_loadPublishedInvitationBySlug = procedure_public
     const eventRow: PublishedInvitationEventRow = {
       id: eventRows[0].id,
       slug: eventRows[0].slug,
-      partner1Name: eventRows[0].primaryName,
-      partner2Name: eventRows[0].secondaryName ?? undefined,
+      primaryName: eventRows[0].primaryName,
+      secondaryName: eventRows[0].secondaryName ?? undefined,
       dateTime: eventRows[0].dateTime,
       city: eventRows[0].city,
-      venueName: eventRows[0].venueName,
+      venueName: eventRows[0].venueName ?? undefined,
       addressText: eventRows[0].addressText,
       publishedAt: eventRows[0].publishedAt,
     };

@@ -41,13 +41,14 @@ export function RsvpDashboardSettingsTab({
 
   const saveMutation = useMutation(rsvp_dashboard.mutations.updateSettings());
 
+  const rawDeadlineIso = summary.rsvpDeadlineIso?.trim() ?? '';
   const defaultDeadlineLocal =
-    summary.rsvpDeadlineIso.trim() !== ''
-      ? isoToDatetimeLocalValue(summary.rsvpDeadlineIso)
+    rawDeadlineIso !== ''
+      ? isoToDatetimeLocalValue(rawDeadlineIso)
       : isoToDatetimeLocalValue(summary.deadlineMaxIso);
 
   const maxGuestsValue =
-    summary.rsvpMaxTotalGuests !== null
+    summary.rsvpMaxTotalGuests !== null && summary.rsvpMaxTotalGuests !== undefined
       ? String(summary.rsvpMaxTotalGuests)
       : '';
 

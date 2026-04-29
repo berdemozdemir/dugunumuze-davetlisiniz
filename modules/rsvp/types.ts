@@ -39,8 +39,8 @@ export type RsvpPublicState = {
 export type PublishedInvitationEventRow = {
   id: string;
   slug: string;
-  partner1Name: string;
-  partner2Name: string;
+  primaryName: string;
+  secondaryName?: string;
   dateTime: Date;
   city: string;
   venueName?: string;
@@ -50,9 +50,9 @@ export type PublishedInvitationEventRow = {
 
 /** Dashboard RSVP özet satırı (`getOwnerSummary`). */
 export type RsvpOwnerSummary = {
-  rsvpDeadlineIso: string;
-  rsvpMaxTotalGuests?: number;
-  rsvpButtonLabel: string;
+  rsvpDeadlineIso?: string;
+  rsvpMaxTotalGuests?: number | null;
+  rsvpButtonLabel?: string;
   reservedTotal: number;
   deadlineMaxIso: string;
   finalEventTitle: string;

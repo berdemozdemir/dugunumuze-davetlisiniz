@@ -12,9 +12,11 @@ export const table_events = pgTable('events', {
 
   slug: text('slug').notNull().unique(),
 
-  templateId: uuid('template_id').references(() => table_eventTemplates.id, {
-    onDelete: 'cascade',
-  }),
+  templateId: uuid('template_id')
+    .references(() => table_eventTemplates.id, {
+      onDelete: 'cascade',
+    })
+    .notNull(),
 
   status: text('status').notNull().default('draft'),
   currentStep: smallint('current_step').notNull().default(1),
