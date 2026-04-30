@@ -58,8 +58,10 @@ const templates = [
         closing: true,
         musicPlayer: true,
       },
+      heroImagePublicSrc: '/images/henna-night/cover-section-bg-image.webp',
       heroEyebrow: 'Kına gecemize davetlisiniz',
       heroTagline: 'Kına gecemiz',
+      storyImagePublicSrc: '/images/henna-night/story-section-bg-image.jpg',
       storyHeadline: 'Bu özel gecede',
       storySubline: 'Sevdiklerimizle bir arada olmak istiyoruz',
       createForm: {
