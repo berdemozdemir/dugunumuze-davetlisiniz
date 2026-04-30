@@ -98,10 +98,8 @@ export function InvitationCountdownEditor({
 
   return (
     <div className="max-w-xl">
-      <h2 className="text-center text-lg font-semibold">{title}</h2>
-      <p className="text-muted-foreground mt-1 text-center text-sm">
-        {description}
-      </p>
+      <h2 className="text-lg font-semibold">{title}</h2>
+      <p className="text-muted-foreground mt-1 text-sm">{description}</p>
 
       <Form {...form}>
         <form className="mt-6 grid gap-6" onSubmit={submit}>

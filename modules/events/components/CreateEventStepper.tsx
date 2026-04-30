@@ -254,7 +254,7 @@ export function CreateEventStepper() {
         <StepperContentPersistent
           value="countdown"
           currentValue={stepValue}
-          className="flex items-center justify-center"
+          className="flex items-center justify-center text-center"
         >
           {createdSlug && (
             <InvitationCountdownEditor

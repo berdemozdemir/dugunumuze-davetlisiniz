@@ -92,10 +92,12 @@ const templates = [
         closing: true,
         musicPlayer: true,
       },
+      heroImagePublicSrc: '/images/birthday/cover-section-bg-image.webp',
       heroEyebrow: 'Doğum günü partime bekliyorum',
       heroTagline: 'Doğum günü',
       storyHeadline: 'Birlikte kutlayalım',
       storySubline: 'Bu günü sizinle daha da güzel yapmak istiyorum',
+      storyImagePublicSrc: '/images/birthday/story-section-bg-image.jpg',
       createForm: {
         primaryNameLabel: 'Kimin doğum günü?',
         primaryNamePlaceholder: 'Elif',
