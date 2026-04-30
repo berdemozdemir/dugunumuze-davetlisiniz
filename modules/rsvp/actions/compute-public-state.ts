@@ -7,7 +7,6 @@ import { RSVP_FINAL_EVENT_BUFFER_MS } from '@/modules/rsvp/constants';
 import { table_rsvpResponses } from '@/modules/rsvp/db-tables';
 import type { RsvpClosedReason, RsvpPublicState } from '@/modules/rsvp/types';
 import type { InvitationDefaults } from '@/modules/templates/types';
-import { resolveFinalEventForRezervation } from '../utils/resolve-final-event';
 
 export const computeRsvpPublicStateInputSchema = z.object({
   eventId: z.string().min(1),
@@ -40,14 +39,8 @@ export const orpc_computeRsvpPublicState = procedure_public
     );
     const enabled = sectionOn && publishedAt !== null;
 
-    const final = resolveFinalEventForRezervation(merged.countdownEvents, {
-      dateTimeIso: core.dateTimeIso,
-      venueName: core.venueName,
-      city: core.city,
-    });
-
     const deadlineMax = new Date(
-      final.dateTime.getTime() - RSVP_FINAL_EVENT_BUFFER_MS,
+      Date.parse(merged.countdownEvent.dateTime) - RSVP_FINAL_EVENT_BUFFER_MS,
     );
     const deadlineMaxIso = deadlineMax.toISOString();
 
@@ -102,8 +95,8 @@ export const orpc_computeRsvpPublicState = procedure_public
       deadlineIso,
       maxTotalGuests,
       reservedTotal,
-      finalEventTitle: final.title,
-      finalEventIso: final.dateTime.toISOString(),
+      finalEventTitle: merged.countdownEvent.title.trim(),
+      finalEventIso: merged.countdownEvent.dateTime,
       buttonLabel,
       deadlineMaxIso,
     };

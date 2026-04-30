@@ -19,5 +19,12 @@ export const defaultInvitationTemplateDefaults: InvitationDefaults = {
   storyImagePublicSrc: '',
   closingNote: '',
   closingPhotoUris: [],
-  countdownEvents: [],
+  countdownEvent: {
+    title: 'Etkinlik',
+    dateTime: new Date().toISOString(),
+    subtitle: '',
+    venueName: '',
+    addressText: '',
+    city: '',
+  },
 };

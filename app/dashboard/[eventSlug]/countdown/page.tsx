@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
-import { InvitationCountdownEditor } from '@/modules/invitation/components/InvitationCountdownEditor';
 import { orpc_templates_getEventInvitationSettings } from '@/modules/templates/actions/get-event-invitation-settings';
 import { orpc_getEventBySlug } from '@/modules/events/actions/get-event-by-slug';
 import { toDateTimeLocal } from '@/modules/events/util';
+import { CountdownEditorClient } from './CountdownEditorClient';
 
 export default async function EventCountdownPage({
   params,
@@ -28,19 +28,20 @@ export default async function EventCountdownPage({
   }
 
   const merged = sData.merged;
+  const e = merged.countdownEvent;
 
   return (
-    <InvitationCountdownEditor
+    <CountdownEditorClient
       eventSlug={eventSlug}
       defaultValues={{
-        countdownEvents: (merged.countdownEvents ?? []).map((e) => ({
+        countdownEvent: {
           title: e.title,
           dateTime: toDateTimeLocal(new Date(e.dateTime)),
           subtitle: e.subtitle ?? '',
           venueName: e.venueName ?? '',
           addressText: e.addressText ?? '',
           city: e.city ?? '',
-        })),
+        },
       }}
     />
   );

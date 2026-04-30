@@ -1,7 +1,5 @@
 /** Davetiye metinleri — tek kaynak (form placeholder + public varsayılan). */
 
-export const COUNTDOWN_EVENTS_MAX = 4;
-
 /** Kapak üst satırı; boşsa bu metin kullanılır. */
 export const HERO_EYEBROW_DEFAULT = 'Düğünümüze davetlisiniz';
 

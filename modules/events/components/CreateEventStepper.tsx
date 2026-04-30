@@ -25,8 +25,10 @@ import { service_templates } from '@/modules/templates/client-queries';
 import { CreateEventDetailsForm } from './CreateEventDetailsForm';
 import { InvitationIframePreview } from './InvitationIframePreview';
 import type { InvitationDefaults } from '@/modules/templates/types';
+import { InvitationCountdownEditor } from '@/modules/invitation/components/InvitationCountdownEditor';
+import { toDateTimeLocal } from '@/modules/events/util';
 
-type CreateEventStepValue = 'template' | 'details' | 'preview';
+type CreateEventStepValue = 'template' | 'details' | 'countdown' | 'preview';
 
 export function CreateEventStepper() {
   const router = useRouter();
@@ -34,6 +36,8 @@ export function CreateEventStepper() {
   const [stepValue, setStepValue] = useState<CreateEventStepValue>('template');
   const [createdSlug, setCreatedSlug] = useState<string | null>(null);
   const [selectedTemplateKey, setSelectedTemplateKey] = useState<string>('');
+  const [countdownSaved, setCountdownSaved] = useState<boolean>(false);
+  const [previewVersion, setPreviewVersion] = useState<number>(0);
 
   const templatesQuery = useQuery(service_templates.queries.list());
 
@@ -41,15 +45,31 @@ export function CreateEventStepper() {
   const publishMutation = useMutation(service_events.mutations.publish());
 
   const isDetailsEnabled = Boolean(selectedTemplateKey);
-  const isPreviewEnabled = Boolean(createdSlug);
+  const isCountdownEnabled = Boolean(createdSlug);
+  const isPreviewEnabled = Boolean(createdSlug) && countdownSaved;
 
   const selectedTemplateDefaults = useMemo(() => {
-    const t = templatesQuery.data?.templates.find((x) => x.key === selectedTemplateKey);
+    const t = templatesQuery.data?.templates.find(
+      (x) => x.key === selectedTemplateKey,
+    );
     return (t?.defaultsJson as InvitationDefaults | undefined) ?? null;
   }, [selectedTemplateKey, templatesQuery.data?.templates]);
 
+  const selectedTemplateName = useMemo(() => {
+    const t = templatesQuery.data?.templates.find(
+      (x) => x.key === selectedTemplateKey,
+    );
+    return t?.name ?? undefined;
+  }, [selectedTemplateKey, templatesQuery.data?.templates]);
+
   const stepIndex =
-    stepValue === 'template' ? 0 : stepValue === 'details' ? 1 : 2;
+    stepValue === 'template'
+      ? 0
+      : stepValue === 'details'
+        ? 1
+        : stepValue === 'countdown'
+          ? 2
+          : 3;
   const stepNumber = stepIndex + 1;
 
   const nowLocalIso = useMemo(() => {
@@ -74,9 +94,33 @@ export function CreateEventStepper() {
     },
   });
 
+  const createCountdownDefaultValues = useMemo(() => {
+    const title = selectedTemplateName?.trim()
+      ? `${selectedTemplateName.trim()} etkinliği`
+      : 'Etkinlik';
+
+    const dt = new Date(form.getValues('dateTimeIso'));
+    const dtLocal = Number.isNaN(dt.getTime())
+      ? toDateTimeLocal(new Date())
+      : toDateTimeLocal(dt);
+
+    return {
+      countdownEvent: {
+        title,
+        dateTime: dtLocal,
+        subtitle: '',
+        venueName: form.getValues('venueName') ?? '',
+        addressText: form.getValues('addressText') ?? '',
+        city: form.getValues('city') ?? '',
+      },
+    };
+  }, [form, selectedTemplateName]);
+
   const goDetails = (templateKey: string) => {
     form.setValue('templateKey', templateKey, { shouldValidate: true });
     setSelectedTemplateKey(templateKey);
+    setCountdownSaved(false);
+    setPreviewVersion((x) => x + 1);
     setStepValue('details');
   };
 
@@ -84,7 +128,9 @@ export function CreateEventStepper() {
     const res = await createMutation.mutateAsync(data);
     toast.success('Davet taslağı oluşturuldu');
     setCreatedSlug(res.slug);
-    setStepValue('preview');
+    setCountdownSaved(false);
+    setPreviewVersion((x) => x + 1);
+    setStepValue('countdown');
   });
 
   const saveDraftAndExit = () => {
@@ -107,6 +153,7 @@ export function CreateEventStepper() {
         onValueChange={(v) => {
           const next = v as CreateEventStepValue;
           if (next === 'details' && !isDetailsEnabled) return;
+          if (next === 'countdown' && !isCountdownEnabled) return;
           if (next === 'preview' && !isPreviewEnabled) return;
           setStepValue(next);
         }}
@@ -131,8 +178,18 @@ export function CreateEventStepper() {
 
             <StepperSeparator />
 
-            <StepperTrigger value="preview" disabled={!isPreviewEnabled}>
+            <StepperTrigger
+              value="countdown"
+              disabled={!isCountdownEnabled}
+              isCompleted={stepIndex > 2}
+            >
               3
+            </StepperTrigger>
+
+            <StepperSeparator />
+
+            <StepperTrigger value="preview" disabled={!isPreviewEnabled}>
+              4
             </StepperTrigger>
           </StepperList>
         </div>
@@ -194,8 +251,36 @@ export function CreateEventStepper() {
           />
         </StepperContentPersistent>
 
+        <StepperContentPersistent
+          value="countdown"
+          currentValue={stepValue}
+          className="flex items-center justify-center"
+        >
+          {createdSlug && (
+            <InvitationCountdownEditor
+              eventSlug={createdSlug}
+              defaultValues={createCountdownDefaultValues}
+              title="Etkinlik bilgileri"
+              description="Davetiyedeki geri sayım ve etkinlik detayları için tarih ve konum girin. İsterseniz sonrasında panelden düzenleyebilirsiniz."
+              submitLabel="Önizlemeye geç"
+              onBack={() => setStepValue('details')}
+              onSuccess={() => {
+                setCountdownSaved(true);
+                setPreviewVersion((x) => x + 1);
+                setStepValue('preview');
+              }}
+            />
+          )}
+
+          {!createdSlug && (
+            <div className="text-muted-foreground text-sm">
+              Önizleme için önce taslak oluşturmalısınız.
+            </div>
+          )}
+        </StepperContentPersistent>
+
         <StepperContentPersistent value="preview" currentValue={stepValue}>
-          {createdSlug ? (
+          {createdSlug && (
             <div className="grid gap-6 lg:grid-cols-[1fr_420px]">
               <div className="space-y-3">
                 <p className="text-muted-foreground text-sm">
@@ -207,7 +292,7 @@ export function CreateEventStepper() {
                   <Button
                     type="button"
                     variant="secondary"
-                    onClick={() => setStepValue('details')}
+                    onClick={() => setStepValue('countdown')}
                   >
                     Geri
                   </Button>
@@ -237,9 +322,14 @@ export function CreateEventStepper() {
                 )}
               </div>
 
-              <InvitationIframePreview slug={createdSlug} />
+              <InvitationIframePreview
+                slug={createdSlug}
+                version={previewVersion}
+              />
             </div>
-          ) : (
+          )}
+
+          {!createdSlug && (
             <div className="text-muted-foreground text-sm">
               Önizleme için önce taslak oluşturmalısınız.
             </div>

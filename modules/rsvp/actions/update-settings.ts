@@ -37,12 +37,7 @@ export const orpc_rsvp_updateSettings = procedure_protected
     const deadlineMs = Date.parse(input.rsvpDeadlineIso);
     if (
       !isRsvpDeadlineWithinBuffer(
-        mergedPreview.countdownEvents ?? [],
-        {
-          dateTimeIso: dateTime.toISOString(),
-          venueName,
-          city,
-        },
+        mergedPreview.countdownEvent,
         deadlineMs,
       )
     ) {

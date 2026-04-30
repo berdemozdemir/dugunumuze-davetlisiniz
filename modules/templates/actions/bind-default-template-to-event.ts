@@ -3,9 +3,7 @@ import type { DbClient } from '@/integrations/drizzle/db-type';
 import { eq } from 'drizzle-orm';
 import { table_eventOverrides } from '../db-tables';
 import { table_events } from '@/modules/events/db-tables';
-import { InvitationOverrides } from '../types';
-
-const emptyOverrides: InvitationOverrides = {};
+import type { CountdownEventConfig, InvitationOverrides } from '../types';
 
 /**
  * Event için `event_overrides` satırını garanti eder.
@@ -43,11 +41,40 @@ export async function bindTemplateToEvent(dbClient: DbClient, eventId: string) {
       message: 'Etkinlik şablonu bulunamadı',
     });
 
+  const [coreErr, coreRows] = await tryCatchDb(() =>
+    dbClient
+      .select({
+        dateTime: table_events.dateTime,
+        city: table_events.city,
+        venueName: table_events.venueName,
+        addressText: table_events.addressText,
+      })
+      .from(table_events)
+      .where(eq(table_events.id, eventId))
+      .limit(1),
+  );
+  if (coreErr) return err(coreErr);
+
+  const core = coreRows[0] ?? null;
+  if (!core)
+    return err({
+      reason: 'not-found',
+      message: 'Etkinlik bulunamadı',
+    });
+
+  const countdownEvent: CountdownEventConfig = {
+    title: 'Etkinlik',
+    dateTime: core.dateTime.toISOString(),
+    city: core.city,
+    venueName: core.venueName?.trim() || undefined,
+    addressText: core.addressText,
+  };
+
   const [insertErr] = await tryCatchDb(() =>
     dbClient.insert(table_eventOverrides).values({
       eventId,
       templateId,
-      overridesJson: emptyOverrides,
+      overridesJson: { countdownEvent } satisfies InvitationOverrides,
     }),
   );
 

@@ -7,7 +7,6 @@ import { orpc_computeRsvpPublicState } from '@/modules/rsvp/actions/compute-publ
 import { rsvpSubmitRpcInputSchema } from '@/modules/rsvp/schemas/rsvp-submit-rpc-input';
 import type { RsvpCompanionStored } from '@/modules/rsvp/types';
 import { normalizeTrPhone } from '@/modules/rsvp/utils/phone';
-import { resolveFinalEventForRezervation } from '@/modules/rsvp/utils/resolve-final-event';
 import { and, eq } from 'drizzle-orm';
 import { orpc_loadPublishedInvitationBySlug } from './load-published-invitation';
 
@@ -117,11 +116,8 @@ export const orpc_rsvp_submit = procedure_public
       });
     }
 
-    const final = resolveFinalEventForRezervation(merged.countdownEvents, {
-      dateTimeIso: event.dateTime.toISOString(),
-      venueName: event.venueName,
-      city: event.city,
-    });
+    const finalTitle = merged.countdownEvent.title.trim();
+    const finalAt = new Date(merged.countdownEvent.dateTime);
 
     const [dupErr, dupRows] = await tryCatchDb(() =>
       db
@@ -153,8 +149,8 @@ export const orpc_rsvp_submit = procedure_public
         companionsJson: companionsStored,
         note: note?.trim() || null,
         partySize,
-        finalEventTitle: final.title,
-        finalEventAt: final.dateTime,
+        finalEventTitle: finalTitle,
+        finalEventAt: finalAt,
       }),
     );
 

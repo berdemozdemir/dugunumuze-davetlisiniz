@@ -1,12 +1,5 @@
 import type { PhotoCarouselItem } from '@/components/PhotoCarousel';
-import type {
-  CountdownDisplayEvent,
-  EventDetailCard,
-} from '@/modules/invitation/types';
-import type {
-  CountdownEventConfig,
-  InvitationDefaults,
-} from '@/modules/templates/types';
+import type { InvitationDefaults } from '@/modules/templates/types';
 import { getPublicInvitationImageUrl } from '@/lib/supabase/public-image-url';
 import {
   HERO_EYEBROW_DEFAULT,
@@ -146,53 +139,4 @@ export function countdownHeadingClass(index: number, total: number): string {
   if (index === total - 1) return 'text-gold';
   if (index % 2 === 0) return 'text-rose';
   return 'text-gold/80';
-}
-
-// --- Etkinlik listesi (geri sayım + detay kartları; tek şablondan) ---
-function isValidCountdownEventRow(e: CountdownEventConfig): boolean {
-  const titleOk = e.title.trim().length > 0;
-  const dateOk = !Number.isNaN(Date.parse(e.dateTime));
-  return titleOk && dateOk;
-}
-
-/** Şablondaki ham etkinlik listesini doğrular; sırayı korur. */
-export function normalizeCountdownEventsFromTemplate(
-  raw: CountdownEventConfig[] | undefined,
-): CountdownEventConfig[] {
-  if (!raw?.length) return [];
-  return raw.filter(isValidCountdownEventRow);
-}
-
-export function toCountdownDisplayEvents(
-  events: CountdownEventConfig[],
-): CountdownDisplayEvent[] {
-  return events.map((e) => ({
-    title: e.title.trim(),
-    targetIso: e.dateTime,
-    subtitle: e.subtitle?.trim() || undefined,
-  }));
-}
-
-export function toEventDetailCards(
-  events: CountdownEventConfig[],
-): EventDetailCard[] {
-  return events.map((e) => ({
-    title: e.title.trim(),
-    venueName: e.venueName?.trim() || undefined,
-    addressText: (e.addressText ?? '').trim(),
-    city: e.city?.trim() || undefined,
-  }));
-}
-
-/**
- * `events` çekirdek satırı için kaynak: doğrulanmış etkinlikler içinde takvimde en geç olan
- * (ör. önce küçük etkinlikler, sonda ana düğün — kapak/çekirdek tarih buna göre, ana düğün tarihi en son olan satırdan oluşur).
- */
-export function selectPrimaryEventForEventRow(
-  events: CountdownEventConfig[],
-): CountdownEventConfig | null {
-  if (events.length === 0) return null;
-  return events.reduce((latest, e) =>
-    Date.parse(e.dateTime) > Date.parse(latest.dateTime) ? e : latest,
-  );
 }

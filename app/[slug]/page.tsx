@@ -14,15 +14,12 @@ import { getPublicInvitationAudioUrl } from '@/lib/supabase/public-image-url';
 import {
   buildClosingCarouselPhotos,
   formatInvitationYearFooter,
-  normalizeCountdownEventsFromTemplate,
   resolveClosingNote,
   resolveHeroDateLabel,
   resolveHeroEyebrow,
   resolveHeroTagline,
   resolveStoryHeadline,
   resolveStorySubline,
-  toCountdownDisplayEvents,
-  toEventDetailCards,
 } from '@/modules/invitation/util';
 import type { PublicInvitationView } from '@/modules/invitation/types';
 import { orpc_rsvp_getPublicState } from '@/modules/rsvp/actions/get-public-state';
@@ -85,18 +82,25 @@ export default async function PublicInvitationPage({
     invitation.partner2Name,
   );
 
-  const normalizedCountdownEvents = normalizeCountdownEventsFromTemplate(
-    invitation.template.countdownEvents,
-  );
-  const countdownRows = toCountdownDisplayEvents(normalizedCountdownEvents);
-  const eventDetailCards = toEventDetailCards(normalizedCountdownEvents);
+  const countdownRows = [
+    {
+      title: invitation.template.countdownEvent.title.trim(),
+      targetIso: invitation.template.countdownEvent.dateTime,
+      subtitle: invitation.template.countdownEvent.subtitle?.trim() || undefined,
+    },
+  ];
+  const eventDetailCards = [
+    {
+      title: invitation.template.countdownEvent.title.trim(),
+      venueName:
+        invitation.template.countdownEvent.venueName?.trim() || undefined,
+      addressText: (invitation.template.countdownEvent.addressText ?? '').trim(),
+      city: invitation.template.countdownEvent.city?.trim() || undefined,
+    },
+  ];
 
-  const showCountdownSection =
-    isInvitationSectionVisible(sections, 'countdown') &&
-    countdownRows.length > 0;
-  const showDetailsSection =
-    isInvitationSectionVisible(sections, 'details') &&
-    eventDetailCards.length > 0;
+  const showCountdownSection = isInvitationSectionVisible(sections, 'countdown');
+  const showDetailsSection = isInvitationSectionVisible(sections, 'details');
 
   const musicPath = invitation.template.musicTrackPath?.trim();
   const musicSrc = getPublicInvitationAudioUrl(musicPath ?? '');

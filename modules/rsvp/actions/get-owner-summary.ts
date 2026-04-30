@@ -15,7 +15,6 @@ import type {
 import { deepMerge } from '@/modules/templates/utils/merge';
 import { RSVP_FINAL_EVENT_BUFFER_MS } from '@/modules/rsvp/constants';
 import { table_rsvpResponses } from '@/modules/rsvp/db-tables';
-import { resolveFinalEventForRezervation } from '@/modules/rsvp/utils/resolve-final-event';
 import z from 'zod';
 
 export const orpc_rsvp_getOwnerSummary = procedure_protected
@@ -95,14 +94,8 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
 
     const reservedTotal = Number(agg?.total ?? 0);
 
-    const final = resolveFinalEventForRezervation(merged.countdownEvents, {
-      dateTimeIso: ev.dateTime.toISOString(),
-      venueName: ev.venueName,
-      city: ev.city,
-    });
-
     const deadlineMaxIso = new Date(
-      final.dateTime.getTime() - RSVP_FINAL_EVENT_BUFFER_MS,
+      Date.parse(merged.countdownEvent.dateTime) - RSVP_FINAL_EVENT_BUFFER_MS,
     ).toISOString();
 
     return ok({
@@ -111,8 +104,8 @@ export const orpc_rsvp_getOwnerSummary = procedure_protected
       rsvpButtonLabel: merged.rezervationButtonLabel ?? undefined,
       reservedTotal,
       deadlineMaxIso,
-      finalEventTitle: final.title,
-      finalEventIso: final.dateTime.toISOString(),
+      finalEventTitle: merged.countdownEvent.title.trim(),
+      finalEventIso: merged.countdownEvent.dateTime,
     });
   })
   .callable();

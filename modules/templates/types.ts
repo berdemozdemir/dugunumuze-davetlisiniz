@@ -49,8 +49,11 @@ export type InvitationDefaults = {
   closingNote?: string;
   /** Closing section carousel; storage object paths, max 10. */
   closingPhotoUris?: string[];
-  /** Countdown kartları; en fazla `COUNTDOWN_EVENTS_MAX` (invitation constants). */
-  countdownEvents?: CountdownEventConfig[];
+  /**
+   * Tek etkinlik (countdown + details aynı kayıttan beslenir).
+   * ISO 8601 `dateTime`; konum alanları detay kartında kullanılır.
+   */
+  countdownEvent: CountdownEventConfig;
   /**
    * Supabase Storage object path (bucket: `digital-invitation-audio`).
    * Kesme sadece oynatma sırasında `musicTrimStartSec` / `musicTrimEndSec` ile uygulanır.
@@ -89,4 +92,4 @@ export type InvitationDefaults = {
 };
 
 // şablona göre etkinliğe özel üstüne yazılanlar
-export type InvitationOverrides = InvitationDefaults;
+export type InvitationOverrides = Partial<InvitationDefaults>;

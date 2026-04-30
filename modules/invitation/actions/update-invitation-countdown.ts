@@ -1,6 +1,6 @@
 import { procedure_protected } from '@/integrations/orpc/procedure';
 import z from 'zod';
-import { syncEventRowFromCountdownEvents } from '@/modules/events/sync-event-from-countdown-events';
+import { syncEventRowFromCountdownEvent } from '@/modules/events/sync-event-from-countdown-events';
 import { orpc_patchInvitationOverrides } from './patch-invitation-overrides';
 import { invitationCountdownFormSchema } from '../schemas/invitation-countdown-form';
 
@@ -13,19 +13,19 @@ export const orpc_invitation_updateCountdown = procedure_protected
       .merge(invitationCountdownFormSchema),
   )
   .handler(async ({ input, context: { db, auth } }) => {
-    const { eventSlug, countdownEvents } = input;
+    const { eventSlug, countdownEvent } = input;
     const patchResult = await orpc_patchInvitationOverrides({
       eventSlug,
-      patch: { countdownEvents },
+      patch: { countdownEvent },
     });
     if (patchResult[0] !== null) {
       return patchResult;
     }
-    return syncEventRowFromCountdownEvents({
+    return syncEventRowFromCountdownEvent({
       db,
       auth,
       eventSlug,
-      countdownEvents,
+      countdownEvent,
     });
   })
   .callable();

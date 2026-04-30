@@ -183,7 +183,10 @@ export function InvitationCountdown({ events }: Props) {
               : 'text-2xl sm:text-3xl';
 
             return (
-              <RevealSection key={`${event.targetIso}-${index}`} delay={delayMs}>
+              <RevealSection
+                key={`${event.targetIso}-${index}`}
+                delay={delayMs}
+              >
                 {isLastEvent && (
                   <LastEventBlock
                     event={event}

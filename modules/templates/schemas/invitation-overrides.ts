@@ -1,5 +1,4 @@
 import z from 'zod';
-import { COUNTDOWN_EVENTS_MAX } from '@/modules/invitation/constants';
 import { countdownEventSchema } from './count-down-event';
 
 // TODO: add maks limitations for all fields for the following and similar schemas
@@ -15,10 +14,7 @@ export const invitationOverridesObjectSchema = z.object({
   heroTagline: z.string().max(64).optional(),
   /** Supabase Storage paths, same bucket as hero; shown in closing carousel (max 10). */
   closingPhotoUris: z.array(z.string().max(600)).max(10).optional(),
-  countdownEvents: z
-    .array(countdownEventSchema)
-    .max(COUNTDOWN_EVENTS_MAX)
-    .optional(),
+  countdownEvent: countdownEventSchema.optional(),
   quote: z.string().optional(),
   storyHeadline: z.string().optional(),
   storySubline: z.string().optional(),
