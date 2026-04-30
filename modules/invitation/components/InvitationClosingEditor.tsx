@@ -97,7 +97,7 @@ export function InvitationClosingEditor({
           shouldDirty: true,
           shouldTouch: true,
         });
-        if (oldP) {
+        if (oldP && !oldP.startsWith('/')) {
           const { error } = await ClientStorageService.remove(
             BucketNames.DigitalInvitationImages,
             [oldP],
@@ -120,7 +120,7 @@ export function InvitationClosingEditor({
 
   const removeClosingPhotoAt = async (index: number) => {
     const path = form.getValues(`closingPhotoUris.${index}`)?.trim();
-    if (path) {
+    if (path && !path.startsWith('/')) {
       const { error } = await ClientStorageService.remove(
         BucketNames.DigitalInvitationImages,
         [path],

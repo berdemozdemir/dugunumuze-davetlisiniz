@@ -1,5 +1,7 @@
 /** Davetiye metinleri — tek kaynak (form placeholder + public varsayılan). */
 
+// TODO: bu sabitlere artık gerek olmayabilir çünkü template'e göre defaultlar artık db'de tutuluyor.
+
 /** Kapak üst satırı; boşsa bu metin kullanılır. */
 export const HERO_EYEBROW_DEFAULT = 'Düğünümüze davetlisiniz';
 

@@ -30,6 +30,11 @@ const templates = [
       storyImagePublicSrc: '/images/wedding/story-section-bg-image.jpeg',
       storyHeadline: 'Bir “Evet” ile Başladı',
       storySubline: 'Şimdi sıra sonsuza dek “evet” demeye geldi',
+      closingPhotoUris: [
+        '/images/wedding/carousel-1.jpg',
+        '/images/wedding/carousel-2.jpeg',
+        '/images/wedding/carousel-3.webp',
+      ],
       createForm: {
         primaryNameLabel: 'Birinci isim',
         primaryNamePlaceholder: 'Elif',
@@ -64,6 +69,11 @@ const templates = [
       storyImagePublicSrc: '/images/henna-night/story-section-bg-image.jpg',
       storyHeadline: 'Bu özel gecede',
       storySubline: 'Sevdiklerimizle bir arada olmak istiyoruz',
+      closingPhotoUris: [
+        '/images/henna-night/carousel-1.jpeg',
+        '/images/henna-night/carousel-2.webp',
+        '/images/henna-night/carousel-3.jpeg',
+      ],
       createForm: {
         primaryNameLabel: 'Gelin adı',
         primaryNamePlaceholder: 'Elif',
@@ -98,6 +108,11 @@ const templates = [
       storyHeadline: 'Birlikte kutlayalım',
       storySubline: 'Bu günü sizinle daha da güzel yapmak istiyorum',
       storyImagePublicSrc: '/images/birthday/story-section-bg-image.jpg',
+      closingPhotoUris: [
+        '/images/birthday/carousel-1.jpg',
+        '/images/birthday/carousel-2.jpg',
+        '/images/birthday/carousel-3.jpg',
+      ],
       createForm: {
         primaryNameLabel: 'Kimin doğum günü?',
         primaryNamePlaceholder: 'Elif',
@@ -132,6 +147,11 @@ const templates = [
       storyImagePublicSrc: '/images/baby-shower/story-section-bg-image.jpg',
       storyHeadline: 'Minik mucizemize',
       storySubline: 'Hoş geldin demek için sizinle buluşuyoruz',
+      closingPhotoUris: [
+        '/images/baby-shower/carousel-1.jpg',
+        '/images/baby-shower/carousel-2.jpg',
+        '/images/baby-shower/carousel-3.jpg',
+      ],
       createForm: {
         primaryNameLabel: 'Anne adı',
         primaryNamePlaceholder: 'Elif',
@@ -166,6 +186,11 @@ const templates = [
       heroTagline: 'Mezun oluyoruz',
       storyHeadline: 'Bir dönemin sonu',
       storySubline: 'Bu anı birlikte kutlamak için sizi bekliyoruz',
+      closingPhotoUris: [
+        '/images/graduation/carousel-1.jpg',
+        '/images/graduation/carousel-2.jpg',
+        '/images/graduation/carousel-3.jpg',
+      ],
       createForm: {
         primaryNameLabel: 'Mezun adı',
         primaryNamePlaceholder: 'Elif',

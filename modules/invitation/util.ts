@@ -73,7 +73,10 @@ export function buildClosingCarouselPhotos(
     .filter(Boolean)
     .slice(0, 10)
     .map((path, i) => {
-      const src = getPublicInvitationImageUrl(path, CLOSING_CAROUSEL_RENDER);
+      const src =
+        path.startsWith('/') || path.startsWith('http://') || path.startsWith('https://')
+          ? path
+          : getPublicInvitationImageUrl(path, CLOSING_CAROUSEL_RENDER);
       return {
         src,
         alt: `${partner1Name} & ${partner2Name} — ${i + 1}`,
