@@ -134,6 +134,13 @@
       "when": 1777472777298,
       "tag": "0017_template_default_copy",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1777472777299,
+      "tag": "0018_birthday_default_images",
+      "breakpoints": true
     }
   ]
 }
