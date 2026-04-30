@@ -6,6 +6,7 @@ import { countdownEventSchema } from './count-down-event';
 /** Ham obje şeması — `.partial()` için (Zod, refine içeren şemada `.partial()` kullanmıyor). */
 export const invitationOverridesObjectSchema = z.object({
   heroImageUri: z.string().max(600).optional(),
+  heroImagePublicSrc: z.string().max(300).optional(),
   /** Kapak üst satırı; çok uzun satır kırılmasını önlemek için kısa tutulmalı. */
   heroEyebrow: z.string().max(64).optional(),
   /** Kapak tarih/saat satırı; tek satırda okunabilir kalması için sınırlı. */
@@ -22,6 +23,7 @@ export const invitationOverridesObjectSchema = z.object({
   storyHeadline: z.string().optional(),
   storySubline: z.string().optional(),
   storyImageUri: z.string().max(600).optional(),
+  storyImagePublicSrc: z.string().max(300).optional(),
   closingNote: z.string().optional(),
   sections: z
     .object({

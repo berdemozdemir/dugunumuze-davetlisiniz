@@ -8,11 +8,18 @@ type Props = {
   subline: string;
   /** Supabase Storage object path (`digital-invitation-images` bucket). */
   storyImageUri?: string;
+  /** Static public `/public` image path fallback (template default). */
+  storyImagePublicSrc?: string;
 };
 
-const STORY_IMAGE_FALLBACK = '/images/nisan-1.jpeg';
+const STORY_IMAGE_FALLBACK = '/images/wedding/story-section-bg-image.jpeg';
 
-export function InvitationStory({ headline, subline, storyImageUri }: Props) {
+export function InvitationStory({
+  headline,
+  subline,
+  storyImageUri,
+  storyImagePublicSrc,
+}: Props) {
   const dynamicSrc = storyImageUri
     ? getPublicInvitationImageUrl(storyImageUri, {
         render: true,
@@ -21,11 +28,13 @@ export function InvitationStory({ headline, subline, storyImageUri }: Props) {
       })
     : null;
 
+  const fallbackSrc = storyImagePublicSrc?.trim() || STORY_IMAGE_FALLBACK;
+
   return (
     <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden sm:min-h-[70vh]">
       <div className="absolute inset-0">
         <Image
-          src={dynamicSrc || STORY_IMAGE_FALLBACK}
+          src={dynamicSrc || fallbackSrc}
           alt="Davetiye hikâye arka planı"
           fill
           className="object-cover object-top"

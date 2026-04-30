@@ -11,6 +11,8 @@ type Props = {
   dateLabel: string;
   /** Supabase Storage object path (`digital-invitation-images` bucket). */
   heroImageUri?: string;
+  /** Static public `/public` image path fallback (template default). */
+  heroImagePublicSrc?: string;
 };
 
 export function InvitationHero({
@@ -20,6 +22,7 @@ export function InvitationHero({
   taglineText,
   dateLabel,
   heroImageUri,
+  heroImagePublicSrc,
 }: Props) {
   const dynamicSrc = heroImageUri
     ? // render endpoint gives us resizing + better caching behavior
@@ -31,11 +34,14 @@ export function InvitationHero({
       })
     : null;
 
+  const fallbackSrc =
+    heroImagePublicSrc?.trim() || '/images/wedding/cover-section-bg-image.png';
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={dynamicSrc || '/images/pngtree-wedding-invitation-bg.jpg'}
+          src={dynamicSrc || fallbackSrc}
           alt="Davetiye kapak arka planı"
           fill
           className="object-cover"

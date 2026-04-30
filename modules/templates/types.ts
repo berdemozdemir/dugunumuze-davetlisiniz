@@ -28,6 +28,8 @@ export type InvitationDefaults = {
   sections?: InvitationSections;
   /** Supabase Storage object path (bucket: `digital-invitation-images`). Example: `events/<id>/hero-<ts>.webp` */
   heroImageUri?: string;
+  /** Static public image path under `/public` (e.g. `/images/wedding/cover-section-bg-image.png`). */
+  heroImagePublicSrc?: string;
   /** Kapak üst satırı (kısa davet cümlesi); boşsa `HERO_EYEBROW_DEFAULT`. */
   heroEyebrow?: string;
   /**
@@ -42,6 +44,8 @@ export type InvitationDefaults = {
   storySubline?: string;
   /** Hikâye bölümü arka planı; bucket: `digital-invitation-images`. */
   storyImageUri?: string;
+  /** Static public image path under `/public` (e.g. `/images/wedding/story-section-bg-image.jpeg`). */
+  storyImagePublicSrc?: string;
   closingNote?: string;
   /** Closing section carousel; storage object paths, max 10. */
   closingPhotoUris?: string[];

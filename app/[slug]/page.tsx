@@ -136,6 +136,7 @@ export default async function PublicInvitationPage({
           taglineText={heroTagline}
           dateLabel={dateLabel}
           heroImageUri={invitation.template.heroImageUri?.trim()}
+          heroImagePublicSrc={invitation.template.heroImagePublicSrc?.trim()}
         />
       )}
 
@@ -153,6 +154,7 @@ export default async function PublicInvitationPage({
             headline={storyHeadline}
             subline={storySubline}
             storyImageUri={invitation.template.storyImageUri?.trim()}
+            storyImagePublicSrc={invitation.template.storyImagePublicSrc?.trim()}
           />
 
           <SectionDivider />
