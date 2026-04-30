@@ -24,6 +24,7 @@ import {
 import { service_templates } from '@/modules/templates/client-queries';
 import { CreateEventDetailsForm } from './CreateEventDetailsForm';
 import { InvitationIframePreview } from './InvitationIframePreview';
+import { TemplatePicker } from './TemplatePicker';
 import type { InvitationDefaults } from '@/modules/templates/types';
 import { InvitationCountdownEditor } from '@/modules/invitation/components/InvitationCountdownEditor';
 import { toDateTimeLocal } from '@/modules/events/util';
@@ -214,28 +215,11 @@ export function CreateEventStepper() {
             )}
 
             {templatesQuery.data && (
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {templatesQuery.data.templates.map((t) => {
-                  const active = selectedTemplateKey === t.key;
-                  return (
-                    <div
-                      key={t.id}
-                      onClick={() => goDetails(t.key)}
-                      className={[
-                        'border-border/60 bg-card rounded-xl border p-4 text-left shadow-sm transition-colors',
-                        'hover:border-border hover:bg-muted/40',
-                        active ? 'ring-primary ring-2' : '',
-                      ].join(' ')}
-                    >
-                      <div className="font-medium">{t.name}</div>
-
-                      <div className="text-muted-foreground mt-1 text-xs">
-                        {t.key}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <TemplatePicker
+                templates={templatesQuery.data.templates}
+                selectedKey={selectedTemplateKey}
+                onSelect={goDetails}
+              />
             )}
           </div>
         </StepperContentPersistent>
